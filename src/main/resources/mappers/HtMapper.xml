@@ -28,46 +28,51 @@
       <arg column="DQSHENG" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="DQSHI" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="HTFL" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="create_by" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="update_by" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-      <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="CREATE_BY" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="UPDATE_BY" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CREATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="UPDATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, HTBH, QSRQ, FZR, YYMC, HTNR, HTNRHTNR, FKZQ, NYWFJE, NYWFSJ, XXKXM, XXKLXFS, 
-    CWKXM, CWKLXFS, YWDJR, YWDJRLXFS, SFSKWC, SKJE, HTSFDQ, HTZT, BZ, YYJB, DQSHENG, 
-    DQSHI, HTFL, create_by, update_by, create_time, update_time
+    ID, HTBH, QSRQ, FZR, YYMC, HTNR, HTNRHTNR, FKZQ, NYWFJE, NYWFSJ, XXKXM, XXKLXFS,
+    CWKXM, CWKLXFS, YWDJR, YWDJRLXFS, SFSKWC, SKJE, HTSFDQ, HTZT, BZ, YYJB, DQSHENG,
+    DQSHI, HTFL, CREATE_BY, UPDATE_BY, CREATE_TIME, UPDATE_TIME
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from HT
     where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <select id="select" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from HT
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
     delete from HT
     where ID = #{id,jdbcType=DECIMAL}
   </delete>
   <insert id="insert" parameterType="contract.pojo.Ht" >
-    insert into HT (ID, HTBH, QSRQ, 
-      FZR, YYMC, HTNR, HTNRHTNR, 
-      FKZQ, NYWFJE, NYWFSJ, 
-      XXKXM, XXKLXFS, CWKXM, 
-      CWKLXFS, YWDJR, YWDJRLXFS, 
-      SFSKWC, SKJE, HTSFDQ, 
-      HTZT, BZ, YYJB, DQSHENG, 
-      DQSHI, HTFL, create_by, 
-      update_by, create_time, update_time
+    insert into HT (ID, HTBH, QSRQ,
+      FZR, YYMC, HTNR, HTNRHTNR,
+      FKZQ, NYWFJE, NYWFSJ,
+      XXKXM, XXKLXFS, CWKXM,
+      CWKLXFS, YWDJR, YWDJRLXFS,
+      SFSKWC, SKJE, HTSFDQ,
+      HTZT, BZ, YYJB, DQSHENG,
+      DQSHI, HTFL, CREATE_BY,
+      UPDATE_BY, CREATE_TIME, UPDATE_TIME
       )
-    values (#{id,jdbcType=DECIMAL}, #{htbh,jdbcType=VARCHAR}, #{qsrq,jdbcType=VARCHAR}, 
-      #{fzr,jdbcType=VARCHAR}, #{yymc,jdbcType=VARCHAR}, #{htnr,jdbcType=VARCHAR}, #{htnrhtnr,jdbcType=DECIMAL}, 
-      #{fkzq,jdbcType=DECIMAL}, #{nywfje,jdbcType=DECIMAL}, #{nywfsj,jdbcType=TIMESTAMP}, 
-      #{xxkxm,jdbcType=VARCHAR}, #{xxklxfs,jdbcType=VARCHAR}, #{cwkxm,jdbcType=VARCHAR}, 
-      #{cwklxfs,jdbcType=VARCHAR}, #{ywdjr,jdbcType=VARCHAR}, #{ywdjrlxfs,jdbcType=VARCHAR}, 
-      #{sfskwc,jdbcType=VARCHAR}, #{skje,jdbcType=DECIMAL}, #{htsfdq,jdbcType=VARCHAR}, 
-      #{htzt,jdbcType=VARCHAR}, #{bz,jdbcType=VARCHAR}, #{yyjb,jdbcType=VARCHAR}, #{dqsheng,jdbcType=VARCHAR}, 
-      #{dqshi,jdbcType=VARCHAR}, #{htfl,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=DECIMAL}, #{htbh,jdbcType=VARCHAR}, #{qsrq,jdbcType=VARCHAR},
+      #{fzr,jdbcType=VARCHAR}, #{yymc,jdbcType=VARCHAR}, #{htnr,jdbcType=VARCHAR}, #{htnrhtnr,jdbcType=DECIMAL},
+      #{fkzq,jdbcType=DECIMAL}, #{nywfje,jdbcType=DECIMAL}, #{nywfsj,jdbcType=TIMESTAMP},
+      #{xxkxm,jdbcType=VARCHAR}, #{xxklxfs,jdbcType=VARCHAR}, #{cwkxm,jdbcType=VARCHAR},
+      #{cwklxfs,jdbcType=VARCHAR}, #{ywdjr,jdbcType=VARCHAR}, #{ywdjrlxfs,jdbcType=VARCHAR},
+      #{sfskwc,jdbcType=VARCHAR}, #{skje,jdbcType=DECIMAL}, #{htsfdq,jdbcType=VARCHAR},
+      #{htzt,jdbcType=VARCHAR}, #{bz,jdbcType=VARCHAR}, #{yyjb,jdbcType=VARCHAR}, #{dqsheng,jdbcType=VARCHAR},
+      #{dqshi,jdbcType=VARCHAR}, #{htfl,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR},
       #{updateBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
@@ -150,16 +155,16 @@
         HTFL,
       </if>
       <if test="createBy != null" >
-        create_by,
+        CREATE_BY,
       </if>
       <if test="updateBy != null" >
-        update_by,
+        UPDATE_BY,
       </if>
       <if test="createTime != null" >
-        create_time,
+        CREATE_TIME,
       </if>
       <if test="updateTime != null" >
-        update_time,
+        UPDATE_TIME,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -328,16 +333,16 @@
         HTFL = #{htfl,jdbcType=VARCHAR},
       </if>
       <if test="createBy != null" >
-        create_by = #{createBy,jdbcType=VARCHAR},
+        CREATE_BY = #{createBy,jdbcType=VARCHAR},
       </if>
       <if test="updateBy != null" >
-        update_by = #{updateBy,jdbcType=VARCHAR},
+        UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where ID = #{id,jdbcType=DECIMAL}
@@ -368,10 +373,10 @@
       DQSHENG = #{dqsheng,jdbcType=VARCHAR},
       DQSHI = #{dqshi,jdbcType=VARCHAR},
       HTFL = #{htfl,jdbcType=VARCHAR},
-      create_by = #{createBy,jdbcType=VARCHAR},
-      update_by = #{updateBy,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=DECIMAL}
   </update>
 </mapper>
