@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="contract.dao.HtMapper" >
+  <resultMap id="BaseResultMap" type="contract.pojo.Ht" >
+    <constructor >
+      <idArg column="ID" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="HTBH" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="QSRQ" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="FZR" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="YYMC" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="HTNR" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="HTNRHTNR" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="FKZQ" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="NYWFJE" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="NYWFSJ" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="XXKXM" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="XXKLXFS" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CWKXM" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CWKLXFS" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="YWDJR" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="YWDJRLXFS" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SFSKWC" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SKJE" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="HTSFDQ" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="HTZT" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="BZ" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="YYJB" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="DQSHENG" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="DQSHI" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="HTFL" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="create_by" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="update_by" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, HTBH, QSRQ, FZR, YYMC, HTNR, HTNRHTNR, FKZQ, NYWFJE, NYWFSJ, XXKXM, XXKLXFS, 
+    CWKXM, CWKLXFS, YWDJR, YWDJRLXFS, SFSKWC, SKJE, HTSFDQ, HTZT, BZ, YYJB, DQSHENG, 
+    DQSHI, HTFL, create_by, update_by, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    select 
+    <include refid="Base_Column_List" />
+    from HT
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+    delete from HT
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="contract.pojo.Ht" >
+    insert into HT (ID, HTBH, QSRQ, 
+      FZR, YYMC, HTNR, HTNRHTNR, 
+      FKZQ, NYWFJE, NYWFSJ, 
+      XXKXM, XXKLXFS, CWKXM, 
+      CWKLXFS, YWDJR, YWDJRLXFS, 
+      SFSKWC, SKJE, HTSFDQ, 
+      HTZT, BZ, YYJB, DQSHENG, 
+      DQSHI, HTFL, create_by, 
+      update_by, create_time, update_time
+      )
+    values (#{id,jdbcType=DECIMAL}, #{htbh,jdbcType=VARCHAR}, #{qsrq,jdbcType=VARCHAR}, 
+      #{fzr,jdbcType=VARCHAR}, #{yymc,jdbcType=VARCHAR}, #{htnr,jdbcType=VARCHAR}, #{htnrhtnr,jdbcType=DECIMAL}, 
+      #{fkzq,jdbcType=DECIMAL}, #{nywfje,jdbcType=DECIMAL}, #{nywfsj,jdbcType=TIMESTAMP}, 
+      #{xxkxm,jdbcType=VARCHAR}, #{xxklxfs,jdbcType=VARCHAR}, #{cwkxm,jdbcType=VARCHAR}, 
+      #{cwklxfs,jdbcType=VARCHAR}, #{ywdjr,jdbcType=VARCHAR}, #{ywdjrlxfs,jdbcType=VARCHAR}, 
+      #{sfskwc,jdbcType=VARCHAR}, #{skje,jdbcType=DECIMAL}, #{htsfdq,jdbcType=VARCHAR}, 
+      #{htzt,jdbcType=VARCHAR}, #{bz,jdbcType=VARCHAR}, #{yyjb,jdbcType=VARCHAR}, #{dqsheng,jdbcType=VARCHAR}, 
+      #{dqshi,jdbcType=VARCHAR}, #{htfl,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
+      #{updateBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="contract.pojo.Ht" >
+    insert into HT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="htbh != null" >
+        HTBH,
+      </if>
+      <if test="qsrq != null" >
+        QSRQ,
+      </if>
+      <if test="fzr != null" >
+        FZR,
+      </if>
+      <if test="yymc != null" >
+        YYMC,
+      </if>
+      <if test="htnr != null" >
+        HTNR,
+      </if>
+      <if test="htnrhtnr != null" >
+        HTNRHTNR,
+      </if>
+      <if test="fkzq != null" >
+        FKZQ,
+      </if>
+      <if test="nywfje != null" >
+        NYWFJE,
+      </if>
+      <if test="nywfsj != null" >
+        NYWFSJ,
+      </if>
+      <if test="xxkxm != null" >
+        XXKXM,
+      </if>
+      <if test="xxklxfs != null" >
+        XXKLXFS,
+      </if>
+      <if test="cwkxm != null" >
+        CWKXM,
+      </if>
+      <if test="cwklxfs != null" >
+        CWKLXFS,
+      </if>
+      <if test="ywdjr != null" >
+        YWDJR,
+      </if>
+      <if test="ywdjrlxfs != null" >
+        YWDJRLXFS,
+      </if>
+      <if test="sfskwc != null" >
+        SFSKWC,
+      </if>
+      <if test="skje != null" >
+        SKJE,
+      </if>
+      <if test="htsfdq != null" >
+        HTSFDQ,
+      </if>
+      <if test="htzt != null" >
+        HTZT,
+      </if>
+      <if test="bz != null" >
+        BZ,
+      </if>
+      <if test="yyjb != null" >
+        YYJB,
+      </if>
+      <if test="dqsheng != null" >
+        DQSHENG,
+      </if>
+      <if test="dqshi != null" >
+        DQSHI,
+      </if>
+      <if test="htfl != null" >
+        HTFL,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="updateBy != null" >
+        update_by,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="htbh != null" >
+        #{htbh,jdbcType=VARCHAR},
+      </if>
+      <if test="qsrq != null" >
+        #{qsrq,jdbcType=VARCHAR},
+      </if>
+      <if test="fzr != null" >
+        #{fzr,jdbcType=VARCHAR},
+      </if>
+      <if test="yymc != null" >
+        #{yymc,jdbcType=VARCHAR},
+      </if>
+      <if test="htnr != null" >
+        #{htnr,jdbcType=VARCHAR},
+      </if>
+      <if test="htnrhtnr != null" >
+        #{htnrhtnr,jdbcType=DECIMAL},
+      </if>
+      <if test="fkzq != null" >
+        #{fkzq,jdbcType=DECIMAL},
+      </if>
+      <if test="nywfje != null" >
+        #{nywfje,jdbcType=DECIMAL},
+      </if>
+      <if test="nywfsj != null" >
+        #{nywfsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="xxkxm != null" >
+        #{xxkxm,jdbcType=VARCHAR},
+      </if>
+      <if test="xxklxfs != null" >
+        #{xxklxfs,jdbcType=VARCHAR},
+      </if>
+      <if test="cwkxm != null" >
+        #{cwkxm,jdbcType=VARCHAR},
+      </if>
+      <if test="cwklxfs != null" >
+        #{cwklxfs,jdbcType=VARCHAR},
+      </if>
+      <if test="ywdjr != null" >
+        #{ywdjr,jdbcType=VARCHAR},
+      </if>
+      <if test="ywdjrlxfs != null" >
+        #{ywdjrlxfs,jdbcType=VARCHAR},
+      </if>
+      <if test="sfskwc != null" >
+        #{sfskwc,jdbcType=VARCHAR},
+      </if>
+      <if test="skje != null" >
+        #{skje,jdbcType=DECIMAL},
+      </if>
+      <if test="htsfdq != null" >
+        #{htsfdq,jdbcType=VARCHAR},
+      </if>
+      <if test="htzt != null" >
+        #{htzt,jdbcType=VARCHAR},
+      </if>
+      <if test="bz != null" >
+        #{bz,jdbcType=VARCHAR},
+      </if>
+      <if test="yyjb != null" >
+        #{yyjb,jdbcType=VARCHAR},
+      </if>
+      <if test="dqsheng != null" >
+        #{dqsheng,jdbcType=VARCHAR},
+      </if>
+      <if test="dqshi != null" >
+        #{dqshi,jdbcType=VARCHAR},
+      </if>
+      <if test="htfl != null" >
+        #{htfl,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="contract.pojo.Ht" >
+    update HT
+    <set >
+      <if test="htbh != null" >
+        HTBH = #{htbh,jdbcType=VARCHAR},
+      </if>
+      <if test="qsrq != null" >
+        QSRQ = #{qsrq,jdbcType=VARCHAR},
+      </if>
+      <if test="fzr != null" >
+        FZR = #{fzr,jdbcType=VARCHAR},
+      </if>
+      <if test="yymc != null" >
+        YYMC = #{yymc,jdbcType=VARCHAR},
+      </if>
+      <if test="htnr != null" >
+        HTNR = #{htnr,jdbcType=VARCHAR},
+      </if>
+      <if test="htnrhtnr != null" >
+        HTNRHTNR = #{htnrhtnr,jdbcType=DECIMAL},
+      </if>
+      <if test="fkzq != null" >
+        FKZQ = #{fkzq,jdbcType=DECIMAL},
+      </if>
+      <if test="nywfje != null" >
+        NYWFJE = #{nywfje,jdbcType=DECIMAL},
+      </if>
+      <if test="nywfsj != null" >
+        NYWFSJ = #{nywfsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="xxkxm != null" >
+        XXKXM = #{xxkxm,jdbcType=VARCHAR},
+      </if>
+      <if test="xxklxfs != null" >
+        XXKLXFS = #{xxklxfs,jdbcType=VARCHAR},
+      </if>
+      <if test="cwkxm != null" >
+        CWKXM = #{cwkxm,jdbcType=VARCHAR},
+      </if>
+      <if test="cwklxfs != null" >
+        CWKLXFS = #{cwklxfs,jdbcType=VARCHAR},
+      </if>
+      <if test="ywdjr != null" >
+        YWDJR = #{ywdjr,jdbcType=VARCHAR},
+      </if>
+      <if test="ywdjrlxfs != null" >
+        YWDJRLXFS = #{ywdjrlxfs,jdbcType=VARCHAR},
+      </if>
+      <if test="sfskwc != null" >
+        SFSKWC = #{sfskwc,jdbcType=VARCHAR},
+      </if>
+      <if test="skje != null" >
+        SKJE = #{skje,jdbcType=DECIMAL},
+      </if>
+      <if test="htsfdq != null" >
+        HTSFDQ = #{htsfdq,jdbcType=VARCHAR},
+      </if>
+      <if test="htzt != null" >
+        HTZT = #{htzt,jdbcType=VARCHAR},
+      </if>
+      <if test="bz != null" >
+        BZ = #{bz,jdbcType=VARCHAR},
+      </if>
+      <if test="yyjb != null" >
+        YYJB = #{yyjb,jdbcType=VARCHAR},
+      </if>
+      <if test="dqsheng != null" >
+        DQSHENG = #{dqsheng,jdbcType=VARCHAR},
+      </if>
+      <if test="dqshi != null" >
+        DQSHI = #{dqshi,jdbcType=VARCHAR},
+      </if>
+      <if test="htfl != null" >
+        HTFL = #{htfl,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="contract.pojo.Ht" >
+    update HT
+    set HTBH = #{htbh,jdbcType=VARCHAR},
+      QSRQ = #{qsrq,jdbcType=VARCHAR},
+      FZR = #{fzr,jdbcType=VARCHAR},
+      YYMC = #{yymc,jdbcType=VARCHAR},
+      HTNR = #{htnr,jdbcType=VARCHAR},
+      HTNRHTNR = #{htnrhtnr,jdbcType=DECIMAL},
+      FKZQ = #{fkzq,jdbcType=DECIMAL},
+      NYWFJE = #{nywfje,jdbcType=DECIMAL},
+      NYWFSJ = #{nywfsj,jdbcType=TIMESTAMP},
+      XXKXM = #{xxkxm,jdbcType=VARCHAR},
+      XXKLXFS = #{xxklxfs,jdbcType=VARCHAR},
+      CWKXM = #{cwkxm,jdbcType=VARCHAR},
+      CWKLXFS = #{cwklxfs,jdbcType=VARCHAR},
+      YWDJR = #{ywdjr,jdbcType=VARCHAR},
+      YWDJRLXFS = #{ywdjrlxfs,jdbcType=VARCHAR},
+      SFSKWC = #{sfskwc,jdbcType=VARCHAR},
+      SKJE = #{skje,jdbcType=DECIMAL},
+      HTSFDQ = #{htsfdq,jdbcType=VARCHAR},
+      HTZT = #{htzt,jdbcType=VARCHAR},
+      BZ = #{bz,jdbcType=VARCHAR},
+      YYJB = #{yyjb,jdbcType=VARCHAR},
+      DQSHENG = #{dqsheng,jdbcType=VARCHAR},
+      DQSHI = #{dqshi,jdbcType=VARCHAR},
+      HTFL = #{htfl,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

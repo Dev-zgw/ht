@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="contract.dao.ResultMapper" >
+  <resultMap id="BaseResultMap" type="contract.pojo.Result" >
+    <constructor >
+      <idArg column="ID" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="HTBH" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="USERID" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="XM" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CZSJ" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="CZNR" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="BZ" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="create_by" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, HTBH, USERID, XM, CZSJ, CZNR, BZ, create_by, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    select 
+    <include refid="Base_Column_List" />
+    from RESUTL
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+    delete from RESUTL
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="contract.pojo.Result" >
+    insert into RESUTL (ID, HTBH, USERID, 
+      XM, CZSJ, CZNR, BZ, 
+      create_by, create_time)
+    values (#{id,jdbcType=DECIMAL}, #{htbh,jdbcType=VARCHAR}, #{userid,jdbcType=DECIMAL}, 
+      #{xm,jdbcType=VARCHAR}, #{czsj,jdbcType=TIMESTAMP}, #{cznr,jdbcType=VARCHAR}, #{bz,jdbcType=VARCHAR}, 
+      #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="contract.pojo.Result" >
+    insert into RESUTL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="htbh != null" >
+        HTBH,
+      </if>
+      <if test="userid != null" >
+        USERID,
+      </if>
+      <if test="xm != null" >
+        XM,
+      </if>
+      <if test="czsj != null" >
+        CZSJ,
+      </if>
+      <if test="cznr != null" >
+        CZNR,
+      </if>
+      <if test="bz != null" >
+        BZ,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="htbh != null" >
+        #{htbh,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=DECIMAL},
+      </if>
+      <if test="xm != null" >
+        #{xm,jdbcType=VARCHAR},
+      </if>
+      <if test="czsj != null" >
+        #{czsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cznr != null" >
+        #{cznr,jdbcType=VARCHAR},
+      </if>
+      <if test="bz != null" >
+        #{bz,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="contract.pojo.Result" >
+    update RESUTL
+    <set >
+      <if test="htbh != null" >
+        HTBH = #{htbh,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        USERID = #{userid,jdbcType=DECIMAL},
+      </if>
+      <if test="xm != null" >
+        XM = #{xm,jdbcType=VARCHAR},
+      </if>
+      <if test="czsj != null" >
+        CZSJ = #{czsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cznr != null" >
+        CZNR = #{cznr,jdbcType=VARCHAR},
+      </if>
+      <if test="bz != null" >
+        BZ = #{bz,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="contract.pojo.Result" >
+    update RESUTL
+    set HTBH = #{htbh,jdbcType=VARCHAR},
+      USERID = #{userid,jdbcType=DECIMAL},
+      XM = #{xm,jdbcType=VARCHAR},
+      CZSJ = #{czsj,jdbcType=TIMESTAMP},
+      CZNR = #{cznr,jdbcType=VARCHAR},
+      BZ = #{bz,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>
