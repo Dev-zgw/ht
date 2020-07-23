@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="contract.dao.UserMapper" >
-  <resultMap id="BaseResultMap" type="contract.pojo.User" >
+<mapper namespace="contract.dao.UsersMapper" >
+  <resultMap id="BaseResultMap" type="contract.pojo.Users" >
     <constructor >
       <idArg column="ID" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
       <arg column="NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -18,42 +18,42 @@
       <arg column="YX" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="ZZZT" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="ZT" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="create_by" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="update_by" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-      <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="CREATE_BY" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="UPDATE_BY" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CREATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="UPDATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, NAME, PASSWORD, XM, XB, YWM, ZW, BMID, SSBM, JSID, JSMC, SJHM, YX, ZZZT, ZT, 
-    create_by, update_by, create_time, update_time
+    ID, NAME, PASSWORD, XM, XB, YWM, ZW, BMID, SSBM, JSID, JSMC, SJHM, YX, ZZZT, ZT,
+    CREATE_BY, UPDATE_BY, CREATE_TIME, UPDATE_TIME
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
-    select 
+    select
     <include refid="Base_Column_List" />
-    from USER
+    from USERS
     where ID = #{id,jdbcType=DECIMAL}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
-    delete from USER
+    delete from USERS
     where ID = #{id,jdbcType=DECIMAL}
   </delete>
-  <insert id="insert" parameterType="contract.pojo.User" >
-    insert into USER (ID, NAME, PASSWORD, 
-      XM, XB, YWM, ZW, 
-      BMID, SSBM, JSID, JSMC, 
-      SJHM, YX, ZZZT, ZT, 
-      create_by, update_by, create_time, 
-      update_time)
-    values (#{id,jdbcType=DECIMAL}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{xm,jdbcType=VARCHAR}, #{xb,jdbcType=VARCHAR}, #{ywm,jdbcType=VARCHAR}, #{zw,jdbcType=VARCHAR}, 
-      #{bmid,jdbcType=DECIMAL}, #{ssbm,jdbcType=VARCHAR}, #{jsid,jdbcType=DECIMAL}, #{jsmc,jdbcType=VARCHAR}, 
-      #{sjhm,jdbcType=VARCHAR}, #{yx,jdbcType=VARCHAR}, #{zzzt,jdbcType=VARCHAR}, #{zt,jdbcType=VARCHAR}, 
-      #{createBy,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+  <insert id="insert" parameterType="contract.pojo.Users" >
+    insert into USERS (ID, NAME, PASSWORD,
+      XM, XB, YWM, ZW,
+      BMID, SSBM, JSID, JSMC,
+      SJHM, YX, ZZZT, ZT,
+      CREATE_BY, UPDATE_BY, CREATE_TIME,
+      UPDATE_TIME)
+    values (#{id,jdbcType=DECIMAL}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+      #{xm,jdbcType=VARCHAR}, #{xb,jdbcType=VARCHAR}, #{ywm,jdbcType=VARCHAR}, #{zw,jdbcType=VARCHAR},
+      #{bmid,jdbcType=DECIMAL}, #{ssbm,jdbcType=VARCHAR}, #{jsid,jdbcType=DECIMAL}, #{jsmc,jdbcType=VARCHAR},
+      #{sjhm,jdbcType=VARCHAR}, #{yx,jdbcType=VARCHAR}, #{zzzt,jdbcType=VARCHAR}, #{zt,jdbcType=VARCHAR},
+      #{createBy,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
       #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="contract.pojo.User" >
-    insert into USER
+  <insert id="insertSelective" parameterType="contract.pojo.Users" >
+    insert into USERS
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         ID,
@@ -101,16 +101,16 @@
         ZT,
       </if>
       <if test="createBy != null" >
-        create_by,
+        CREATE_BY,
       </if>
       <if test="updateBy != null" >
-        update_by,
+        UPDATE_BY,
       </if>
       <if test="createTime != null" >
-        create_time,
+        CREATE_TIME,
       </if>
       <if test="updateTime != null" >
-        update_time,
+        UPDATE_TIME,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -173,8 +173,8 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="contract.pojo.User" >
-    update USER
+  <update id="updateByPrimaryKeySelective" parameterType="contract.pojo.Users" >
+    update USERS
     <set >
       <if test="name != null" >
         NAME = #{name,jdbcType=VARCHAR},
@@ -219,22 +219,22 @@
         ZT = #{zt,jdbcType=VARCHAR},
       </if>
       <if test="createBy != null" >
-        create_by = #{createBy,jdbcType=VARCHAR},
+        CREATE_BY = #{createBy,jdbcType=VARCHAR},
       </if>
       <if test="updateBy != null" >
-        update_by = #{updateBy,jdbcType=VARCHAR},
+        UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where ID = #{id,jdbcType=DECIMAL}
   </update>
-  <update id="updateByPrimaryKey" parameterType="contract.pojo.User" >
-    update USER
+  <update id="updateByPrimaryKey" parameterType="contract.pojo.Users" >
+    update USERS
     set NAME = #{name,jdbcType=VARCHAR},
       PASSWORD = #{password,jdbcType=VARCHAR},
       XM = #{xm,jdbcType=VARCHAR},
@@ -249,10 +249,17 @@
       YX = #{yx,jdbcType=VARCHAR},
       ZZZT = #{zzzt,jdbcType=VARCHAR},
       ZT = #{zt,jdbcType=VARCHAR},
-      create_by = #{createBy,jdbcType=VARCHAR},
-      update_by = #{updateBy,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=DECIMAL}
   </update>
+
+  <select id="select" resultMap="BaseResultMap" parameterType="string" >
+    select
+    <include refid="Base_Column_List" />
+    from USERS
+    where SSBM = #{ssbm,jdbcType=DECIMAL}
+  </select>
 </mapper>

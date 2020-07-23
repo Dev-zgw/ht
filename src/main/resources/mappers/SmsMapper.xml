@@ -7,14 +7,14 @@
       <arg column="SJR" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="SJHM" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="DXNR" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="create_by" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="update_by" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-      <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="CREATE_BY" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="UPDATE_BY" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CREATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="UPDATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, SJR, SJHM, DXNR, create_by, update_by, create_time, update_time
+    ID, SJR, SJHM, DXNR, CREATE_BY, UPDATE_BY, CREATE_TIME, UPDATE_TIME
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
     select 
@@ -28,8 +28,8 @@
   </delete>
   <insert id="insert" parameterType="contract.pojo.Sms" >
     insert into SMS (ID, SJR, SJHM, 
-      DXNR, create_by, update_by, 
-      create_time, update_time)
+      DXNR, CREATE_BY, UPDATE_BY, 
+      CREATE_TIME, UPDATE_TIME)
     values (#{id,jdbcType=DECIMAL}, #{sjr,jdbcType=VARCHAR}, #{sjhm,jdbcType=VARCHAR}, 
       #{dxnr,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
@@ -50,16 +50,16 @@
         DXNR,
       </if>
       <if test="createBy != null" >
-        create_by,
+        CREATE_BY,
       </if>
       <if test="updateBy != null" >
-        update_by,
+        UPDATE_BY,
       </if>
       <if test="createTime != null" >
-        create_time,
+        CREATE_TIME,
       </if>
       <if test="updateTime != null" >
-        update_time,
+        UPDATE_TIME,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -102,16 +102,16 @@
         DXNR = #{dxnr,jdbcType=VARCHAR},
       </if>
       <if test="createBy != null" >
-        create_by = #{createBy,jdbcType=VARCHAR},
+        CREATE_BY = #{createBy,jdbcType=VARCHAR},
       </if>
       <if test="updateBy != null" >
-        update_by = #{updateBy,jdbcType=VARCHAR},
+        UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where ID = #{id,jdbcType=DECIMAL}
@@ -121,10 +121,10 @@
     set SJR = #{sjr,jdbcType=VARCHAR},
       SJHM = #{sjhm,jdbcType=VARCHAR},
       DXNR = #{dxnr,jdbcType=VARCHAR},
-      create_by = #{createBy,jdbcType=VARCHAR},
-      update_by = #{updateBy,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=DECIMAL}
   </update>
 </mapper>

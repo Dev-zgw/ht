@@ -6,14 +6,14 @@
       <idArg column="ID" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
       <arg column="BMMC" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="BMZT" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="create_by" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="update_by" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-      <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="CREATE_BY" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="UPDATE_BY" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CREATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="UPDATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, BMMC, BMZT, create_by, update_by, create_time, update_time
+    ID, BMMC, BMZT, CREATE_BY, UPDATE_BY, CREATE_TIME, UPDATE_TIME
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
     select 
@@ -27,8 +27,8 @@
   </delete>
   <insert id="insert" parameterType="contract.pojo.Department" >
     insert into DEPARTMENT (ID, BMMC, BMZT, 
-      create_by, update_by, create_time, 
-      update_time)
+      CREATE_BY, UPDATE_BY, CREATE_TIME, 
+      UPDATE_TIME)
     values (#{id,jdbcType=DECIMAL}, #{bmmc,jdbcType=VARCHAR}, #{bmzt,jdbcType=VARCHAR}, 
       #{createBy,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP})
@@ -46,16 +46,16 @@
         BMZT,
       </if>
       <if test="createBy != null" >
-        create_by,
+        CREATE_BY,
       </if>
       <if test="updateBy != null" >
-        update_by,
+        UPDATE_BY,
       </if>
       <if test="createTime != null" >
-        create_time,
+        CREATE_TIME,
       </if>
       <if test="updateTime != null" >
-        update_time,
+        UPDATE_TIME,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -92,16 +92,16 @@
         BMZT = #{bmzt,jdbcType=VARCHAR},
       </if>
       <if test="createBy != null" >
-        create_by = #{createBy,jdbcType=VARCHAR},
+        CREATE_BY = #{createBy,jdbcType=VARCHAR},
       </if>
       <if test="updateBy != null" >
-        update_by = #{updateBy,jdbcType=VARCHAR},
+        UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where ID = #{id,jdbcType=DECIMAL}
@@ -110,10 +110,10 @@
     update DEPARTMENT
     set BMMC = #{bmmc,jdbcType=VARCHAR},
       BMZT = #{bmzt,jdbcType=VARCHAR},
-      create_by = #{createBy,jdbcType=VARCHAR},
-      update_by = #{updateBy,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=DECIMAL}
   </update>
 </mapper>

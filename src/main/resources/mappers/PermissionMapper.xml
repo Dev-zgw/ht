@@ -6,15 +6,15 @@
       <idArg column="ID" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
       <arg column="QXMC" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="QXZT" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="create_by" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="update_by" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-      <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="CREATE_BY" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="UPDATE_BY" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CREATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="UPDATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="QXM" jdbcType="VARCHAR" javaType="java.lang.String" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, QXMC, QXZT, create_by, update_by, create_time, update_time, QXM
+    ID, QXMC, QXZT, CREATE_BY, UPDATE_BY, CREATE_TIME, UPDATE_TIME, QXM
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
     select 
@@ -28,8 +28,8 @@
   </delete>
   <insert id="insert" parameterType="contract.pojo.Permission" >
     insert into PERMISSION (ID, QXMC, QXZT, 
-      create_by, update_by, create_time, 
-      update_time, QXM)
+      CREATE_BY, UPDATE_BY, CREATE_TIME, 
+      UPDATE_TIME, QXM)
     values (#{id,jdbcType=DECIMAL}, #{qxmc,jdbcType=VARCHAR}, #{qxzt,jdbcType=VARCHAR}, 
       #{createBy,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{qxm,jdbcType=VARCHAR})
@@ -47,16 +47,16 @@
         QXZT,
       </if>
       <if test="createBy != null" >
-        create_by,
+        CREATE_BY,
       </if>
       <if test="updateBy != null" >
-        update_by,
+        UPDATE_BY,
       </if>
       <if test="createTime != null" >
-        create_time,
+        CREATE_TIME,
       </if>
       <if test="updateTime != null" >
-        update_time,
+        UPDATE_TIME,
       </if>
       <if test="qxm != null" >
         QXM,
@@ -99,16 +99,16 @@
         QXZT = #{qxzt,jdbcType=VARCHAR},
       </if>
       <if test="createBy != null" >
-        create_by = #{createBy,jdbcType=VARCHAR},
+        CREATE_BY = #{createBy,jdbcType=VARCHAR},
       </if>
       <if test="updateBy != null" >
-        update_by = #{updateBy,jdbcType=VARCHAR},
+        UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="qxm != null" >
         QXM = #{qxm,jdbcType=VARCHAR},
@@ -120,10 +120,10 @@
     update PERMISSION
     set QXMC = #{qxmc,jdbcType=VARCHAR},
       QXZT = #{qxzt,jdbcType=VARCHAR},
-      create_by = #{createBy,jdbcType=VARCHAR},
-      update_by = #{updateBy,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
       QXM = #{qxm,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=DECIMAL}
   </update>

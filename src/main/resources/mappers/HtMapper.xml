@@ -5,7 +5,7 @@
     <constructor >
       <idArg column="ID" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
       <arg column="HTBH" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="QSRQ" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="QSRQ" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="FZR" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="YYMC" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="HTNR" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -32,23 +32,19 @@
       <arg column="UPDATE_BY" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="CREATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="UPDATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="FZRID" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
     ID, HTBH, QSRQ, FZR, YYMC, HTNR, HTNRHTNR, FKZQ, NYWFJE, NYWFSJ, XXKXM, XXKLXFS,
     CWKXM, CWKLXFS, YWDJR, YWDJRLXFS, SFSKWC, SKJE, HTSFDQ, HTZT, BZ, YYJB, DQSHENG,
-    DQSHI, HTFL, CREATE_BY, UPDATE_BY, CREATE_TIME, UPDATE_TIME
+    DQSHI, HTFL, CREATE_BY, UPDATE_BY, CREATE_TIME, UPDATE_TIME, FZRID
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
     select
     <include refid="Base_Column_List" />
     from HT
     where ID = #{id,jdbcType=DECIMAL}
-  </select>
-  <select id="select" resultMap="BaseResultMap" >
-    select
-    <include refid="Base_Column_List" />
-    from HT
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
     delete from HT
@@ -63,9 +59,9 @@
       SFSKWC, SKJE, HTSFDQ,
       HTZT, BZ, YYJB, DQSHENG,
       DQSHI, HTFL, CREATE_BY,
-      UPDATE_BY, CREATE_TIME, UPDATE_TIME
-      )
-    values (#{id,jdbcType=DECIMAL}, #{htbh,jdbcType=VARCHAR}, #{qsrq,jdbcType=VARCHAR},
+      UPDATE_BY, CREATE_TIME, UPDATE_TIME,
+      FZRID)
+    values (#{id,jdbcType=DECIMAL}, #{htbh,jdbcType=VARCHAR}, #{qsrq,jdbcType=TIMESTAMP},
       #{fzr,jdbcType=VARCHAR}, #{yymc,jdbcType=VARCHAR}, #{htnr,jdbcType=VARCHAR}, #{htnrhtnr,jdbcType=DECIMAL},
       #{fkzq,jdbcType=DECIMAL}, #{nywfje,jdbcType=DECIMAL}, #{nywfsj,jdbcType=TIMESTAMP},
       #{xxkxm,jdbcType=VARCHAR}, #{xxklxfs,jdbcType=VARCHAR}, #{cwkxm,jdbcType=VARCHAR},
@@ -73,8 +69,8 @@
       #{sfskwc,jdbcType=VARCHAR}, #{skje,jdbcType=DECIMAL}, #{htsfdq,jdbcType=VARCHAR},
       #{htzt,jdbcType=VARCHAR}, #{bz,jdbcType=VARCHAR}, #{yyjb,jdbcType=VARCHAR}, #{dqsheng,jdbcType=VARCHAR},
       #{dqshi,jdbcType=VARCHAR}, #{htfl,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR},
-      #{updateBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-      )
+      #{updateBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+      #{fzrid,jdbcType=DECIMAL})
   </insert>
   <insert id="insertSelective" parameterType="contract.pojo.Ht" >
     insert into HT
@@ -166,6 +162,9 @@
       <if test="updateTime != null" >
         UPDATE_TIME,
       </if>
+      <if test="fzrid != null" >
+        FZRID,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -175,7 +174,7 @@
         #{htbh,jdbcType=VARCHAR},
       </if>
       <if test="qsrq != null" >
-        #{qsrq,jdbcType=VARCHAR},
+        #{qsrq,jdbcType=TIMESTAMP},
       </if>
       <if test="fzr != null" >
         #{fzr,jdbcType=VARCHAR},
@@ -255,6 +254,9 @@
       <if test="updateTime != null" >
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="fzrid != null" >
+        #{fzrid,jdbcType=DECIMAL},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="contract.pojo.Ht" >
@@ -264,7 +266,7 @@
         HTBH = #{htbh,jdbcType=VARCHAR},
       </if>
       <if test="qsrq != null" >
-        QSRQ = #{qsrq,jdbcType=VARCHAR},
+        QSRQ = #{qsrq,jdbcType=TIMESTAMP},
       </if>
       <if test="fzr != null" >
         FZR = #{fzr,jdbcType=VARCHAR},
@@ -344,13 +346,16 @@
       <if test="updateTime != null" >
         UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="fzrid != null" >
+        FZRID = #{fzrid,jdbcType=DECIMAL},
+      </if>
     </set>
     where ID = #{id,jdbcType=DECIMAL}
   </update>
   <update id="updateByPrimaryKey" parameterType="contract.pojo.Ht" >
     update HT
     set HTBH = #{htbh,jdbcType=VARCHAR},
-      QSRQ = #{qsrq,jdbcType=VARCHAR},
+      QSRQ = #{qsrq,jdbcType=TIMESTAMP},
       FZR = #{fzr,jdbcType=VARCHAR},
       YYMC = #{yymc,jdbcType=VARCHAR},
       HTNR = #{htnr,jdbcType=VARCHAR},
@@ -376,7 +381,49 @@
       CREATE_BY = #{createBy,jdbcType=VARCHAR},
       UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      FZRID = #{fzrid,jdbcType=DECIMAL}
     where ID = #{id,jdbcType=DECIMAL}
   </update>
+
+  <select id="select" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from HT
+    where 1=1
+    <if test="htfl != null and htfl != ''">
+      and  HTFL = #{htfl,jdbcType=VARCHAR}
+    </if>
+    <if test="startTime!= null and startTime != ''">
+      and  QSRQ &gt;= to_date(#{startTime,jdbcType=VARCHAR}, 'yyyy-mm-dd')
+    </if>
+    <if test="endTime != null and endTime != ''">
+      and  QSRQ &lt;= to_date(#{endTime,jdbcType=VARCHAR}, 'yyyy-mm-dd ')
+    </if>
+    <if test="fzr != null and fzr != ''">
+      and  FZR = #{fzr,jdbcType=VARCHAR}
+    </if>
+    <if test="htzt != null and htzt != ''">
+      and  HTZT = #{htzt,jdbcType=VARCHAR}
+    </if>
+  </select>
+  <select id="selectyh" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from HT
+    where
+    FZRID = #{fzrid,jdbcType=DECIMAL}
+    <if test="htfl != null and htfl != ''">
+      and  HTFL = #{htfl,jdbcType=VARCHAR}
+    </if>
+    <if test="startTime!= null and startTime != ''">
+      and  QSRQ &gt;= to_date(#{startTime,jdbcType=VARCHAR}, 'yyyy-mm-dd')
+    </if>
+    <if test="endTime != null and endTime != ''">
+      and  QSRQ &lt;= to_date(#{endTime,jdbcType=VARCHAR}, 'yyyy-mm-dd ')
+    </if>
+    <if test="htzt != null and htzt != ''">
+      and  HTZT = #{htzt,jdbcType=VARCHAR}
+    </if>
+  </select>
 </mapper>
