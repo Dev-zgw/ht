@@ -406,6 +406,12 @@
     <if test="htzt != null and htzt != ''">
       and  HTZT = #{htzt,jdbcType=VARCHAR}
     </if>
+    <if test="dqsheng != null and dqsheng != ''">
+      and  DQSHENG = #{dqsheng,jdbcType=VARCHAR}
+    </if>
+    <if test="dqshi != null and dqshi != ''">
+      and  DQSHI = #{dqshi,jdbcType=VARCHAR}
+    </if>
   </select>
   <select id="selectyh" resultMap="BaseResultMap" >
     select
@@ -424,6 +430,12 @@
     </if>
     <if test="htzt != null and htzt != ''">
       and  HTZT = #{htzt,jdbcType=VARCHAR}
+    </if>
+    <if test="dqsheng != null and dqsheng != ''">
+      and  DQSHENG = #{dqsheng,jdbcType=VARCHAR}
+    </if>
+    <if test="dqshi != null and dqshi != ''">
+      and  DQSHI = #{dqshi,jdbcType=VARCHAR}
     </if>
   </select>
 </mapper>

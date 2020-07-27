@@ -1,12 +1,13 @@
 package contract.controller;
 
-import contract.dao.UsersMapper;
 import contract.pojo.Ht;
+import contract.pojo.Htqs;
 import contract.pojo.Users;
-import contract.service.HtService;
+import contract.service.HtqsService;
 import contract.utils.Const;
 import contract.utils.ServerResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,84 +16,74 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/ht/")
-public class HtController {
+@RequestMapping("/htqs/")
+public class HtqsController {
+
 
     @Autowired
-    private HtService htService;
+    private HtqsService htqsService;
 
     /**
-     * 查询合同信息
+     * 查询合同期数
      * @param session
-     * @param pageNum   页码
-     * @param pageSize  每页显示条数
-     * @param htfl      合同分类
-     * @param startTime 开始时间
-     * @param endTime   结束时间
-     * @param fzr       负责人
-     * @param htzt      合同状态
-     * @param dqsheng   地区-省
-     * @param diqushi   地区-市
-     * @param htjemax   合同金额最大值
-     * @param htjemin   合同金额最小值
+     * @param htbh  合同编号
      * @return
      */
-    @RequestMapping(value = "getquery.do", method = RequestMethod.POST)
+    @RequestMapping(value = "query.do", method = RequestMethod.POST)
     @ResponseBody
-    private ServerResponse getquery(HttpSession session, int pageNum, int pageSize,String htfl,String startTime,
-                                    String endTime,String fzr,String htzt,String dqsheng,String diqushi,int htjemax,int htjemin){
+    private ServerResponse query(HttpSession session,String htbh){
         Users user=(Users) session.getAttribute(Const.CURRENT_USER);
         if(user==null){
             return ServerResponse.createByErrorMessage("用户未登陆");
         }
-        return htService.query(user,pageNum,pageSize,htfl,startTime,endTime,fzr,htzt,dqsheng,diqushi,htjemax,htjemin);
+        return htqsService.query(user,htbh);
     }
 
     /**
-     * 合同修改
+     * 修改合同期数
      * @param session
-     * @param ht
+     * @param htqs
      * @return
      */
-    @RequestMapping(value = "update.do", method =RequestMethod.POST)
+    @RequestMapping(value = "update.dd",method =RequestMethod.POST)
     @ResponseBody
-    private ServerResponse update(HttpSession session, Ht ht){
+    private ServerResponse update(HttpSession session, Htqs htqs){
         Users user=(Users) session.getAttribute(Const.CURRENT_USER);
         if(user==null){
             return ServerResponse.createByErrorMessage("用户未登陆");
         }
-        return htService.update(user,ht);
+        return htqsService.update(user,htqs);
     }
 
     /**
-     * 合同录入
+     * 新增合同期数
      * @param session
-     * @param ht
+     * @param htqs
      * @return
      */
-    @RequestMapping(value = "xinzeng.do", method = RequestMethod.POST)
+    @RequestMapping(value = "xinzeng",method = RequestMethod.POST)
     @ResponseBody
-    private ServerResponse xinzeng(HttpSession session, Ht ht){
+    private ServerResponse  xinzeng(HttpSession session,Htqs htqs){
         Users user=(Users) session.getAttribute(Const.CURRENT_USER);
         if(user==null){
             return ServerResponse.createByErrorMessage("用户未登陆");
         }
-        return htService.xinzeng(user,ht);
+        return htqsService.xinzeng(user,htqs);
     }
 
     /**
-     * 合同删除
+     * 根据id删除合同期数
      * @param session
-     * @paramid
+     * @param id
      * @return
      */
-    @RequestMapping(value = "delete.do",method = RequestMethod.POST)
+    @RequestMapping(value ="delete.do",method = RequestMethod.POST)
     @ResponseBody
     private ServerResponse delete(HttpSession session,int id){
         Users user=(Users) session.getAttribute(Const.CURRENT_USER);
         if(user==null){
             return ServerResponse.createByErrorMessage("用户未登陆");
         }
-        return htService.delete(user,id);
+        return htqsService.delete(user,id);
     }
 }

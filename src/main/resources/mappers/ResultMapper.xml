@@ -18,7 +18,7 @@
     ID, HTBH, USERID, XM, CZSJ, CZNR, BZ, CREATE_BY, CREATE_TIME
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from RESUTL
     where ID = #{id,jdbcType=DECIMAL}
@@ -28,11 +28,11 @@
     where ID = #{id,jdbcType=DECIMAL}
   </delete>
   <insert id="insert" parameterType="contract.pojo.Result" >
-    insert into RESUTL (ID, HTBH, USERID, 
-      XM, CZSJ, CZNR, BZ, 
+    insert into RESUTL (ID, HTBH, USERID,
+      XM, CZSJ, CZNR, BZ,
       CREATE_BY, CREATE_TIME)
-    values (#{id,jdbcType=DECIMAL}, #{htbh,jdbcType=VARCHAR}, #{userid,jdbcType=DECIMAL}, 
-      #{xm,jdbcType=VARCHAR}, #{czsj,jdbcType=TIMESTAMP}, #{cznr,jdbcType=VARCHAR}, #{bz,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=DECIMAL}, #{htbh,jdbcType=VARCHAR}, #{userid,jdbcType=DECIMAL},
+      #{xm,jdbcType=VARCHAR}, #{czsj,jdbcType=TIMESTAMP}, #{cznr,jdbcType=VARCHAR}, #{bz,jdbcType=VARCHAR},
       #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="contract.pojo.Result" >
@@ -138,4 +138,20 @@
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=DECIMAL}
   </update>
+
+  <select id="query" resultMap="BaseResultMap" parameterType="string" >
+    select
+    <include refid="Base_Column_List" />
+    from RESUTL
+    where 1=1
+    <if test="htbh != null and htbh != ''">
+      and  HTBH = #{htbh,jdbcType=VARCHAR}
+    </if>
+    <if test="startTime!= null and startTime != ''">
+      and  CZSJ &gt;= to_date(#{startTime,jdbcType=VARCHAR}, 'yyyy-mm-dd')
+    </if>
+    <if test="endTime != null and endTime != ''">
+      and  CZSJ &lt;= to_date(#{endTime,jdbcType=VARCHAR}, 'yyyy-mm-dd ')
+    </if>
+  </select>
 </mapper>
