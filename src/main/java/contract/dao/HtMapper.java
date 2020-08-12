@@ -21,8 +21,16 @@ public interface HtMapper {
     int updateByPrimaryKey(Ht record);
 
     List<Ht> select(@Param("htfl") String htfl, @Param("startTime") String startTime, @Param("endTime") String endTime,
-                    @Param("fzr") String fzr, @Param("htzt") String htzt, @Param("dqsheng") String dqsheng,@Param("dqshi")  String dqshi);
+                    @Param("fzr") String fzr,@Param("ssfzr") String ssfzr, @Param("htzt") String htzt, @Param("dqsheng") String dqsheng,@Param("dqshi")  String dqshi
+                    ,@Param("htjemax") String htjemax,@Param("htjemin") String htjemin);
 
     List<Ht> selectyh(@Param("fzrid") BigDecimal fzrid,@Param("htfl") String htfl, @Param("startTime") String startTime, @Param("endTime") String endTime,
-                      @Param("htzt") String htzt,@Param("dqsheng") String dqsheng,@Param("dqshi")  String dqshi);
+                      @Param("ssfzr") String ssfzr,@Param("htzt") String htzt,@Param("dqsheng") String dqsheng,@Param("dqshi")  String dqshi
+                     ,@Param("htjemax") String htjemax,@Param("htjemin") String htjemin);
+
+    List<Ht> selectss(@Param("ssfzrid") BigDecimal ssfzrid,@Param("htfl") String htfl, @Param("startTime") String startTime, @Param("endTime") String endTime,
+                    @Param("fzr") String fzr, @Param("htzt") String htzt, @Param("dqsheng") String dqsheng,@Param("dqshi")  String dqshi
+                    ,@Param("htjemax") String htjemax,@Param("htjemin") String htjemin);
+
+    int updatezt(@Param("id") BigDecimal id,@Param("htzt") String htzt);
 }

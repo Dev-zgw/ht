@@ -262,4 +262,17 @@
     from USERS
     where SSBM = #{ssbm,jdbcType=DECIMAL}
   </select>
+
+  <select id="query" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from USERS
+  </select>
+
+  <select id="queryss" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from USERS
+    where JSID = 5
+  </select>
 </mapper>

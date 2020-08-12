@@ -42,7 +42,9 @@ public class HtqsServiceImpl implements HtqsService {
      * @return
      */
     @Override
-    public ServerResponse update(Users users,Htqs htqs) {
+    public ServerResponse update(Users users, Htqs htqs) {
+        htqs.setUpdateTime(new Date());
+        htqs.setUpdateBy(users.getXm());
         int i=htqsMapper.updateByPrimaryKeySelective(htqs);
         if(i <= 0){
             Result result=new Result();
@@ -74,6 +76,8 @@ public class HtqsServiceImpl implements HtqsService {
      */
     @Override
     public ServerResponse xinzeng(Users users, Htqs htqs) {
+        htqs.setCreateTime(new Date());
+        htqs.setCreateBy(users.getXm());
         int i=htqsMapper.insertSelective(htqs);
         if(i<=0){
             Result result=new Result();

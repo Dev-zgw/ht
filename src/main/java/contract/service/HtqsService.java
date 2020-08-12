@@ -12,7 +12,7 @@ public interface HtqsService {
     ServerResponse<List<Htqs>> query(Users users,String htbh);
 
     //修改合同期数
-    ServerResponse update(Users users,Htqs htqs);
+    ServerResponse update(Users users, Htqs htqs);
 
     //新增合同期数
     ServerResponse xinzeng(Users users,Htqs htqs);

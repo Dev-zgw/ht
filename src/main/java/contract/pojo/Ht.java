@@ -16,11 +16,11 @@ public class Ht {
 
     private String htnr;
 
-    private Long htnrhtnr;
+    private BigDecimal htnrhtnr;
 
     private Long fkzq;
 
-    private Long nywfje;
+    private BigDecimal nywfje;
 
     private Date nywfsj;
 
@@ -38,7 +38,7 @@ public class Ht {
 
     private String sfskwc;
 
-    private Long skje;
+    private BigDecimal skje;
 
     private String htsfdq;
 
@@ -64,7 +64,11 @@ public class Ht {
 
     private BigDecimal fzrid;
 
-    public Ht(BigDecimal id, String htbh, Date qsrq, String fzr, String yymc, String htnr, Long htnrhtnr, Long fkzq, Long nywfje, Date nywfsj, String xxkxm, String xxklxfs, String cwkxm, String cwklxfs, String ywdjr, String ywdjrlxfs, String sfskwc, Long skje, String htsfdq, String htzt, String bz, String yyjb, String dqsheng, String dqshi, String htfl, String createBy, String updateBy, Date createTime, Date updateTime, BigDecimal fzrid) {
+    private String ssfzr;
+
+    private BigDecimal ssfzrid;
+
+    public Ht(BigDecimal id, String htbh, Date qsrq, String fzr, String yymc, String htnr, BigDecimal  htnrhtnr, Long fkzq, BigDecimal  nywfje, Date nywfsj, String xxkxm, String xxklxfs, String cwkxm, String cwklxfs, String ywdjr, String ywdjrlxfs, String sfskwc, BigDecimal  skje, String htsfdq, String htzt, String bz, String yyjb, String dqsheng, String dqshi, String htfl, String createBy, String updateBy, Date createTime, Date updateTime, BigDecimal fzrid, String ssfzr, BigDecimal ssfzrid) {
         this.id = id;
         this.htbh = htbh;
         this.qsrq = qsrq;
@@ -95,10 +99,46 @@ public class Ht {
         this.createTime = createTime;
         this.updateTime = updateTime;
         this.fzrid = fzrid;
+        this.ssfzr = ssfzr;
+        this.ssfzrid = ssfzrid;
     }
 
-    public Ht() {
-        super();
+    @Override
+    public String toString() {
+        return "Ht{" +
+                "id=" + id +
+                ", htbh='" + htbh + '\'' +
+                ", qsrq=" + qsrq +
+                ", fzr='" + fzr + '\'' +
+                ", yymc='" + yymc + '\'' +
+                ", htnr='" + htnr + '\'' +
+                ", htnrhtnr=" + htnrhtnr +
+                ", fkzq=" + fkzq +
+                ", nywfje=" + nywfje +
+                ", nywfsj=" + nywfsj +
+                ", xxkxm='" + xxkxm + '\'' +
+                ", xxklxfs='" + xxklxfs + '\'' +
+                ", cwkxm='" + cwkxm + '\'' +
+                ", cwklxfs='" + cwklxfs + '\'' +
+                ", ywdjr='" + ywdjr + '\'' +
+                ", ywdjrlxfs='" + ywdjrlxfs + '\'' +
+                ", sfskwc='" + sfskwc + '\'' +
+                ", skje=" + skje +
+                ", htsfdq='" + htsfdq + '\'' +
+                ", htzt='" + htzt + '\'' +
+                ", bz='" + bz + '\'' +
+                ", yyjb='" + yyjb + '\'' +
+                ", dqsheng='" + dqsheng + '\'' +
+                ", dqshi='" + dqshi + '\'' +
+                ", htfl='" + htfl + '\'' +
+                ", createBy='" + createBy + '\'' +
+                ", updateBy='" + updateBy + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", fzrid=" + fzrid +
+                ", ssfzr='" + ssfzr + '\'' +
+                ", ssfzrid=" + ssfzrid +
+                '}';
     }
 
     public BigDecimal getId() {
@@ -114,7 +154,7 @@ public class Ht {
     }
 
     public void setHtbh(String htbh) {
-        this.htbh = htbh == null ? null : htbh.trim();
+        this.htbh = htbh;
     }
 
     public Date getQsrq() {
@@ -130,7 +170,7 @@ public class Ht {
     }
 
     public void setFzr(String fzr) {
-        this.fzr = fzr == null ? null : fzr.trim();
+        this.fzr = fzr;
     }
 
     public String getYymc() {
@@ -138,7 +178,7 @@ public class Ht {
     }
 
     public void setYymc(String yymc) {
-        this.yymc = yymc == null ? null : yymc.trim();
+        this.yymc = yymc;
     }
 
     public String getHtnr() {
@@ -146,14 +186,14 @@ public class Ht {
     }
 
     public void setHtnr(String htnr) {
-        this.htnr = htnr == null ? null : htnr.trim();
+        this.htnr = htnr;
     }
 
-    public Long getHtnrhtnr() {
+    public BigDecimal getHtnrhtnr() {
         return htnrhtnr;
     }
 
-    public void setHtnrhtnr(Long htnrhtnr) {
+    public void setHtnrhtnr(BigDecimal htnrhtnr) {
         this.htnrhtnr = htnrhtnr;
     }
 
@@ -165,11 +205,11 @@ public class Ht {
         this.fkzq = fkzq;
     }
 
-    public Long getNywfje() {
+    public BigDecimal getNywfje() {
         return nywfje;
     }
 
-    public void setNywfje(Long nywfje) {
+    public void setNywfje(BigDecimal nywfje) {
         this.nywfje = nywfje;
     }
 
@@ -186,7 +226,7 @@ public class Ht {
     }
 
     public void setXxkxm(String xxkxm) {
-        this.xxkxm = xxkxm == null ? null : xxkxm.trim();
+        this.xxkxm = xxkxm;
     }
 
     public String getXxklxfs() {
@@ -194,7 +234,7 @@ public class Ht {
     }
 
     public void setXxklxfs(String xxklxfs) {
-        this.xxklxfs = xxklxfs == null ? null : xxklxfs.trim();
+        this.xxklxfs = xxklxfs;
     }
 
     public String getCwkxm() {
@@ -202,7 +242,7 @@ public class Ht {
     }
 
     public void setCwkxm(String cwkxm) {
-        this.cwkxm = cwkxm == null ? null : cwkxm.trim();
+        this.cwkxm = cwkxm;
     }
 
     public String getCwklxfs() {
@@ -210,7 +250,7 @@ public class Ht {
     }
 
     public void setCwklxfs(String cwklxfs) {
-        this.cwklxfs = cwklxfs == null ? null : cwklxfs.trim();
+        this.cwklxfs = cwklxfs;
     }
 
     public String getYwdjr() {
@@ -218,7 +258,7 @@ public class Ht {
     }
 
     public void setYwdjr(String ywdjr) {
-        this.ywdjr = ywdjr == null ? null : ywdjr.trim();
+        this.ywdjr = ywdjr;
     }
 
     public String getYwdjrlxfs() {
@@ -226,7 +266,7 @@ public class Ht {
     }
 
     public void setYwdjrlxfs(String ywdjrlxfs) {
-        this.ywdjrlxfs = ywdjrlxfs == null ? null : ywdjrlxfs.trim();
+        this.ywdjrlxfs = ywdjrlxfs;
     }
 
     public String getSfskwc() {
@@ -234,14 +274,14 @@ public class Ht {
     }
 
     public void setSfskwc(String sfskwc) {
-        this.sfskwc = sfskwc == null ? null : sfskwc.trim();
+        this.sfskwc = sfskwc;
     }
 
-    public Long getSkje() {
+    public BigDecimal getSkje() {
         return skje;
     }
 
-    public void setSkje(Long skje) {
+    public void setSkje(BigDecimal skje) {
         this.skje = skje;
     }
 
@@ -250,7 +290,7 @@ public class Ht {
     }
 
     public void setHtsfdq(String htsfdq) {
-        this.htsfdq = htsfdq == null ? null : htsfdq.trim();
+        this.htsfdq = htsfdq;
     }
 
     public String getHtzt() {
@@ -258,7 +298,7 @@ public class Ht {
     }
 
     public void setHtzt(String htzt) {
-        this.htzt = htzt == null ? null : htzt.trim();
+        this.htzt = htzt;
     }
 
     public String getBz() {
@@ -266,7 +306,7 @@ public class Ht {
     }
 
     public void setBz(String bz) {
-        this.bz = bz == null ? null : bz.trim();
+        this.bz = bz;
     }
 
     public String getYyjb() {
@@ -274,7 +314,7 @@ public class Ht {
     }
 
     public void setYyjb(String yyjb) {
-        this.yyjb = yyjb == null ? null : yyjb.trim();
+        this.yyjb = yyjb;
     }
 
     public String getDqsheng() {
@@ -282,7 +322,7 @@ public class Ht {
     }
 
     public void setDqsheng(String dqsheng) {
-        this.dqsheng = dqsheng == null ? null : dqsheng.trim();
+        this.dqsheng = dqsheng;
     }
 
     public String getDqshi() {
@@ -290,7 +330,7 @@ public class Ht {
     }
 
     public void setDqshi(String dqshi) {
-        this.dqshi = dqshi == null ? null : dqshi.trim();
+        this.dqshi = dqshi;
     }
 
     public String getHtfl() {
@@ -298,7 +338,7 @@ public class Ht {
     }
 
     public void setHtfl(String htfl) {
-        this.htfl = htfl == null ? null : htfl.trim();
+        this.htfl = htfl;
     }
 
     public String getCreateBy() {
@@ -306,7 +346,7 @@ public class Ht {
     }
 
     public void setCreateBy(String createBy) {
-        this.createBy = createBy == null ? null : createBy.trim();
+        this.createBy = createBy;
     }
 
     public String getUpdateBy() {
@@ -314,7 +354,7 @@ public class Ht {
     }
 
     public void setUpdateBy(String updateBy) {
-        this.updateBy = updateBy == null ? null : updateBy.trim();
+        this.updateBy = updateBy;
     }
 
     public Date getCreateTime() {
@@ -339,5 +379,21 @@ public class Ht {
 
     public void setFzrid(BigDecimal fzrid) {
         this.fzrid = fzrid;
+    }
+
+    public String getSsfzr() {
+        return ssfzr;
+    }
+
+    public void setSsfzr(String ssfzr) {
+        this.ssfzr = ssfzr;
+    }
+
+    public BigDecimal getSsfzrid() {
+        return ssfzrid;
+    }
+
+    public void setSsfzrid(BigDecimal ssfzrid) {
+        this.ssfzrid = ssfzrid;
     }
 }

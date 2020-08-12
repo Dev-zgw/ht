@@ -6,13 +6,16 @@ import contract.pojo.Users;
 import contract.service.HtService;
 import contract.utils.Const;
 import contract.utils.ServerResponse;
+import contract.utils.ServiceResponsebg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequestMapping("/ht/")
@@ -21,6 +24,8 @@ public class HtController {
     @Autowired
     private HtService htService;
 
+    @Autowired
+    private UsersMapper usersMapper;
     /**
      * 查询合同信息
      * @param session
@@ -33,19 +38,18 @@ public class HtController {
      * @param htzt      合同状态
      * @param dqsheng   地区-省
      * @param diqushi   地区-市
-     * @param htjemax   合同金额最大值
-     * @param htjemin   合同金额最小值
      * @return
      */
     @RequestMapping(value = "getquery.do", method = RequestMethod.POST)
     @ResponseBody
-    private ServerResponse getquery(HttpSession session, int pageNum, int pageSize,String htfl,String startTime,
-                                    String endTime,String fzr,String htzt,String dqsheng,String diqushi,int htjemax,int htjemin){
+    private ServiceResponsebg<List<Ht>> getquery(HttpSession session, @RequestParam(value = "page", defaultValue = "1") int pageNum,
+                                                 @RequestParam(value = "limit", defaultValue = "10") int pageSize, String htfl, String qsrq,
+                                                 String fzr,String ssfzr, String htzt, String dqsheng, String diqushi, String je){
         Users user=(Users) session.getAttribute(Const.CURRENT_USER);
         if(user==null){
-            return ServerResponse.createByErrorMessage("用户未登陆");
+            return ServiceResponsebg.createByErrorMessage("用户未登陆");
         }
-        return htService.query(user,pageNum,pageSize,htfl,startTime,endTime,fzr,htzt,dqsheng,diqushi,htjemax,htjemin);
+        return htService.query(user,pageNum,pageSize,htfl,qsrq,fzr,ssfzr,htzt,dqsheng,diqushi,je);
     }
 
     /**
@@ -62,6 +66,45 @@ public class HtController {
             return ServerResponse.createByErrorMessage("用户未登陆");
         }
         return htService.update(user,ht);
+    }
+
+    //查询所有用户
+    @RequestMapping(value = "queryfzr.do",method =RequestMethod.POST)
+    @ResponseBody
+    private ServerResponse queryfzr(HttpSession session){
+        Users user=(Users) session.getAttribute(Const.CURRENT_USER);
+        if(user==null){
+            return ServerResponse.createByErrorMessage("用户未登陆");
+        }
+        return htService.queryfzr();
+    }
+
+    //查询所有实施用户
+    @RequestMapping(value = "queryssfzr.do",method = RequestMethod.POST)
+    @ResponseBody
+    private ServerResponse queryssfzr(HttpSession session){
+        Users user=(Users) session.getAttribute(Const.CURRENT_USER);
+        if(user==null){
+            return ServerResponse.createByErrorMessage("用户未登陆");
+        }
+        return htService.queryssfzr();
+    }
+
+    /**
+     * 合同驳回/确认
+     * @param session
+     * @param id
+     * @param htzt
+     * @return
+     */
+    @RequestMapping(value ="updatezt.do",method = RequestMethod.POST)
+    @ResponseBody
+    private ServerResponse updatezt(HttpSession session,int id, String htzt){
+        Users user=(Users) session.getAttribute(Const.CURRENT_USER);
+        if(user==null){
+            return ServerResponse.createByErrorMessage("用户未登陆");
+        }
+        return htService.updatezt(user,id,htzt);
     }
 
     /**

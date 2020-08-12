@@ -1,13 +1,12 @@
 package contract.controller;
 
-import contract.pojo.Ht;
+import contract.dao.UsersMapper;
 import contract.pojo.Htqs;
 import contract.pojo.Users;
 import contract.service.HtqsService;
 import contract.utils.Const;
 import contract.utils.ServerResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -45,7 +44,7 @@ public class HtqsController {
      * @param htqs
      * @return
      */
-    @RequestMapping(value = "update.dd",method =RequestMethod.POST)
+    @RequestMapping(value = "update.do",method =RequestMethod.POST)
     @ResponseBody
     private ServerResponse update(HttpSession session, Htqs htqs){
         Users user=(Users) session.getAttribute(Const.CURRENT_USER);
@@ -61,7 +60,7 @@ public class HtqsController {
      * @param htqs
      * @return
      */
-    @RequestMapping(value = "xinzeng",method = RequestMethod.POST)
+    @RequestMapping(value = "xinzeng.do",method = RequestMethod.POST)
     @ResponseBody
     private ServerResponse  xinzeng(HttpSession session,Htqs htqs){
         Users user=(Users) session.getAttribute(Const.CURRENT_USER);

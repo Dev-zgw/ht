@@ -153,5 +153,8 @@
     <if test="endTime != null and endTime != ''">
       and  CZSJ &lt;= to_date(#{endTime,jdbcType=VARCHAR}, 'yyyy-mm-dd ')
     </if>
+    <if test="xm != null and xm != ''">
+      and  XM = #{xm,jdbcType=VARCHAR}
+    </if>
   </select>
 </mapper>
