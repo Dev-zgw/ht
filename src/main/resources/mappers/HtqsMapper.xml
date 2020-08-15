@@ -193,4 +193,10 @@
     from HTQS
     where HTBH = #{htbh,jdbcType=VARCHAR}
   </select>
+
+  <update id="updatezt">
+    update HTQS
+    set SFSKWC = #{htfqzt,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
 </mapper>

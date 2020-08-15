@@ -1,5 +1,6 @@
 package contract.controller;
 
+import contract.dao.UsersMapper;
 import contract.pojo.Htfl;
 import contract.pojo.Users;
 import contract.service.HtflService;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
 
 @Controller
 @RequestMapping("/htfl/")
@@ -19,6 +21,9 @@ public class HtflController {
 
     @Autowired
     private HtflService htflService;
+
+    @Autowired
+    private UsersMapper usersMapper;
 
     /**
      * 查询合同分类

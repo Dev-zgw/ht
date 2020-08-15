@@ -16,6 +16,8 @@ public interface HtMapper {
 
     Ht selectByPrimaryKey(BigDecimal id);
 
+    Ht selects(@Param("htbh") String htbh);
+
     int updateByPrimaryKeySelective(Ht record);
 
     int updateByPrimaryKey(Ht record);

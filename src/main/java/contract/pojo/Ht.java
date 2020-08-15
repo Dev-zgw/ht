@@ -68,7 +68,7 @@ public class Ht {
 
     private BigDecimal ssfzrid;
 
-    public Ht(BigDecimal id, String htbh, Date qsrq, String fzr, String yymc, String htnr, BigDecimal  htnrhtnr, Long fkzq, BigDecimal  nywfje, Date nywfsj, String xxkxm, String xxklxfs, String cwkxm, String cwklxfs, String ywdjr, String ywdjrlxfs, String sfskwc, BigDecimal  skje, String htsfdq, String htzt, String bz, String yyjb, String dqsheng, String dqshi, String htfl, String createBy, String updateBy, Date createTime, Date updateTime, BigDecimal fzrid, String ssfzr, BigDecimal ssfzrid) {
+    public Ht(BigDecimal id, String htbh, Date qsrq, String fzr, String yymc, String htnr, BigDecimal htnrhtnr, Long fkzq, BigDecimal nywfje, Date nywfsj, String xxkxm, String xxklxfs, String cwkxm, String cwklxfs, String ywdjr, String ywdjrlxfs, String sfskwc, BigDecimal skje, String htsfdq, String htzt, String bz, String yyjb, String dqsheng, String dqshi, String htfl, String createBy, String updateBy, Date createTime, Date updateTime, BigDecimal fzrid, String ssfzr, BigDecimal ssfzrid) {
         this.id = id;
         this.htbh = htbh;
         this.qsrq = qsrq;
@@ -102,45 +102,7 @@ public class Ht {
         this.ssfzr = ssfzr;
         this.ssfzrid = ssfzrid;
     }
-
-    @Override
-    public String toString() {
-        return "Ht{" +
-                "id=" + id +
-                ", htbh='" + htbh + '\'' +
-                ", qsrq=" + qsrq +
-                ", fzr='" + fzr + '\'' +
-                ", yymc='" + yymc + '\'' +
-                ", htnr='" + htnr + '\'' +
-                ", htnrhtnr=" + htnrhtnr +
-                ", fkzq=" + fkzq +
-                ", nywfje=" + nywfje +
-                ", nywfsj=" + nywfsj +
-                ", xxkxm='" + xxkxm + '\'' +
-                ", xxklxfs='" + xxklxfs + '\'' +
-                ", cwkxm='" + cwkxm + '\'' +
-                ", cwklxfs='" + cwklxfs + '\'' +
-                ", ywdjr='" + ywdjr + '\'' +
-                ", ywdjrlxfs='" + ywdjrlxfs + '\'' +
-                ", sfskwc='" + sfskwc + '\'' +
-                ", skje=" + skje +
-                ", htsfdq='" + htsfdq + '\'' +
-                ", htzt='" + htzt + '\'' +
-                ", bz='" + bz + '\'' +
-                ", yyjb='" + yyjb + '\'' +
-                ", dqsheng='" + dqsheng + '\'' +
-                ", dqshi='" + dqshi + '\'' +
-                ", htfl='" + htfl + '\'' +
-                ", createBy='" + createBy + '\'' +
-                ", updateBy='" + updateBy + '\'' +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                ", fzrid=" + fzrid +
-                ", ssfzr='" + ssfzr + '\'' +
-                ", ssfzrid=" + ssfzrid +
-                '}';
-    }
-
+    public Ht(){}
     public BigDecimal getId() {
         return id;
     }

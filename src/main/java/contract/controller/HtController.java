@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -60,11 +62,34 @@ public class HtController {
      */
     @RequestMapping(value = "update.do", method =RequestMethod.POST)
     @ResponseBody
-    private ServerResponse update(HttpSession session, Ht ht){
+    private ServerResponse update(HttpSession session,int id, String htbh, Long qsrq,String fzr,String ssfzr,String yymc,String yyjb,
+                                  String dqsheng,String dqshi,String htfl,String htnrhtnr,String nywfje,Long nywfsj,String xxkxm,
+                                  String xxklxfs,String cwkxm,String cwklxfs,String ywdjr,String ywdjrlxfs,String bz){
         Users user=(Users) session.getAttribute(Const.CURRENT_USER);
         if(user==null){
             return ServerResponse.createByErrorMessage("用户未登陆");
         }
+        Ht ht=new Ht();
+        ht.setId(new BigDecimal(id));
+        ht.setHtbh(htbh);
+        ht.setQsrq(new Date(qsrq));
+        ht.setFzr(fzr);
+        ht.setSsfzr(ssfzr);
+        ht.setYymc(yymc);
+        ht.setYyjb(yyjb);
+        ht.setDqsheng(dqsheng);
+        ht.setDqshi(dqshi);
+        ht.setHtfl(htfl);
+        ht.setHtnrhtnr(new BigDecimal(htnrhtnr));
+        ht.setNywfje(new BigDecimal(nywfje));
+        ht.setNywfsj(new Date(nywfsj));
+        ht.setXxkxm(xxkxm);
+        ht.setXxklxfs(xxklxfs);
+        ht.setCwkxm(cwkxm);
+        ht.setCwklxfs(cwklxfs);
+        ht.setYwdjr(ywdjr);
+        ht.setYwdjrlxfs(ywdjrlxfs);
+        ht.setBz(bz);
         return htService.update(user,ht);
     }
 
@@ -115,11 +140,33 @@ public class HtController {
      */
     @RequestMapping(value = "xinzeng.do", method = RequestMethod.POST)
     @ResponseBody
-    private ServerResponse xinzeng(HttpSession session, Ht ht){
+    private ServerResponse xinzeng(HttpSession session, String htbh, Long qsrq,String fzr,String ssfzr,String yymc,String yyjb,
+                                   String dqsheng,String dqshi,String htfl,String htnrhtnr,String nywfje,Long nywfsj,String xxkxm,
+                                   String xxklxfs,String cwkxm,String cwklxfs,String ywdjr,String ywdjrlxfs,String bz){
         Users user=(Users) session.getAttribute(Const.CURRENT_USER);
         if(user==null){
             return ServerResponse.createByErrorMessage("用户未登陆");
         }
+        Ht ht=new Ht();
+        ht.setHtbh(htbh);
+        ht.setQsrq(new Date(qsrq));
+        ht.setFzr(fzr);
+        ht.setSsfzr(ssfzr);
+        ht.setYymc(yymc);
+        ht.setYyjb(yyjb);
+        ht.setDqsheng(dqsheng);
+        ht.setDqshi(dqshi);
+        ht.setHtfl(htfl);
+        ht.setHtnrhtnr(new BigDecimal(htnrhtnr));
+        ht.setNywfje(new BigDecimal(nywfje));
+        ht.setNywfsj(new Date(nywfsj));
+        ht.setXxkxm(xxkxm);
+        ht.setXxklxfs(xxklxfs);
+        ht.setCwkxm(cwkxm);
+        ht.setCwklxfs(cwklxfs);
+        ht.setYwdjr(ywdjr);
+        ht.setYwdjrlxfs(ywdjrlxfs);
+        ht.setBz(bz);
         return htService.xinzeng(user,ht);
     }
 

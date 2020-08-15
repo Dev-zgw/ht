@@ -53,7 +53,7 @@ public class ResultServiceImpl implements ResultService {
         }
         Role role=roleMapper.selectByPrimaryKey(user.getJsid());
         List<Result> list=new ArrayList<>();
-        //管理员查询所有日志信息
+        //管理员,总经理,财务询所有日志信息
         if(role.getQxid().longValue()== Const.Role.ROLE_ADMIN||role.getQxid().longValue()== Const.Role.ROLE_ZJL
         ||role.getQxid().longValue()== Const.Role.ROLE_CWQX){
             list=resultMapper.query(htbh,startTime,endTime,xm);

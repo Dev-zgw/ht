@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Controller
 @RequestMapping("/htqs/")
@@ -21,6 +25,9 @@ public class HtqsController {
 
     @Autowired
     private HtqsService htqsService;
+
+    @Autowired
+    private UsersMapper usersMapper;
 
     /**
      * 查询合同期数
@@ -38,6 +45,7 @@ public class HtqsController {
         return htqsService.query(user,htbh);
     }
 
+
     /**
      * 修改合同期数
      * @param session
@@ -46,11 +54,17 @@ public class HtqsController {
      */
     @RequestMapping(value = "update.do",method =RequestMethod.POST)
     @ResponseBody
-    private ServerResponse update(HttpSession session, Htqs htqs){
+    private ServerResponse update(HttpSession session,String id, String htbh, Long yjsj,Long sj,String je){
         Users user=(Users) session.getAttribute(Const.CURRENT_USER);
         if(user==null){
             return ServerResponse.createByErrorMessage("用户未登陆");
         }
+        Htqs htqs=new Htqs();
+        htqs.setId(new BigDecimal(id));
+        htqs.setHtbh(htbh);
+        htqs.setJe(new BigDecimal(je));
+        htqs.setSj(new Date(sj));
+        htqs.setYjsj(new Date(yjsj));
         return htqsService.update(user,htqs);
     }
 
@@ -62,11 +76,17 @@ public class HtqsController {
      */
     @RequestMapping(value = "xinzeng.do",method = RequestMethod.POST)
     @ResponseBody
-    private ServerResponse  xinzeng(HttpSession session,Htqs htqs){
+    private ServerResponse  xinzeng(HttpSession session, String htbh, Long yjsj,Long sj,String je){
         Users user=(Users) session.getAttribute(Const.CURRENT_USER);
         if(user==null){
             return ServerResponse.createByErrorMessage("用户未登陆");
         }
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Htqs htqs=new Htqs();
+        htqs.setHtbh(htbh);
+        htqs.setJe(new BigDecimal(je));
+        htqs.setSj(new Date(sj));
+        htqs.setYjsj(new Date(yjsj));
         return htqsService.xinzeng(user,htqs);
     }
 
@@ -84,5 +104,22 @@ public class HtqsController {
             return ServerResponse.createByErrorMessage("用户未登陆");
         }
         return htqsService.delete(user,id);
+    }
+
+
+    /**
+     * 修改合同本期状态
+     * @param session
+     * @param id
+     * @return
+     */
+    @RequestMapping(value ="hefqwc.do",method = RequestMethod.POST)
+    @ResponseBody
+    private ServerResponse hefqwc(HttpSession session,int id,String htfqzt){
+        Users user=(Users) session.getAttribute(Const.CURRENT_USER);
+        if(user==null){
+            return ServerResponse.createByErrorMessage("用户未登陆");
+        }
+        return htqsService.htqsxg(user,id,htfqzt);
     }
 }

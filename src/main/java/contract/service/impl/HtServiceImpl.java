@@ -3,10 +3,7 @@ package contract.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import contract.dao.*;
-import contract.pojo.Ht;
-import contract.pojo.Result;
-import contract.pojo.Role;
-import contract.pojo.Users;
+import contract.pojo.*;
 import contract.service.HtService;
 import contract.utils.Const;
 import contract.utils.ServerResponse;
@@ -36,6 +33,9 @@ public class HtServiceImpl implements HtService {
 
     @Autowired
     private HtflMapper htflMapper;
+
+    @Autowired
+    private HtqsMapper htqsMapper;
 
 
     //查询合同信息
@@ -107,9 +107,9 @@ public class HtServiceImpl implements HtService {
         //财务用户权限
         if(role.getQxid().longValue()== Const.Role.ROLE_CWQX){
             list=htMapper.select(htfl,startTime,endTime,fzr,ssfzr,htzt,dqsheng,dqshi,htjemax,htjemin);
-        }
-        for(int i=0;i<list.size();i++){
-            list.get(i).setHtfl(htflMapper.selectByPrimaryKey(new BigDecimal(list.get(i).getHtfl())).getFlmc());
+            for(int i=0;i<list.size();i++){
+                list.get(i).setHtfl(htflMapper.selectByPrimaryKey(new BigDecimal(list.get(i).getHtfl())).getFlmc());
+            }
         }
         PageInfo<Ht> pageInfo = new PageInfo<Ht>(list);
         return ServiceResponsebg.createBySuccess(role.getQxid().longValue(),pageInfo.getTotal(),list);
@@ -147,6 +147,10 @@ public class HtServiceImpl implements HtService {
     //新增合同
     @Override
     public ServerResponse xinzeng(Users users,Ht ht){
+        Ht hts=htMapper.selects(ht.getHtbh());
+        if(hts!=null){
+            return ServerResponse.createByErrorMessage("合同编号已存在");
+        }
         ht.setCreateTime(new Date());
         ht.setCreateBy(users.getXm());
         ht.setHtzt(String.valueOf(Const.HtState.TO_BE_CONFIRMED));
@@ -177,33 +181,49 @@ public class HtServiceImpl implements HtService {
     @Override
     public ServerResponse delete(Users users,int id){
         Ht ht=htMapper.selectByPrimaryKey(new BigDecimal(id));
-        int i=htMapper.deleteByPrimaryKey(new BigDecimal(id));
-        if (i <= 0) {
+        if("1".equals(ht.getHtzt())||"2".equals(ht.getHtzt())){
+            return ServerResponse.createByErrorMessage("合同状态为进行中或已完成，不能删除");
+        }else{
+            int i=htMapper.deleteByPrimaryKey(new BigDecimal(id));
+            if (i <= 0) {
+                Result result=new Result();
+                result.setHtbh(ht.getHtbh());
+                result.setUserid(users.getId());
+                result.setXm(users.getXm());
+                result.setCzsj(new Date());
+                result.setCznr("合同删除");
+                result.setBz("合同删除失败");
+                resultMapper.insertSelective(result);
+                return ServerResponse.createByErrorMessage("删除合同失败");
+            }
             Result result=new Result();
             result.setHtbh(ht.getHtbh());
             result.setUserid(users.getId());
             result.setXm(users.getXm());
             result.setCzsj(new Date());
             result.setCznr("合同删除");
-            result.setBz("合同删除失败");
+            result.setBz("合同删除成功");
             resultMapper.insertSelective(result);
-            return ServerResponse.createByErrorMessage("删除合同失败");
+            return ServerResponse.createBySuccessMessage("删除合同成功");
         }
-        Result result=new Result();
-        result.setHtbh(ht.getHtbh());
-        result.setUserid(users.getId());
-        result.setXm(users.getXm());
-        result.setCzsj(new Date());
-        result.setCznr("合同删除");
-        result.setBz("合同删除成功");
-        resultMapper.insertSelective(result);
-        return ServerResponse.createBySuccessMessage("删除合同成功");
     }
 
     //修改合同状态
     @Override
     public ServerResponse updatezt(Users users, int id, String htzt) {
         Ht ht=htMapper.selectByPrimaryKey(new BigDecimal(id));
+        List<Htqs> htqsList=htqsMapper.query(ht.getHtbh());
+        if(("2").equals(htzt)) {
+            int sk = 0;
+            for (int j = 0; j < htqsList.size(); j++) {
+                if (htqsList.get(j).getSfskwc().equals("1")) {
+                    sk = sk + 1;
+                }
+            }
+            if (sk >=1) {
+                return ServerResponse.createByErrorMessage("有付款周期未完成收款，不能验收");
+            }
+        }
         int i=htMapper.updatezt(new BigDecimal(id),htzt);
         if(i>0){
             Result result=new Result();
@@ -217,6 +237,10 @@ public class HtServiceImpl implements HtService {
             }else if(htzt=="1"){
                 result.setCznr("合同确认");
                 result.setBz("合同确认成功");
+            }
+            else if(htzt=="2"){
+                result.setCznr("合同验收");
+                result.setBz("合同验收成功");
             }
             resultMapper.insertSelective(result);
         }
