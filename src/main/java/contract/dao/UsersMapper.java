@@ -24,4 +24,13 @@ public interface UsersMapper {
     List<Users> query();
 
     List<Users> queryss();
+
+    //登录
+    Users selectByUP(@Param("name") String name, @Param("password") String password);
+
+    //验证用户
+    int selectOne(@Param("name") String name);
+
+    //查询所有用户
+    List<Users> selectUserList(@Param("xm") String xm, @Param("bmid") Integer bmid, @Param("zzzt") String zzzt);
 }

@@ -2,6 +2,7 @@ package contract.dao;
 
 import contract.pojo.Department;
 import java.math.BigDecimal;
+import java.util.List;
 
 public interface DepartmentMapper {
     int deleteByPrimaryKey(BigDecimal id);
@@ -15,4 +16,7 @@ public interface DepartmentMapper {
     int updateByPrimaryKeySelective(Department record);
 
     int updateByPrimaryKey(Department record);
+
+    //查询所有
+    List<Department> selectAll();
 }

@@ -1,6 +1,5 @@
 package contract.controller;
 
-import contract.dao.UsersMapper;
 import contract.pojo.Htqs;
 import contract.pojo.Users;
 import contract.service.HtqsService;
@@ -30,7 +29,7 @@ public class HtqsController {
      */
     @RequestMapping(value = "query.do", method = RequestMethod.POST)
     @ResponseBody
-    private ServerResponse query(HttpSession session,String htbh){
+    private ServerResponse query(HttpSession session, String htbh){
         Users user=(Users) session.getAttribute(Const.CURRENT_USER);
         if(user==null){
             return ServerResponse.createByErrorMessage("用户未登陆");

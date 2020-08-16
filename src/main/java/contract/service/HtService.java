@@ -13,7 +13,7 @@ public interface HtService {
     ServiceResponsebg<List<Ht>> query(Users user, int pageNum, int pageSize, String htfl, String qsrq,
                                       String fzr,String ssfzr, String htzt, String dqsheng, String dqshi, String je);
     //修改合同
-    ServerResponse update(Users users,Ht ht);
+    ServerResponse update(Users users, Ht ht);
     //新增合同
     ServerResponse xinzeng(Users users,Ht ht);
     //删除合同

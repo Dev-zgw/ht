@@ -117,7 +117,7 @@ public class HtServiceImpl implements HtService {
 
     //修改合同信息
     @Override
-    public ServerResponse update(Users users,Ht ht){
+    public ServerResponse update(Users users, Ht ht){
         ht.setUpdateTime(new Date());
         ht.setUpdateBy(users.getXm());
         int i=htMapper.updateByPrimaryKeySelective(ht);

@@ -30,7 +30,7 @@ public class HtqsServiceImpl implements HtqsService {
      * @return
      */
     @Override
-    public ServerResponse<List<Htqs>> query(Users users,String htbh) {
+    public ServerResponse<List<Htqs>> query(Users users, String htbh) {
         List<Htqs> htqsList=htqsMapper.query(htbh);
         return ServerResponse.createBySuccess(htqsList);
     }

@@ -9,7 +9,7 @@ import java.util.List;
 public interface HtqsService {
 
     //根据合同编号查询合同期数
-    ServerResponse<List<Htqs>> query(Users users,String htbh);
+    ServerResponse<List<Htqs>> query(Users users, String htbh);
 
     //修改合同期数
     ServerResponse update(Users users, Htqs htqs);
