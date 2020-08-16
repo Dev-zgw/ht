@@ -408,7 +408,6 @@
       SSFZRID = #{ssfzrid,jdbcType=DECIMAL}
     where ID = #{id,jdbcType=DECIMAL}
   </update>
-
   <select id="select" resultMap="BaseResultMap" >
     select
     <include refid="Base_Column_List" />
@@ -478,6 +477,13 @@
     <if test="htjemin != null and htjemin != ''">
       and  HTNRHTNR &gt; #{htjemin,jdbcType=DECIMAL}
     </if>
+  </select>
+  <select id="selects" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from HT
+    where
+    HTBH =#{htbh,jdbcType=VARCHAR}
   </select>
   <select id="selectss" resultMap="BaseResultMap" >
     select

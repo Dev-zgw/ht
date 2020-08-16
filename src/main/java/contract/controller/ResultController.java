@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
 
 @Controller
 @RequestMapping("/result/")
@@ -20,6 +21,9 @@ public class ResultController {
 
     @Autowired
     private ResultService resultService;
+
+    @Autowired
+    private UsersMapper usersMapper;
 
     /**
      * 分页查看日志信息

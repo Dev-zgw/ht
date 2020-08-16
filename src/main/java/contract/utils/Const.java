@@ -15,11 +15,16 @@ public class Const {
     }
 
     public interface HtState{
-        //合同三种状态
+        //合同四种状态
         long TO_BE_CONFIRMED=0;//待确认
         long HAVE_IN_HAND=1;//进行中
         long COMPLETED=2;//已完成
         long REJECTED=3;//已驳回
+    }
+
+    public interface HtfqState{
+        long HAVE_IN_HAND=1;//未收款
+        long COMPLETED=2;//已收款
     }
 
 }
