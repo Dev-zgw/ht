@@ -39,7 +39,7 @@ public class HtServiceImpl implements HtService {
     //查询合同信息
     @Override
     public ServerResponse<List<Ht>> query(Users user, int pageNum, int pageSize, String htfl, String startTime,
-                                          String endTime, String fzr, String htzt,String dqsheng,String dqshi,int htjemax,int htjemin) {
+                                          String endTime, String fzr, String htzt,String dqsheng,String dqshi,String htjemax,String htjemin) {
         Role role=roleMapper.selectByPrimaryKey(user.getJsid());
         PageHelper.startPage(pageNum,pageSize);
         List<Ht> list=new ArrayList<>();

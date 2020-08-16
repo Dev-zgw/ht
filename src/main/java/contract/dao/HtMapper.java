@@ -25,4 +25,7 @@ public interface HtMapper {
 
     List<Ht> selectyh(@Param("fzrid") BigDecimal fzrid,@Param("htfl") String htfl, @Param("startTime") String startTime, @Param("endTime") String endTime,
                       @Param("htzt") String htzt,@Param("dqsheng") String dqsheng,@Param("dqshi")  String dqshi);
+
+    List<Ht> selectreport(@Param("fzrid") BigDecimal fzrid,@Param("htfl") String htfl, @Param("startTime") String startTime, @Param("endTime") String endTime,
+                      @Param("htzt") String htzt,@Param("dqsheng") String dqsheng,@Param("dqshi")  String dqshi,@Param("htnrhtnr")  int htnrhtnr);
 }

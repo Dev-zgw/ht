@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
 
 @Controller
 @RequestMapping("/ht/")
@@ -20,6 +21,9 @@ public class HtController {
 
     @Autowired
     private HtService htService;
+
+    @Autowired
+    private UsersMapper usersMapper;
 
     /**
      * 查询合同信息
@@ -40,11 +44,12 @@ public class HtController {
     @RequestMapping(value = "getquery.do", method = RequestMethod.POST)
     @ResponseBody
     private ServerResponse getquery(HttpSession session, int pageNum, int pageSize,String htfl,String startTime,
-                                    String endTime,String fzr,String htzt,String dqsheng,String diqushi,int htjemax,int htjemin){
-        Users user=(Users) session.getAttribute(Const.CURRENT_USER);
+                                    String endTime,String fzr,String htzt,String dqsheng,String diqushi,String htjemax,String htjemin){
+       /* Users user=(Users) session.getAttribute(Const.CURRENT_USER);
         if(user==null){
             return ServerResponse.createByErrorMessage("用户未登陆");
-        }
+        }*/
+        Users user = usersMapper.selectByPrimaryKey(new BigDecimal(1));
         return htService.query(user,pageNum,pageSize,htfl,startTime,endTime,fzr,htzt,dqsheng,diqushi,htjemax,htjemin);
     }
 

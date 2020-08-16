@@ -438,4 +438,31 @@
       and  DQSHI = #{dqshi,jdbcType=VARCHAR}
     </if>
   </select>
+
+  <select id="selectreport" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from HT
+    where
+    FZRID = #{fzrid,jdbcType=DECIMAL}
+    and HTNRHTNR = #{htnrhtnr,jdbcType=DECIMAL}
+    <if test="htfl != null and htfl != ''">
+      and  HTFL = #{htfl,jdbcType=VARCHAR}
+    </if>
+    <if test="startTime!= null and startTime != ''">
+      and  QSRQ &gt;= to_date(#{startTime,jdbcType=VARCHAR}, 'yyyy-mm-dd')
+    </if>
+    <if test="endTime != null and endTime != ''">
+      and  QSRQ &lt;= to_date(#{endTime,jdbcType=VARCHAR}, 'yyyy-mm-dd ')
+    </if>
+    <if test="htzt != null and htzt != ''">
+      and  HTZT = #{htzt,jdbcType=VARCHAR}
+    </if>
+    <if test="dqsheng != null and dqsheng != ''">
+      and  DQSHENG = #{dqsheng,jdbcType=VARCHAR}
+    </if>
+    <if test="dqshi != null and dqshi != ''">
+      and  DQSHI = #{dqshi,jdbcType=VARCHAR}
+    </if>
+  </select>
 </mapper>
