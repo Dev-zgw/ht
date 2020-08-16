@@ -6,19 +6,21 @@
       <idArg column="ID" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
       <arg column="HTBH" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="QS" jdbcType="DECIMAL" javaType="java.lang.Long" />
-      <arg column="JE" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="JE" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
       <arg column="YJSJ" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="SGYQ" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="SFSKWC" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="SKJE" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="SKJE" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
       <arg column="CREATE_BY" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="UPDATE_BY" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="CREATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="UPDATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="SJ" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, HTBH, QS, JE, YJSJ, SGYQ, SFSKWC, SKJE, CREATE_BY, UPDATE_BY, CREATE_TIME, UPDATE_TIME
+    ID, HTBH, QS, JE, YJSJ, SGYQ, SFSKWC, SKJE, CREATE_BY, UPDATE_BY, CREATE_TIME, UPDATE_TIME,
+    SJ
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
     select
@@ -34,11 +36,13 @@
     insert into HTQS (ID, HTBH, QS,
       JE, YJSJ, SGYQ, SFSKWC,
       SKJE, CREATE_BY, UPDATE_BY,
-      CREATE_TIME, UPDATE_TIME)
+      CREATE_TIME, UPDATE_TIME, SJ
+      )
     values (#{id,jdbcType=DECIMAL}, #{htbh,jdbcType=VARCHAR}, #{qs,jdbcType=DECIMAL},
       #{je,jdbcType=DECIMAL}, #{yjsj,jdbcType=TIMESTAMP}, #{sgyq,jdbcType=VARCHAR}, #{sfskwc,jdbcType=VARCHAR},
       #{skje,jdbcType=DECIMAL}, #{createBy,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR},
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{sj,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="contract.pojo.Htqs" >
     insert into HTQS
@@ -79,6 +83,9 @@
       <if test="updateTime != null" >
         UPDATE_TIME,
       </if>
+      <if test="sj != null" >
+        SJ,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -116,6 +123,9 @@
       </if>
       <if test="updateTime != null" >
         #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sj != null" >
+        #{sj,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -155,6 +165,9 @@
       <if test="updateTime != null" >
         UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="sj != null" >
+        SJ = #{sj,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where ID = #{id,jdbcType=DECIMAL}
   </update>
@@ -170,15 +183,20 @@
       CREATE_BY = #{createBy,jdbcType=VARCHAR},
       UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      SJ = #{sj,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=DECIMAL}
   </update>
-
-
   <select id="query" resultMap="BaseResultMap" parameterType="string" >
     select
     <include refid="Base_Column_List" />
     from HTQS
     where HTBH = #{htbh,jdbcType=VARCHAR}
   </select>
+
+  <update id="updatezt">
+    update HTQS
+    set SFSKWC = #{htfqzt,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
 </mapper>

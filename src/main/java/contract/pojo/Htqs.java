@@ -10,7 +10,7 @@ public class Htqs {
 
     private Long qs;
 
-    private Long je;
+    private BigDecimal je;
 
     private Date yjsj;
 
@@ -18,7 +18,7 @@ public class Htqs {
 
     private String sfskwc;
 
-    private Long skje;
+    private BigDecimal skje;
 
     private String createBy;
 
@@ -28,7 +28,9 @@ public class Htqs {
 
     private Date updateTime;
 
-    public Htqs(BigDecimal id, String htbh, Long qs, Long je, Date yjsj, String sgyq, String sfskwc, Long skje, String createBy, String updateBy, Date createTime, Date updateTime) {
+    private Date sj;
+
+    public Htqs(BigDecimal id, String htbh, Long qs, BigDecimal je, Date yjsj, String sgyq, String sfskwc, BigDecimal skje, String createBy, String updateBy, Date createTime, Date updateTime, Date sj) {
         this.id = id;
         this.htbh = htbh;
         this.qs = qs;
@@ -41,6 +43,7 @@ public class Htqs {
         this.updateBy = updateBy;
         this.createTime = createTime;
         this.updateTime = updateTime;
+        this.sj = sj;
     }
 
     public Htqs() {
@@ -71,11 +74,11 @@ public class Htqs {
         this.qs = qs;
     }
 
-    public Long getJe() {
+    public BigDecimal getJe() {
         return je;
     }
 
-    public void setJe(Long je) {
+    public void setJe(BigDecimal je) {
         this.je = je;
     }
 
@@ -103,11 +106,11 @@ public class Htqs {
         this.sfskwc = sfskwc == null ? null : sfskwc.trim();
     }
 
-    public Long getSkje() {
+    public BigDecimal getSkje() {
         return skje;
     }
 
-    public void setSkje(Long skje) {
+    public void setSkje(BigDecimal skje) {
         this.skje = skje;
     }
 
@@ -142,4 +145,13 @@ public class Htqs {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+
+    public Date getSj() {
+        return sj;
+    }
+
+    public void setSj(Date sj) {
+        this.sj = sj;
+    }
+
 }

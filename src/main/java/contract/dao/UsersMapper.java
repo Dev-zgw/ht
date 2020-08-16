@@ -20,4 +20,8 @@ public interface UsersMapper {
     int updateByPrimaryKey(Users record);
 
     List<Users> select(@Param("ssbm") String ssbm);
+
+    List<Users> query();
+
+    List<Users> queryss();
 }

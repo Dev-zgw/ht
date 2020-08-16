@@ -19,5 +19,6 @@ public interface ResultMapper {
 
     int updateByPrimaryKey(Result record);
 
-    List<Result> query(@Param("htbh") String htbh,@Param("startTime") String startTime, @Param("endTime") String endTime);
+    List<Result> query(@Param("htbh") String htbh,@Param("startTime") String startTime,
+                       @Param("endTime") String endTime,@Param("xm") String xm);
 }
