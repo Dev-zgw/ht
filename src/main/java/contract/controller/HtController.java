@@ -49,7 +49,7 @@ public class HtController {
         if(user==null){
             return ServerResponse.createByErrorMessage("用户未登陆");
         }*/
-        Users user = usersMapper.selectByPrimaryKey(new BigDecimal(1));
+        Users user = usersMapper.selectByPrimaryKey(new BigDecimal(5));
         return htService.query(user,pageNum,pageSize,htfl,startTime,endTime,fzr,htzt,dqsheng,diqushi,htjemax,htjemin);
     }
 

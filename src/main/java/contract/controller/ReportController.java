@@ -46,9 +46,9 @@ public class ReportController {
      * @param diqushi   地区-市
      * @return
      */
-    @RequestMapping(value = "getquery.do", method = RequestMethod.POST)
+    @RequestMapping(value = "getReportquery.do", method = RequestMethod.POST)
     @ResponseBody
-    private ServerResponse getquery(HttpSession session, int pageNum, int pageSize, String htfl, String startTime,
+    private ServerResponse getReportquery(HttpSession session, int pageNum, int pageSize, String htfl, String startTime,
                                     String endTime, String fzr, String htzt, String dqsheng, String diqushi,int htnrhtnr){
        /* Users user=(Users) session.getAttribute(Const.CURRENT_USER);
         if(user==null){
