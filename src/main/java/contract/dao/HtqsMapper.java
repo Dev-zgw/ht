@@ -20,4 +20,6 @@ public interface HtqsMapper {
     int updateByPrimaryKey(Htqs record);
 
     List<Htqs> query(@Param("htbh") String htbh);
+
+    int updatezt(@Param("id") BigDecimal id,@Param("htfqzt") String htfqzt);
 }

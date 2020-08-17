@@ -30,7 +30,7 @@ public class HtqsServiceImpl implements HtqsService {
      * @return
      */
     @Override
-    public ServerResponse<List<Htqs>> query(Users users,String htbh) {
+    public ServerResponse<List<Htqs>> query(Users users, String htbh) {
         List<Htqs> htqsList=htqsMapper.query(htbh);
         return ServerResponse.createBySuccess(htqsList);
     }
@@ -42,7 +42,9 @@ public class HtqsServiceImpl implements HtqsService {
      * @return
      */
     @Override
-    public ServerResponse update(Users users,Htqs htqs) {
+    public ServerResponse update(Users users, Htqs htqs) {
+        htqs.setUpdateTime(new Date());
+        htqs.setUpdateBy(users.getXm());
         int i=htqsMapper.updateByPrimaryKeySelective(htqs);
         if(i <= 0){
             Result result=new Result();
@@ -74,6 +76,9 @@ public class HtqsServiceImpl implements HtqsService {
      */
     @Override
     public ServerResponse xinzeng(Users users, Htqs htqs) {
+        htqs.setCreateTime(new Date());
+        htqs.setCreateBy(users.getXm());
+        htqs.setSfskwc("1");
         int i=htqsMapper.insertSelective(htqs);
         if(i<=0){
             Result result=new Result();
@@ -106,26 +111,56 @@ public class HtqsServiceImpl implements HtqsService {
     @Override
     public ServerResponse delete(Users users, int id) {
         Htqs htqs=htqsMapper.selectByPrimaryKey(new BigDecimal(id));
-        int i=htqsMapper.deleteByPrimaryKey(new BigDecimal(id));
-        if(i<=0){
+        if("2".equals(htqs.getSfskwc())){
+            return ServerResponse.createByErrorMessage("该分期已收款完成，不能删除");
+        }else{
+            int i=htqsMapper.deleteByPrimaryKey(new BigDecimal(id));
+            if(i<=0){
+                Result result=new Result();
+                result.setHtbh(htqs.getHtbh());
+                result.setUserid(users.getId());
+                result.setXm(users.getXm());
+                result.setCzsj(new Date());
+                result.setCznr("合同期数删除");
+                result.setBz("合同期数删除失败");
+                resultMapper.insertSelective(result);
+                return ServerResponse.createByErrorMessage("合同期数删除失败");
+            }
             Result result=new Result();
             result.setHtbh(htqs.getHtbh());
             result.setUserid(users.getId());
             result.setXm(users.getXm());
             result.setCzsj(new Date());
             result.setCznr("合同期数删除");
-            result.setBz("合同期数删除失败");
+            result.setBz("合同期数删除成功");
             resultMapper.insertSelective(result);
-            return ServerResponse.createByErrorMessage("合同期数删除失败");
+            return ServerResponse.createBySuccessMessage("合同期数删除成功");
+        }
+    }
+
+    @Override
+    public ServerResponse htqsxg(Users users, int id, String htfqzt) {
+        Htqs htqs=htqsMapper.selectByPrimaryKey(new BigDecimal(id));
+        int i=htqsMapper.updatezt(new BigDecimal(id),htfqzt);
+        if(i<=0){
+            Result result=new Result();
+            result.setHtbh(htqs.getHtbh());
+            result.setUserid(users.getId());
+            result.setXm(users.getXm());
+            result.setCzsj(new Date());
+            result.setCznr("合同期数验收失败");
+            result.setBz("合同期数验收失败");
+            resultMapper.insertSelective(result);
+            return ServerResponse.createBySuccessMessage("操作失败");
         }
         Result result=new Result();
         result.setHtbh(htqs.getHtbh());
         result.setUserid(users.getId());
         result.setXm(users.getXm());
         result.setCzsj(new Date());
-        result.setCznr("合同期数删除");
-        result.setBz("合同期数删除成功");
+        result.setCznr("合同期数验收成功");
+        result.setBz("合同期数验收成功");
         resultMapper.insertSelective(result);
-        return ServerResponse.createBySuccessMessage("合同期数删除成功");
+        return ServerResponse.createBySuccessMessage("操作成功");
     }
 }

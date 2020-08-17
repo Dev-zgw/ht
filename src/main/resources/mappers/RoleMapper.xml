@@ -16,8 +16,16 @@
   <sql id="Base_Column_List" >
     ID, JSMC, QXID, JSQX, CREATE_BY, UPDATE_BY, CREATE_TIME, UPDATE_TIME
   </sql>
+
+  <!--查询所有角色-->
+  <select id="selectRoleList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from ROLE
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from ROLE
     where ID = #{id,jdbcType=DECIMAL}
@@ -27,11 +35,11 @@
     where ID = #{id,jdbcType=DECIMAL}
   </delete>
   <insert id="insert" parameterType="contract.pojo.Role" >
-    insert into ROLE (ID, JSMC, QXID, 
-      JSQX, CREATE_BY, UPDATE_BY, 
+    insert into ROLE (ID, JSMC, QXID,
+      JSQX, CREATE_BY, UPDATE_BY,
       CREATE_TIME, UPDATE_TIME)
-    values (#{id,jdbcType=DECIMAL}, #{jsmc,jdbcType=VARCHAR}, #{qxid,jdbcType=DECIMAL}, 
-      #{jsqx,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=DECIMAL}, #{jsmc,jdbcType=VARCHAR}, #{qxid,jdbcType=DECIMAL},
+      #{jsqx,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR},
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="contract.pojo.Role" >

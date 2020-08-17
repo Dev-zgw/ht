@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="contract.dao.ReportMapper" >
+    <resultMap id="BaseResultMap" type="contract.pojo.Report" >
+        <constructor>
+            <arg column="count" jdbcType="DECIMAL" javaType="java.lang.Long" />
+            <arg column="sum" jdbcType="DECIMAL" javaType="java.lang.Long" />
+        </constructor>
+    </resultMap>
+    <select id="selectBasicInfo">
+        select count(*) as count,sum(skje) as sum from HT where to_char(#{qsrq,jdbcType=DECIMAL},'MM')=to_char(sysdate,'MM')
+    </select>
+</mapper>

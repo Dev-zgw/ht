@@ -16,7 +16,7 @@
     ID, FLMC, ZT, CREATE_BY, UPDATE_BY, CREATE_TIME, UPDATE_TIME
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from HTFL
     where ID = #{id,jdbcType=DECIMAL}
@@ -26,11 +26,11 @@
     where ID = #{id,jdbcType=DECIMAL}
   </delete>
   <insert id="insert" parameterType="contract.pojo.Htfl" >
-    insert into HTFL (ID, FLMC, ZT, 
-      CREATE_BY, UPDATE_BY, CREATE_TIME, 
+    insert into HTFL (ID, FLMC, ZT,
+      CREATE_BY, UPDATE_BY, CREATE_TIME,
       UPDATE_TIME)
-    values (#{id,jdbcType=DECIMAL}, #{flmc,jdbcType=VARCHAR}, #{zt,jdbcType=VARCHAR}, 
-      #{createBy,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=DECIMAL}, #{flmc,jdbcType=VARCHAR}, #{zt,jdbcType=VARCHAR},
+      #{createBy,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
       #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="contract.pojo.Htfl" >
@@ -116,4 +116,9 @@
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=DECIMAL}
   </update>
+  <select id="select" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from HTFL
+  </select>
 </mapper>
