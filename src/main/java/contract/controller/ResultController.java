@@ -42,6 +42,6 @@ public class ResultController {
         if(user==null){
             return ServiceResponsebg.createByErrorMessage("用户未登陆");
         }
-        return resultService.query(pageNum,pageSize,htbh,sj,xm);
+       return resultService.query(pageNum,pageSize,htbh,sj,xm);
     }
 }

@@ -1,4 +1,3 @@
-
 package contract.service;
 
 import contract.pojo.Department;

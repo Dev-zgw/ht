@@ -2,6 +2,7 @@ package contract.dao;
 
 import contract.pojo.Role;
 import java.math.BigDecimal;
+import java.util.List;
 
 public interface RoleMapper {
     int deleteByPrimaryKey(BigDecimal id);
@@ -15,4 +16,7 @@ public interface RoleMapper {
     int updateByPrimaryKeySelective(Role record);
 
     int updateByPrimaryKey(Role record);
+
+    //查询所有角色
+    List<Role> selectRoleList();
 }

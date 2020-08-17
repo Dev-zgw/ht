@@ -9,9 +9,9 @@
       <arg column="FZR" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="YYMC" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="HTNR" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="HTNRHTNR" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="HTNRHTNR" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
       <arg column="FKZQ" jdbcType="DECIMAL" javaType="java.lang.Long" />
-      <arg column="NYWFJE" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="NYWFJE" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
       <arg column="NYWFSJ" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="XXKXM" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="XXKLXFS" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -20,7 +20,7 @@
       <arg column="YWDJR" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="YWDJRLXFS" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="SFSKWC" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="SKJE" jdbcType="DECIMAL" javaType="java.lang.Long" />
+      <arg column="SKJE" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
       <arg column="HTSFDQ" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="HTZT" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="BZ" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -33,12 +33,14 @@
       <arg column="CREATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="UPDATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="FZRID" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="SSFZR" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SSFZRID" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
     ID, HTBH, QSRQ, FZR, YYMC, HTNR, HTNRHTNR, FKZQ, NYWFJE, NYWFSJ, XXKXM, XXKLXFS,
     CWKXM, CWKLXFS, YWDJR, YWDJRLXFS, SFSKWC, SKJE, HTSFDQ, HTZT, BZ, YYJB, DQSHENG,
-    DQSHI, HTFL, CREATE_BY, UPDATE_BY, CREATE_TIME, UPDATE_TIME, FZRID
+    DQSHI, HTFL, CREATE_BY, UPDATE_BY, CREATE_TIME, UPDATE_TIME, FZRID,SSFZR,SSFZRID
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
     select
@@ -60,7 +62,7 @@
       HTZT, BZ, YYJB, DQSHENG,
       DQSHI, HTFL, CREATE_BY,
       UPDATE_BY, CREATE_TIME, UPDATE_TIME,
-      FZRID)
+      FZRID,SSFZR,SSFZRID)
     values (#{id,jdbcType=DECIMAL}, #{htbh,jdbcType=VARCHAR}, #{qsrq,jdbcType=TIMESTAMP},
       #{fzr,jdbcType=VARCHAR}, #{yymc,jdbcType=VARCHAR}, #{htnr,jdbcType=VARCHAR}, #{htnrhtnr,jdbcType=DECIMAL},
       #{fkzq,jdbcType=DECIMAL}, #{nywfje,jdbcType=DECIMAL}, #{nywfsj,jdbcType=TIMESTAMP},
@@ -70,7 +72,8 @@
       #{htzt,jdbcType=VARCHAR}, #{bz,jdbcType=VARCHAR}, #{yyjb,jdbcType=VARCHAR}, #{dqsheng,jdbcType=VARCHAR},
       #{dqshi,jdbcType=VARCHAR}, #{htfl,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR},
       #{updateBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
-      #{fzrid,jdbcType=DECIMAL})
+      #{fzrid,jdbcType=DECIMAL}),#{ssfzr,jdbcType=VARCHAR},
+      #{ssfzrid,jdbcType=DECIMAL})
   </insert>
   <insert id="insertSelective" parameterType="contract.pojo.Ht" >
     insert into HT
@@ -165,6 +168,12 @@
       <if test="fzrid != null" >
         FZRID,
       </if>
+      <if test="ssfzr != null" >
+        SSFZR,
+      </if>
+      <if test="ssfzrid != null" >
+        SSFZRID,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -256,6 +265,12 @@
       </if>
       <if test="fzrid != null" >
         #{fzrid,jdbcType=DECIMAL},
+      </if>
+      <if test="ssfzr != null" >
+        #{ssfzr,jdbcType=VARCHAR},
+      </if>
+      <if test="ssfzrid != null" >
+        #{ssfzrid,jdbcType=DECIMAL},
       </if>
     </trim>
   </insert>
@@ -349,6 +364,12 @@
       <if test="fzrid != null" >
         FZRID = #{fzrid,jdbcType=DECIMAL},
       </if>
+      <if test="ssfzr != null" >
+        SSFZR = #{ssfzr,jdbcType=VARCHAR},
+      </if>
+      <if test="ssfzrid != null" >
+        SSFZRID = #{ssfzrid,jdbcType=DECIMAL},
+      </if>
     </set>
     where ID = #{id,jdbcType=DECIMAL}
   </update>
@@ -382,15 +403,94 @@
       UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
-      FZRID = #{fzrid,jdbcType=DECIMAL}
+      FZRID = #{fzrid,jdbcType=DECIMAL},
+      SSFZR = #{ssfzr,jdbcType=VARCHAR},
+      SSFZRID = #{ssfzrid,jdbcType=DECIMAL}
     where ID = #{id,jdbcType=DECIMAL}
   </update>
-
   <select id="select" resultMap="BaseResultMap" >
     select
     <include refid="Base_Column_List" />
     from HT
     where 1=1
+    <if test="htfl != null and htfl != ''">
+      and  HTFL = #{htfl,jdbcType=VARCHAR}
+    </if>
+    <if test="startTime!= null and startTime != ''">
+      and  QSRQ &gt;= to_date(#{startTime,jdbcType=VARCHAR}, 'yyyy-mm-dd')
+    </if>
+    <if test="endTime != null and endTime != ''">
+      and  QSRQ &lt;= to_date(#{endTime,jdbcType=VARCHAR}, 'yyyy-mm-dd ')
+    </if>
+    <if test="fzr != null and fzr != ''">
+      and  FZR = #{fzr,jdbcType=VARCHAR}
+    </if>
+    <if test="ssfzr != null and ssfzr != ''">
+      and  SSFZR = #{ssfzr,jdbcType=VARCHAR}
+    </if>
+    <if test="htzt != null and htzt != ''">
+      and  HTZT = #{htzt,jdbcType=VARCHAR}
+    </if>
+    <if test="dqsheng != null and dqsheng != ''">
+      and  DQSHENG = #{dqsheng,jdbcType=VARCHAR}
+    </if>
+    <if test="dqshi != null and dqshi != ''">
+      and  DQSHI = #{dqshi,jdbcType=VARCHAR}
+    </if>
+    <if test="htjemax != null and htjemax != ''">
+      and  HTNRHTNR &lt;= #{htjemax,jdbcType=DECIMAL}
+    </if>
+    <if test="htjemin != null and htjemin != ''">
+      and  HTNRHTNR &gt; #{htjemin,jdbcType=DECIMAL}
+    </if>
+  </select>
+  <select id="selectyh" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from HT
+    where
+    FZRID = #{fzrid,jdbcType=DECIMAL}
+    <if test="htfl != null and htfl != ''">
+      and  HTFL = #{htfl,jdbcType=VARCHAR}
+    </if>
+    <if test="startTime!= null and startTime != ''">
+      and  QSRQ &gt;= to_date(#{startTime,jdbcType=VARCHAR}, 'yyyy-mm-dd')
+    </if>
+    <if test="endTime != null and endTime != ''">
+      and  QSRQ &lt;= to_date(#{endTime,jdbcType=VARCHAR}, 'yyyy-mm-dd ')
+    </if>
+    <if test="ssfzr != null and ssfzr != ''">
+      and  SSFZR = #{ssfzr,jdbcType=VARCHAR}
+    </if>
+    <if test="htzt != null and htzt != ''">
+      and  HTZT = #{htzt,jdbcType=VARCHAR}
+    </if>
+    <if test="dqsheng != null and dqsheng != ''">
+      and  DQSHENG = #{dqsheng,jdbcType=VARCHAR}
+    </if>
+    <if test="dqshi != null and dqshi != ''">
+      and  DQSHI = #{dqshi,jdbcType=VARCHAR}
+    </if>
+    <if test="htjemax != null and htjemax != ''">
+      and  HTNRHTNR &lt;= #{htjemax,jdbcType=DECIMAL}
+    </if>
+    <if test="htjemin != null and htjemin != ''">
+      and  HTNRHTNR &gt; #{htjemin,jdbcType=DECIMAL}
+    </if>
+  </select>
+  <select id="selects" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from HT
+    where
+    HTBH =#{htbh,jdbcType=VARCHAR}
+  </select>
+  <select id="selectss" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from HT
+    where
+    SSFZRID = #{ssfzrid,jdbcType=DECIMAL}
     <if test="htfl != null and htfl != ''">
       and  HTFL = #{htfl,jdbcType=VARCHAR}
     </if>
@@ -412,57 +512,17 @@
     <if test="dqshi != null and dqshi != ''">
       and  DQSHI = #{dqshi,jdbcType=VARCHAR}
     </if>
-  </select>
-  <select id="selectyh" resultMap="BaseResultMap" >
-    select
-    <include refid="Base_Column_List" />
-    from HT
-    where
-    FZRID = #{fzrid,jdbcType=DECIMAL}
-    <if test="htfl != null and htfl != ''">
-      and  HTFL = #{htfl,jdbcType=VARCHAR}
+    <if test="htjemax != null and htjemax != ''">
+      and  HTNRHTNR &lt;= #{htjemax,jdbcType=DECIMAL}
     </if>
-    <if test="startTime!= null and startTime != ''">
-      and  QSRQ &gt;= to_date(#{startTime,jdbcType=VARCHAR}, 'yyyy-mm-dd')
-    </if>
-    <if test="endTime != null and endTime != ''">
-      and  QSRQ &lt;= to_date(#{endTime,jdbcType=VARCHAR}, 'yyyy-mm-dd ')
-    </if>
-    <if test="htzt != null and htzt != ''">
-      and  HTZT = #{htzt,jdbcType=VARCHAR}
-    </if>
-    <if test="dqsheng != null and dqsheng != ''">
-      and  DQSHENG = #{dqsheng,jdbcType=VARCHAR}
-    </if>
-    <if test="dqshi != null and dqshi != ''">
-      and  DQSHI = #{dqshi,jdbcType=VARCHAR}
+    <if test="htjemin != null and htjemin != ''">
+      and  HTNRHTNR &gt; #{htjemin,jdbcType=DECIMAL}
     </if>
   </select>
 
-  <select id="selectreport" resultMap="BaseResultMap" >
-    select
-    <include refid="Base_Column_List" />
-    from HT
-    where
-    FZRID = #{fzrid,jdbcType=DECIMAL}
-    and HTNRHTNR = #{htnrhtnr,jdbcType=DECIMAL}
-    <if test="htfl != null and htfl != ''">
-      and  HTFL = #{htfl,jdbcType=VARCHAR}
-    </if>
-    <if test="startTime!= null and startTime != ''">
-      and  QSRQ &gt;= to_date(#{startTime,jdbcType=VARCHAR}, 'yyyy-mm-dd')
-    </if>
-    <if test="endTime != null and endTime != ''">
-      and  QSRQ &lt;= to_date(#{endTime,jdbcType=VARCHAR}, 'yyyy-mm-dd ')
-    </if>
-    <if test="htzt != null and htzt != ''">
-      and  HTZT = #{htzt,jdbcType=VARCHAR}
-    </if>
-    <if test="dqsheng != null and dqsheng != ''">
-      and  DQSHENG = #{dqsheng,jdbcType=VARCHAR}
-    </if>
-    <if test="dqshi != null and dqshi != ''">
-      and  DQSHI = #{dqshi,jdbcType=VARCHAR}
-    </if>
-  </select>
+  <update id="updatezt">
+    update HT
+    set HTZT = #{htzt,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
 </mapper>
