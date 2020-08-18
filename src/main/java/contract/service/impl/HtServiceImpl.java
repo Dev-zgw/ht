@@ -73,11 +73,17 @@ public class HtServiceImpl implements HtService {
         //管理员查询所有合同信息
         if(role.getQxid().longValue()== Const.Role.ROLE_ADMIN){
             list=htMapper.select(htfl,startTime,endTime,fzr,ssfzr,htzt,dqsheng,dqshi,htjemax,htjemin);
+            for(int i=0;i<list.size();i++){
+                list.get(i).setHtfl(htflMapper.selectByPrimaryKey(new BigDecimal(list.get(i).getHtfl())).getFlmc());
+            }
         }
 
         //总经理权限查看合同信息
         if(role.getQxid().longValue()== Const.Role.ROLE_ZJL){
             list=htMapper.select(htfl,startTime,endTime,fzr,ssfzr,htzt,dqsheng,dqshi,htjemax,htjemin);
+            for(int i=0;i<list.size();i++){
+                list.get(i).setHtfl(htflMapper.selectByPrimaryKey(new BigDecimal(list.get(i).getHtfl())).getFlmc());
+            }
         }
 
         //部门经理只能查看该部门的合同信息
@@ -90,6 +96,7 @@ public class HtServiceImpl implements HtService {
                 List<Ht> htList=htMapper.selectyh(listUser.get(i).getId(),htfl,startTime,endTime,ssfzr,htzt,dqsheng,dqshi,htjemax,htjemin);
                 for(int j=0;j<htList.size();j++){
                     //查询出的数据放入一个list集合中分页使用
+                    htList.get(j).setHtfl(htflMapper.selectByPrimaryKey(new BigDecimal(htList.get(j).getHtfl())).getFlmc());
                     list.add(htList.get(j));
                 }
             }
