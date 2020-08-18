@@ -1,5 +1,6 @@
 package contract.service;
 
+import contract.pojo.CalReport;
 import contract.pojo.Ht;
 import contract.pojo.Users;
 import contract.utils.ServerResponse;
@@ -24,4 +25,10 @@ public interface HtService {
     ServerResponse<List<Users>> queryfzr();
     //查询实施用户
     ServerResponse<List<Users>> queryssfzr();
+
+    ServerResponse<List<CalReport>> selectReport(Users user,String qsrq);
+
+    ServerResponse<List<CalReport>> selectReportavg(Users user,String qsrq);
+
+    ServerResponse<List<CalReport>> selectReportcount(Users user,String qsrq);
 }

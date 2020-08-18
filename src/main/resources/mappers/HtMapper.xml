@@ -37,6 +37,22 @@
       <arg column="SSFZRID" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
     </constructor>
   </resultMap>
+  <resultMap id="ReportResultMap" type="contract.pojo.CalReport" >
+    <constructor >
+      <arg column="yi" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="er" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="san" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="si" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="wu" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="liu" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="qi" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="ba" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="jiu" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="shi" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="shiyi" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="shier" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+    </constructor>
+  </resultMap>
   <sql id="Base_Column_List" >
     ID, HTBH, QSRQ, FZR, YYMC, HTNR, HTNRHTNR, FKZQ, NYWFJE, NYWFSJ, XXKXM, XXKLXFS,
     CWKXM, CWKLXFS, YWDJR, YWDJRLXFS, SFSKWC, SKJE, HTSFDQ, HTZT, BZ, YYJB, DQSHENG,
@@ -520,6 +536,72 @@
     </if>
   </select>
 
+  <select id="selectReport" resultMap="ReportResultMap">
+    SELECT SUM(DECODE(EXTRACT(MONTH FROM B.QSRQ), 1, B.HTNRHTNR, 0)) AS yi,
+    SUM(DECODE(EXTRACT(MONTH FROM B.QSRQ), 2, B.HTNRHTNR, 0)) AS er,
+    SUM(DECODE(EXTRACT(MONTH FROM B.QSRQ), 3, B.HTNRHTNR, 0)) AS san,
+    SUM(DECODE(EXTRACT(MONTH FROM B.QSRQ), 4, B.HTNRHTNR, 0)) AS si,
+    SUM(DECODE(EXTRACT(MONTH FROM B.QSRQ), 5, B.HTNRHTNR, 0)) AS wu,
+    SUM(DECODE(EXTRACT(MONTH FROM B.QSRQ), 6, B.HTNRHTNR, 0)) AS liu,
+    SUM(DECODE(EXTRACT(MONTH FROM B.QSRQ), 7, B.HTNRHTNR, 0)) AS qi,
+    SUM(DECODE(EXTRACT(MONTH FROM B.QSRQ), 8, B.HTNRHTNR, 0)) AS ba,
+    SUM(DECODE(EXTRACT(MONTH FROM B.QSRQ), 9, B.HTNRHTNR, 0)) AS jiu,
+    SUM(DECODE(EXTRACT(MONTH FROM B.QSRQ), 10, B.HTNRHTNR, 0)) AS shi,
+    SUM(DECODE(EXTRACT(MONTH FROM B.QSRQ), 11, B.HTNRHTNR, 0)) AS shiyi,
+    SUM(DECODE(EXTRACT(MONTH FROM B.QSRQ), 12, B.HTNRHTNR, 0)) AS shier
+    FROM HT B
+    where 1=1
+    <if test="startTime!= null and startTime != ''">
+      and  QSRQ &gt;= to_date(#{startTime,jdbcType=VARCHAR}, 'yyyy-mm-dd')
+    </if>
+    <if test="endTime != null and endTime != ''">
+      and  QSRQ &lt;= to_date(#{endTime,jdbcType=VARCHAR}, 'yyyy-mm-dd ')
+    </if>
+  </select>
+  <select id="selectReportAVG" resultMap="ReportResultMap">
+    SELECT AVG(DECODE(EXTRACT(MONTH FROM B.QSRQ), 1, B.HTNRHTNR, 0)) AS yi,
+    AVG(DECODE(EXTRACT(MONTH FROM B.QSRQ), 2, B.HTNRHTNR, 0)) AS er,
+    AVG(DECODE(EXTRACT(MONTH FROM B.QSRQ), 3, B.HTNRHTNR, 0)) AS san,
+    AVG(DECODE(EXTRACT(MONTH FROM B.QSRQ), 4, B.HTNRHTNR, 0)) AS si,
+    AVG(DECODE(EXTRACT(MONTH FROM B.QSRQ), 5, B.HTNRHTNR, 0)) AS wu,
+    AVG(DECODE(EXTRACT(MONTH FROM B.QSRQ), 6, B.HTNRHTNR, 0)) AS liu,
+    AVG(DECODE(EXTRACT(MONTH FROM B.QSRQ), 7, B.HTNRHTNR, 0)) AS qi,
+    AVG(DECODE(EXTRACT(MONTH FROM B.QSRQ), 8, B.HTNRHTNR, 0)) AS ba,
+    AVG(DECODE(EXTRACT(MONTH FROM B.QSRQ), 9, B.HTNRHTNR, 0)) AS jiu,
+    AVG(DECODE(EXTRACT(MONTH FROM B.QSRQ), 10, B.HTNRHTNR, 0)) AS shi,
+    AVG(DECODE(EXTRACT(MONTH FROM B.QSRQ), 11, B.HTNRHTNR, 0)) AS shiyi,
+    AVG(DECODE(EXTRACT(MONTH FROM B.QSRQ), 12, B.HTNRHTNR, 0)) AS shier
+    FROM HT B
+    where 1=1
+    <if test="startTime!= null and startTime != ''">
+      and  QSRQ &gt;= to_date(#{startTime,jdbcType=VARCHAR}, 'yyyy-mm-dd')
+    </if>
+    <if test="endTime != null and endTime != ''">
+      and  QSRQ &lt;= to_date(#{endTime,jdbcType=VARCHAR}, 'yyyy-mm-dd ')
+    </if>
+  </select>
+  <select id="selectReportAVG" resultMap="ReportResultMap">
+    SELECT COUNT(DECODE(EXTRACT(MONTH FROM B.QSRQ), 1, B.HTNRHTNR, NULL)) AS yi,
+    COUNT(DECODE(EXTRACT(MONTH FROM B.QSRQ), 2, B.HTNRHTNR, NULL)) AS er,
+    COUNT(DECODE(EXTRACT(MONTH FROM B.QSRQ), 3, B.HTNRHTNR, NULL)) AS san,
+    COUNT(DECODE(EXTRACT(MONTH FROM B.QSRQ), 4, B.HTNRHTNR, NULL)) AS si,
+    COUNT(DECODE(EXTRACT(MONTH FROM B.QSRQ), 5, B.HTNRHTNR, NULL)) AS wu,
+    COUNT(DECODE(EXTRACT(MONTH FROM B.QSRQ), 6, B.HTNRHTNR, NULL)) AS liu,
+    COUNT(DECODE(EXTRACT(MONTH FROM B.QSRQ), 7, B.HTNRHTNR, NULL)) AS qi,
+    COUNT(DECODE(EXTRACT(MONTH FROM B.QSRQ), 8, B.HTNRHTNR, NULL)) AS ba,
+    COUNT(DECODE(EXTRACT(MONTH FROM B.QSRQ), 9, B.HTNRHTNR, NULL)) AS jiu,
+    COUNT(DECODE(EXTRACT(MONTH FROM B.QSRQ), 10, B.HTNRHTNR, NULL)) AS shi,
+    COUNT(DECODE(EXTRACT(MONTH FROM B.QSRQ), 11, B.HTNRHTNR, NULL)) AS shiyi,
+    COUNT(DECODE(EXTRACT(MONTH FROM B.QSRQ), 12, B.HTNRHTNR, NULL)) AS shier
+    FROM HT B
+    where 1=1
+    <if test="startTime!= null and startTime != ''">
+      and  QSRQ &gt;= to_date(#{startTime,jdbcType=VARCHAR}, 'yyyy-mm-dd')
+    </if>
+    <if test="endTime != null and endTime != ''">
+      and  QSRQ &lt;= to_date(#{endTime,jdbcType=VARCHAR}, 'yyyy-mm-dd ')
+    </if>
+  </select>
   <update id="updatezt">
     update HT
     set HTZT = #{htzt,jdbcType=VARCHAR}

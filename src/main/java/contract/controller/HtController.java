@@ -1,6 +1,7 @@
 package contract.controller;
 
 import contract.dao.UsersMapper;
+import contract.pojo.CalReport;
 import contract.pojo.Ht;
 import contract.pojo.Users;
 import contract.service.HtService;
@@ -184,5 +185,53 @@ public class HtController {
             return ServerResponse.createByErrorMessage("用户未登陆");
         }
         return htService.delete(user,id);
+    }
+
+    /**
+     * 合同总金额
+     * @param session
+     * @param qsrq
+     * @return
+     */
+    @RequestMapping(value = "sumreport.do",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse<List<CalReport>> selectReport(HttpSession session,String qsrq){
+        Users user=(Users) session.getAttribute(Const.CURRENT_USER);
+        if(user==null){
+            return ServerResponse.createByErrorMessage("用户未登陆");
+        }
+        return htService.selectReport(user,qsrq);
+    }
+
+    /**
+     * 合同平均金额
+     * @param session
+     * @param qsrq
+     * @return
+     */
+    @RequestMapping(value = "avgreport.do",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse<List<CalReport>> selectReportavg(HttpSession session,String qsrq){
+        Users user=(Users) session.getAttribute(Const.CURRENT_USER);
+        if(user==null){
+            return ServerResponse.createByErrorMessage("用户未登陆");
+        }
+        return htService.selectReportavg(user,qsrq);
+    }
+
+    /**
+     * 合同数量
+     * @param session
+     * @param qsrq
+     * @return
+     */
+    @RequestMapping(value = "countreport.do",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse<List<CalReport>> selectReportcount(HttpSession session,String qsrq){
+        Users user=(Users) session.getAttribute(Const.CURRENT_USER);
+        if(user==null){
+            return ServerResponse.createByErrorMessage("用户未登陆");
+        }
+        return htService.selectReportavg(user,qsrq);
     }
 }

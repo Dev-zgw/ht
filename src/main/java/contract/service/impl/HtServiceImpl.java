@@ -258,4 +258,45 @@ public class HtServiceImpl implements HtService {
         List<Users> users= userMapper.queryss();
         return ServerResponse.createBySuccess(users);
     }
+
+    @Override
+    public ServerResponse<List<CalReport>> selectReport(Users user, String qsrq) {
+        String startTime="";
+        String endTime="";
+        if(qsrq!=""&&qsrq!=null ) {
+            String date[] = qsrq.split(",");
+            startTime = date[0].toString().substring(1,date[0].toString().length()-1);
+            endTime = date[1].toString().substring(1,date[1].toString().length()-1);
+        }
+        List<CalReport> list = htMapper.selectReport(startTime,endTime);
+        return ServerResponse.createBySuccess(list);
+    }
+
+    @Override
+    public ServerResponse<List<CalReport>> selectReportavg(Users user, String qsrq) {
+        String startTime="";
+        String endTime="";
+        if(qsrq!=""&&qsrq!=null ) {
+            String date[] = qsrq.split(",");
+            startTime = date[0].toString().substring(1,date[0].toString().length()-1);
+            endTime = date[1].toString().substring(1,date[1].toString().length()-1);
+        }
+        List<CalReport> list = htMapper.selectReportavg(startTime,endTime);
+        return ServerResponse.createBySuccess(list);
+    }
+
+    @Override
+    public ServerResponse<List<CalReport>> selectReportcount(Users user, String qsrq) {
+        String startTime="";
+        String endTime="";
+        if(qsrq!=""&&qsrq!=null ) {
+            String date[] = qsrq.split(",");
+            startTime = date[0].toString().substring(1,date[0].toString().length()-1);
+            endTime = date[1].toString().substring(1,date[1].toString().length()-1);
+        }
+        List<CalReport> list = htMapper.selectReportcount(startTime,endTime);
+        return ServerResponse.createBySuccess(list);
+    }
+
+
 }
