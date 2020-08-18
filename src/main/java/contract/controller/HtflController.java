@@ -32,11 +32,8 @@ public class HtflController {
      */
     @RequestMapping(value = "query.do" , method = RequestMethod.POST)
     @ResponseBody
-    private ServerResponse getquery(HttpSession session){
-        Users user=(Users) session.getAttribute(Const.CURRENT_USER);
-        if(user==null){
-            return ServerResponse.createByErrorMessage("用户未登陆");
-        }
+    private ServerResponse getquery(String userid){
+        Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
         return htflService.query();
     }
 
@@ -48,11 +45,8 @@ public class HtflController {
      */
     @RequestMapping(value = "delete.do",method = RequestMethod.POST)
     @ResponseBody
-    private ServerResponse delete(HttpSession session,int id){
-        Users user=(Users) session.getAttribute(Const.CURRENT_USER);
-        if(user==null){
-            return ServerResponse.createByErrorMessage("用户未登陆");
-        }
+    private ServerResponse delete(String userid,int id){
+        Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
         return htflService.delete(user,id);
     }
 
@@ -64,11 +58,8 @@ public class HtflController {
      */
     @RequestMapping(value = "insert",method = RequestMethod.POST)
     @ResponseBody
-    private ServerResponse insert(HttpSession session, Htfl htfl){
-        Users user=(Users) session.getAttribute(Const.CURRENT_USER);
-        if(user==null){
-            return ServerResponse.createByErrorMessage("用户未登陆");
-        }
+    private ServerResponse insert(String userid, Htfl htfl){
+        Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
         return htflService.insert(user, htfl);
     }
 

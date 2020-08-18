@@ -17,18 +17,19 @@
   <sql id="Base_Column_List" >
     ID, HTBH, USERID, XM, CZSJ, CZNR, BZ, CREATE_BY, CREATE_TIME
   </sql>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
     select
     <include refid="Base_Column_List" />
-    from RESUTL
+    from RESULT
     where ID = #{id,jdbcType=DECIMAL}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
-    delete from RESUTL
+    delete from RESULT
     where ID = #{id,jdbcType=DECIMAL}
   </delete>
   <insert id="insert" parameterType="contract.pojo.Result" >
-    insert into RESUTL (ID, HTBH, USERID,
+    insert into RESULT (ID, HTBH, USERID,
       XM, CZSJ, CZNR, BZ,
       CREATE_BY, CREATE_TIME)
     values (#{id,jdbcType=DECIMAL}, #{htbh,jdbcType=VARCHAR}, #{userid,jdbcType=DECIMAL},
@@ -36,7 +37,7 @@
       #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="contract.pojo.Result" >
-    insert into RESUTL
+    insert into RESULT
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         ID,
@@ -97,7 +98,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="contract.pojo.Result" >
-    update RESUTL
+    update RESULT
     <set >
       <if test="htbh != null" >
         HTBH = #{htbh,jdbcType=VARCHAR},
@@ -127,7 +128,7 @@
     where ID = #{id,jdbcType=DECIMAL}
   </update>
   <update id="updateByPrimaryKey" parameterType="contract.pojo.Result" >
-    update RESUTL
+    update RESULT
     set HTBH = #{htbh,jdbcType=VARCHAR},
       USERID = #{userid,jdbcType=DECIMAL},
       XM = #{xm,jdbcType=VARCHAR},
@@ -140,21 +141,23 @@
   </update>
 
   <select id="query" resultMap="BaseResultMap" parameterType="string" >
-    select
-    <include refid="Base_Column_List" />
-    from RESUTL
+    select <include refid="Base_Column_List" />
+    from RESULT
     where 1=1
     <if test="htbh != null and htbh != ''">
-      and  HTBH = #{htbh,jdbcType=VARCHAR}
+      and  htbh = #{htbh,jdbcType=VARCHAR}
     </if>
     <if test="startTime!= null and startTime != ''">
-      and  CZSJ &gt;= to_date(#{startTime,jdbcType=VARCHAR}, 'yyyy-mm-dd')
+      and  czsj &gt;= to_date(#{startTime,jdbcType=VARCHAR}, 'yyyy-mm-dd')
     </if>
     <if test="endTime != null and endTime != ''">
-      and  CZSJ &lt;= to_date(#{endTime,jdbcType=VARCHAR}, 'yyyy-mm-dd ')
+      and  czsj &lt;= to_date(#{endTime,jdbcType=VARCHAR}, 'yyyy-mm-dd ')
     </if>
     <if test="xm != null and xm != ''">
-      and  XM = #{xm,jdbcType=VARCHAR}
+      and  xm = #{xm,jdbcType=VARCHAR}
     </if>
   </select>
+  <delete id="deleteAll" parameterType="java.math.BigDecimal">
+    delete from RESULT
+  </delete>
 </mapper>

@@ -37,11 +37,8 @@ public class HtqsController {
      */
     @RequestMapping(value = "query.do", method = RequestMethod.POST)
     @ResponseBody
-    private ServerResponse query(HttpSession session, String htbh){
-        Users user=(Users) session.getAttribute(Const.CURRENT_USER);
-        if(user==null){
-            return ServerResponse.createByErrorMessage("用户未登陆");
-        }
+    private ServerResponse query(String userid, String htbh){
+        Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
         return htqsService.query(user,htbh);
     }
 
@@ -54,11 +51,8 @@ public class HtqsController {
      */
     @RequestMapping(value = "update.do",method =RequestMethod.POST)
     @ResponseBody
-    private ServerResponse update(HttpSession session,String id, String htbh, Long yjsj,Long sj,String je){
-        Users user=(Users) session.getAttribute(Const.CURRENT_USER);
-        if(user==null){
-            return ServerResponse.createByErrorMessage("用户未登陆");
-        }
+    private ServerResponse update(String userid,String id, String htbh, Long yjsj,Long sj,String je){
+        Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
         Htqs htqs=new Htqs();
         htqs.setId(new BigDecimal(id));
         htqs.setHtbh(htbh);
@@ -76,11 +70,8 @@ public class HtqsController {
      */
     @RequestMapping(value = "xinzeng.do",method = RequestMethod.POST)
     @ResponseBody
-    private ServerResponse  xinzeng(HttpSession session, String htbh, Long yjsj,Long sj,String je){
-        Users user=(Users) session.getAttribute(Const.CURRENT_USER);
-        if(user==null){
-            return ServerResponse.createByErrorMessage("用户未登陆");
-        }
+    private ServerResponse  xinzeng(String userid, String htbh, Long yjsj,Long sj,String je){
+        Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Htqs htqs=new Htqs();
         htqs.setHtbh(htbh);
@@ -98,11 +89,8 @@ public class HtqsController {
      */
     @RequestMapping(value ="delete.do",method = RequestMethod.POST)
     @ResponseBody
-    private ServerResponse delete(HttpSession session,int id){
-        Users user=(Users) session.getAttribute(Const.CURRENT_USER);
-        if(user==null){
-            return ServerResponse.createByErrorMessage("用户未登陆");
-        }
+    private ServerResponse delete(String userid,int id){
+        Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
         return htqsService.delete(user,id);
     }
 
@@ -115,11 +103,8 @@ public class HtqsController {
      */
     @RequestMapping(value ="hefqwc.do",method = RequestMethod.POST)
     @ResponseBody
-    private ServerResponse hefqwc(HttpSession session,int id,String htfqzt){
-        Users user=(Users) session.getAttribute(Const.CURRENT_USER);
-        if(user==null){
-            return ServerResponse.createByErrorMessage("用户未登陆");
-        }
+    private ServerResponse hefqwc(String userid,int id,String htfqzt){
+        Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
         return htqsService.htqsxg(user,id,htfqzt);
     }
 }

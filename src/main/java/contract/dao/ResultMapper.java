@@ -21,4 +21,6 @@ public interface ResultMapper {
 
     List<Result> query(@Param("htbh") String htbh,@Param("startTime") String startTime,
                        @Param("endTime") String endTime,@Param("xm") String xm);
+
+    int deleteAll();
 }

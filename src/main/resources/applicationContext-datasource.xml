@@ -10,19 +10,8 @@
 
     <context:component-scan base-package="contract" annotation-config="true"/>
 
-    <bean id="propertyConfigurer"
-          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="order" value="2"/>
-        <property name="ignoreUnresolvablePlaceholders" value="true"/>
-        <property name="locations">
-            <list>
-                <value>classpath:datasource.properties</value>
-            </list>
-        </property>
-        <property name="fileEncoding" value="utf-8"/>
-    </bean>
-
-
+    <!--数据源-->
+    <context:property-placeholder location="classpath:datasource.properties"/>
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="${db.driverClassName}"/>
         <property name="url" value="${db.url}"/>
@@ -51,8 +40,7 @@
         <property name="basePackage" value="contract.dao"/>
     </bean>
 
-
-
+    <!--事务-->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
         <property name="rollbackOnCommitFailure" value="true"/>
