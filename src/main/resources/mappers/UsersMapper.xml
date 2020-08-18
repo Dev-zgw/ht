@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="contract.dao.UsersMapper">
+    <resultMap id="BaseResultMap" type="contract.pojo.Users">
+        <constructor>
+            <idArg column="ID" jdbcType="DECIMAL" javaType="java.math.BigDecimal"/>
+            <arg column="NAME" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="PASSWORD" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="XM" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="XB" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="YWM" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="ZW" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="BMID" jdbcType="DECIMAL" javaType="java.math.BigDecimal"/>
+            <arg column="SSBM" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="JSID" jdbcType="DECIMAL" javaType="java.math.BigDecimal"/>
+            <arg column="JSMC" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="SJHM" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="YX" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="ZZZT" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="ZT" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="CREATE_BY" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="UPDATE_BY" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="CREATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+            <arg column="UPDATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+    ID, NAME, PASSWORD, XM, XB, YWM, ZW, BMID, SSBM, JSID, JSMC, SJHM, YX, ZZZT, ZT,
+    CREATE_BY, UPDATE_BY, CREATE_TIME, UPDATE_TIME
+  </sql>
+
+    <!--登录-->
+    <select id="selectByUP" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from USERS
+        where NAME = #{name,jdbcType=VARCHAR}
+        and PASSWORD = #{password,jdbcType=VARCHAR}
+        and rownum &lt;= 1
+    </select>
+    <!--验证用户-->
+    <select id="selectOne" resultType="Integer" parameterType="string">
+    select count(1) from users
+    where name = #{name,jdbcType=VARCHAR}
+  </select>
+    <!--列表查询-->
+    <select id="selectUserList" resultMap="BaseResultMap" parameterType="contract.pojo.Users">
+        select
+        <include refid="Base_Column_List"/>
+        from USERS
+        <where>
+            <if test="xm != null and xm != ''">
+                and xm = #{xm,jdbcType=VARCHAR}
+            </if>
+            <if test="zzzt != null and zzzt != ''">
+                and zzzt = #{zzzt,jdbcType=VARCHAR}
+            </if>
+            <if test="bmid != null and bmid != ''">
+                and bmid = #{bmid,jdbcType=DECIMAL}
+            </if>
+        </where>
+    </select>
+
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal">
+        select
+        <include refid="Base_Column_List"/>
+        from USERS
+        where ID = #{id,jdbcType=DECIMAL}
+    </select>
+
+    <!--添加-->
+    <insert id="insert" parameterType="contract.pojo.Users">
+    insert into USERS (ID, NAME, PASSWORD,
+      XM, XB, YWM, ZW,
+      BMID, SSBM, JSID, JSMC,
+      SJHM, YX, ZZZT, ZT,
+      CREATE_BY, UPDATE_BY, CREATE_TIME,
+      UPDATE_TIME)
+    values (#{id,jdbcType=DECIMAL}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+      #{xm,jdbcType=VARCHAR}, #{xb,jdbcType=VARCHAR}, #{ywm,jdbcType=VARCHAR}, #{zw,jdbcType=VARCHAR},
+      #{bmid,jdbcType=DECIMAL}, #{ssbm,jdbcType=VARCHAR}, #{jsid,jdbcType=DECIMAL}, #{jsmc,jdbcType=VARCHAR},
+      #{sjhm,jdbcType=VARCHAR}, #{yx,jdbcType=VARCHAR}, #{zzzt,jdbcType=VARCHAR}, #{zt,jdbcType=VARCHAR},
+      #{createBy,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="contract.pojo.Users">
+        insert into USERS
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="name != null">
+                NAME,
+            </if>
+            <if test="password != null">
+                PASSWORD,
+            </if>
+            <if test="xm != null">
+                XM,
+            </if>
+            <if test="xb != null">
+                XB,
+            </if>
+            <if test="ywm != null">
+                YWM,
+            </if>
+            <if test="zw != null">
+                ZW,
+            </if>
+            <if test="bmid != null">
+                BMID,
+            </if>
+            <if test="ssbm != null">
+                SSBM,
+            </if>
+            <if test="jsid != null">
+                JSID,
+            </if>
+            <if test="jsmc != null">
+                JSMC,
+            </if>
+            <if test="sjhm != null">
+                SJHM,
+            </if>
+            <if test="yx != null">
+                YX,
+            </if>
+            <if test="zzzt != null">
+                ZZZT,
+            </if>
+            <if test="zt != null">
+                ZT,
+            </if>
+            <if test="createBy != null">
+                CREATE_BY,
+            </if>
+            <if test="updateBy != null">
+                UPDATE_BY,
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME,
+            </if>
+            <if test="updateTime != null">
+                UPDATE_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=DECIMAL},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="xm != null">
+                #{xm,jdbcType=VARCHAR},
+            </if>
+            <if test="xb != null">
+                #{xb,jdbcType=VARCHAR},
+            </if>
+            <if test="ywm != null">
+                #{ywm,jdbcType=VARCHAR},
+            </if>
+            <if test="zw != null">
+                #{zw,jdbcType=VARCHAR},
+            </if>
+            <if test="bmid != null">
+                #{bmid,jdbcType=DECIMAL},
+            </if>
+            <if test="ssbm != null">
+                #{ssbm,jdbcType=VARCHAR},
+            </if>
+            <if test="jsid != null">
+                #{jsid,jdbcType=DECIMAL},
+            </if>
+            <if test="jsmc != null">
+                #{jsmc,jdbcType=VARCHAR},
+            </if>
+            <if test="sjhm != null">
+                #{sjhm,jdbcType=VARCHAR},
+            </if>
+            <if test="yx != null">
+                #{yx,jdbcType=VARCHAR},
+            </if>
+            <if test="zzzt != null">
+                #{zzzt,jdbcType=VARCHAR},
+            </if>
+            <if test="zt != null">
+                #{zt,jdbcType=VARCHAR},
+            </if>
+            <if test="createBy != null">
+                #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updateBy != null">
+                #{updateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <!--更新-->
+    <update id="updateByPrimaryKeySelective" parameterType="contract.pojo.Users">
+        update USERS
+        <set>
+            <if test="name != null">
+                NAME = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                PASSWORD = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="xm != null">
+                XM = #{xm,jdbcType=VARCHAR},
+            </if>
+            <if test="xb != null">
+                XB = #{xb,jdbcType=VARCHAR},
+            </if>
+            <if test="ywm != null">
+                YWM = #{ywm,jdbcType=VARCHAR},
+            </if>
+            <if test="zw != null">
+                ZW = #{zw,jdbcType=VARCHAR},
+            </if>
+            <if test="bmid != null">
+                BMID = #{bmid,jdbcType=DECIMAL},
+            </if>
+            <if test="ssbm != null">
+                SSBM = #{ssbm,jdbcType=VARCHAR},
+            </if>
+            <if test="jsid != null">
+                JSID = #{jsid,jdbcType=DECIMAL},
+            </if>
+            <if test="jsmc != null">
+                JSMC = #{jsmc,jdbcType=VARCHAR},
+            </if>
+            <if test="sjhm != null">
+                SJHM = #{sjhm,jdbcType=VARCHAR},
+            </if>
+            <if test="yx != null">
+                YX = #{yx,jdbcType=VARCHAR},
+            </if>
+            <if test="zzzt != null">
+                ZZZT = #{zzzt,jdbcType=VARCHAR},
+            </if>
+            <if test="zt != null">
+                ZT = #{zt,jdbcType=VARCHAR},
+            </if>
+            <if test="createBy != null">
+                CREATE_BY = #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updateBy != null">
+                UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=DECIMAL}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="contract.pojo.Users">
+    update USERS
+    set NAME = #{name,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      XM = #{xm,jdbcType=VARCHAR},
+      XB = #{xb,jdbcType=VARCHAR},
+      YWM = #{ywm,jdbcType=VARCHAR},
+      ZW = #{zw,jdbcType=VARCHAR},
+      BMID = #{bmid,jdbcType=DECIMAL},
+      SSBM = #{ssbm,jdbcType=VARCHAR},
+      JSID = #{jsid,jdbcType=DECIMAL},
+      JSMC = #{jsmc,jdbcType=VARCHAR},
+      SJHM = #{sjhm,jdbcType=VARCHAR},
+      YX = #{yx,jdbcType=VARCHAR},
+      ZZZT = #{zzzt,jdbcType=VARCHAR},
+      ZT = #{zt,jdbcType=VARCHAR},
+      CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+
+    <select id="select" resultMap="BaseResultMap" parameterType="string">
+        select
+        <include refid="Base_Column_List"/>
+        from USERS
+        where SSBM = #{ssbm,jdbcType=DECIMAL}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from USERS
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+
+    <select id="query" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from USERS
+    </select>
+
+    <select id="queryss" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from USERS
+        where JSID = 5
+    </select>
+</mapper>
+
