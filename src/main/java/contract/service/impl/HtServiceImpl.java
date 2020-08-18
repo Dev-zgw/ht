@@ -98,11 +98,17 @@ public class HtServiceImpl implements HtService {
         //普通用户只能查看自己的合同信息
         if(role.getQxid().longValue()== Const.Role.ROLE_CUSTOMER){
             list=htMapper.selectyh(user.getId(),htfl,startTime,endTime,ssfzr,htzt,dqsheng,dqshi,htjemax,htjemin);
+            for(int i=0;i<list.size();i++){
+                list.get(i).setHtfl(htflMapper.selectByPrimaryKey(new BigDecimal(list.get(i).getHtfl())).getFlmc());
+            }
         }
 
         //实施用户权限
         if(role.getQxid().longValue()== Const.Role.ROLE_SSYH){
             list=htMapper.selectss(user.getId(),htfl,startTime,endTime,fzr,htzt,dqsheng,dqshi,htjemax,htjemin);
+            for(int i=0;i<list.size();i++){
+                list.get(i).setHtfl(htflMapper.selectByPrimaryKey(new BigDecimal(list.get(i).getHtfl())).getFlmc());
+            }
         }
         //财务用户权限
         if(role.getQxid().longValue()== Const.Role.ROLE_CWQX){
@@ -118,6 +124,8 @@ public class HtServiceImpl implements HtService {
     //修改合同信息
     @Override
     public ServerResponse update(Users users, Ht ht){
+        ht.setFzr(userMapper.selectByPrimaryKey(ht.getFzrid()).getXm());
+        ht.setSsfzr(userMapper.selectByPrimaryKey(ht.getSsfzrid()).getXm());
         ht.setUpdateTime(new Date());
         ht.setUpdateBy(users.getXm());
         int i=htMapper.updateByPrimaryKeySelective(ht);
@@ -151,6 +159,8 @@ public class HtServiceImpl implements HtService {
         if(hts!=null){
             return ServerResponse.createByErrorMessage("合同编号已存在");
         }
+        ht.setFzr(userMapper.selectByPrimaryKey(ht.getFzrid()).getXm());
+        ht.setSsfzr(userMapper.selectByPrimaryKey(ht.getSsfzrid()).getXm());
         ht.setCreateTime(new Date());
         ht.setCreateBy(users.getXm());
         ht.setHtzt(String.valueOf(Const.HtState.TO_BE_CONFIRMED));
