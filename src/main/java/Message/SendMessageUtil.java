@@ -33,8 +33,8 @@ public class SendMessageUtil {
     static final String product = "Dysmsapi";
     //产品域名,无需替换
     static final String domain = "dysmsapi.aliyuncs.com";
-    static final String accessKeyId = "LTAI4GGZge8Fa8S84AcnrfBV";
-    static final String accessKeySecret = "UjHloPoJSE5Skx8BH7obohphugXjuL";
+    static final String accessKeyId = "";
+    static final String accessKeySecret = "";
 
     //管理员完成合同录入-发送短信 -- 通用短信
     @RequestMapping(value = "sendmail_htlr.do", method = RequestMethod.POST)
