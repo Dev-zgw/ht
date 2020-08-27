@@ -1,6 +1,5 @@
 package contract.dao;
 
-import contract.pojo.CalReport;
 import contract.pojo.Ht;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -37,9 +36,7 @@ public interface HtMapper {
 
     int updatezt(@Param("id") BigDecimal id,@Param("htzt") String htzt);
 
-    List<CalReport> selectReport(@Param("startTime") String startTime, @Param("endTime") String endTime);
+    List<Ht> queryAll(@Param("htzt") String htzt);
 
-    List<CalReport> selectReportavg(@Param("startTime") String startTime, @Param("endTime") String endTime);
-
-    List<CalReport> selectReportcount(@Param("startTime") String startTime, @Param("endTime") String endTime);
+    int updateyqts(@Param("id") BigDecimal id,@Param("yqts") String ysts,@Param("htsyts") String htsyts);
 }

@@ -1,6 +1,5 @@
 package contract.service;
 
-import contract.pojo.CalReport;
 import contract.pojo.Ht;
 import contract.pojo.Users;
 import contract.utils.ServerResponse;
@@ -26,9 +25,10 @@ public interface HtService {
     //查询实施用户
     ServerResponse<List<Users>> queryssfzr();
 
-    ServerResponse<List<CalReport>> selectReport(Users user,String qsrq);
-
-    ServerResponse<List<CalReport>> selectReportavg(Users user,String qsrq);
-
-    ServerResponse<List<CalReport>> selectReportcount(Users user,String qsrq);
+    //查询所有进行中的合同
+    List<Ht> queryAll();
+    //定时器更改逾期状态
+    int updateyqzt(int id,String htzt);
+    //定时器更改逾期天数
+    int updateyqts(int id, String yqts,String htsyts);
 }

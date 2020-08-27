@@ -16,11 +16,14 @@
       <arg column="CREATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="UPDATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="SJ" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="SSFZR" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SSFZRID" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="BZ" jdbcType="VARCHAR" javaType="java.lang.String" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
     ID, HTBH, QS, JE, YJSJ, SGYQ, SFSKWC, SKJE, CREATE_BY, UPDATE_BY, CREATE_TIME, UPDATE_TIME,
-    SJ
+    SJ, SSFZR, SSFZRID ,BZ
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
     select
@@ -36,13 +39,15 @@
     insert into HTQS (ID, HTBH, QS,
       JE, YJSJ, SGYQ, SFSKWC,
       SKJE, CREATE_BY, UPDATE_BY,
-      CREATE_TIME, UPDATE_TIME, SJ
+      CREATE_TIME, UPDATE_TIME, SJ,SSFZR,SSFZRID,BZ
       )
     values (#{id,jdbcType=DECIMAL}, #{htbh,jdbcType=VARCHAR}, #{qs,jdbcType=DECIMAL},
       #{je,jdbcType=DECIMAL}, #{yjsj,jdbcType=TIMESTAMP}, #{sgyq,jdbcType=VARCHAR}, #{sfskwc,jdbcType=VARCHAR},
       #{skje,jdbcType=DECIMAL}, #{createBy,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR},
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{sj,jdbcType=TIMESTAMP}
-      )
+      ,#{ssfzr,jdbcType=VARCHAR},
+      #{ssfzrid,jdbcType=DECIMAL},
+      ,#{bz,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="contract.pojo.Htqs" >
     insert into HTQS
@@ -86,6 +91,15 @@
       <if test="sj != null" >
         SJ,
       </if>
+      <if test="ssfzr != null" >
+        SSFZR,
+      </if>
+      <if test="ssfzrid != null" >
+        SSFZRID,
+      </if>
+      <if test="bz != null" >
+        BZ,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -126,6 +140,15 @@
       </if>
       <if test="sj != null" >
         #{sj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ssfzr != null" >
+        #{ssfzr,jdbcType=VARCHAR},
+      </if>
+      <if test="ssfzrid != null" >
+        #{ssfzrid,jdbcType=DECIMAL},
+      </if>
+      <if test="bz != null" >
+        #{bz,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -168,6 +191,15 @@
       <if test="sj != null" >
         SJ = #{sj,jdbcType=TIMESTAMP},
       </if>
+      <if test="ssfzr != null" >
+        SSFZR = #{ssfzr,jdbcType=VARCHAR},
+      </if>
+      <if test="ssfzrid != null" >
+        SSFZRID = #{ssfzrid,jdbcType=DECIMAL},
+      </if>
+      <if test="bz != null" >
+        BZ = #{ssfzr,jdbcType=VARCHAR},
+      </if>
     </set>
     where ID = #{id,jdbcType=DECIMAL}
   </update>
@@ -184,7 +216,10 @@
       UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
-      SJ = #{sj,jdbcType=TIMESTAMP}
+      SJ = #{sj,jdbcType=TIMESTAMP},
+      SSFZR = #{ssfzr,jdbcType=VARCHAR},
+      SSFZRID = #{ssfzrid,jdbcType=DECIMAL},
+      BZ = #{bz,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=DECIMAL}
   </update>
   <select id="query" resultMap="BaseResultMap" parameterType="string" >

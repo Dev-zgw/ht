@@ -20,6 +20,7 @@ public class Const {
         long HAVE_IN_HAND=1;//进行中
         long COMPLETED=2;//已完成
         long REJECTED=3;//已驳回
+        long YIYUQI=4;//已逾期
     }
 
     public interface HtfqState{

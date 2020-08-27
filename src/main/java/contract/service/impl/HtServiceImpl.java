@@ -31,8 +31,6 @@ public class HtServiceImpl implements HtService {
     @Autowired
     private ResultMapper resultMapper;
 
-    @Autowired
-    private HtflMapper htflMapper;
 
     @Autowired
     private HtqsMapper htqsMapper;
@@ -73,17 +71,11 @@ public class HtServiceImpl implements HtService {
         //管理员查询所有合同信息
         if(role.getQxid().longValue()== Const.Role.ROLE_ADMIN){
             list=htMapper.select(htfl,startTime,endTime,fzr,ssfzr,htzt,dqsheng,dqshi,htjemax,htjemin);
-            for(int i=0;i<list.size();i++){
-                list.get(i).setHtfl(htflMapper.selectByPrimaryKey(new BigDecimal(list.get(i).getHtfl())).getFlmc());
-            }
         }
 
         //总经理权限查看合同信息
         if(role.getQxid().longValue()== Const.Role.ROLE_ZJL){
             list=htMapper.select(htfl,startTime,endTime,fzr,ssfzr,htzt,dqsheng,dqshi,htjemax,htjemin);
-            for(int i=0;i<list.size();i++){
-                list.get(i).setHtfl(htflMapper.selectByPrimaryKey(new BigDecimal(list.get(i).getHtfl())).getFlmc());
-            }
         }
 
         //部门经理只能查看该部门的合同信息
@@ -94,35 +86,22 @@ public class HtServiceImpl implements HtService {
             for(int i=0;i<listUser.size();i++){
                 //分别查询每个用户的合同
                 List<Ht> htList=htMapper.selectyh(listUser.get(i).getId(),htfl,startTime,endTime,ssfzr,htzt,dqsheng,dqshi,htjemax,htjemin);
-                for(int j=0;j<htList.size();j++){
-                    //查询出的数据放入一个list集合中分页使用
-                    htList.get(j).setHtfl(htflMapper.selectByPrimaryKey(new BigDecimal(htList.get(j).getHtfl())).getFlmc());
-                    list.add(htList.get(j));
-                }
+                list.addAll(htList);
             }
         }
 
         //普通用户只能查看自己的合同信息
         if(role.getQxid().longValue()== Const.Role.ROLE_CUSTOMER){
             list=htMapper.selectyh(user.getId(),htfl,startTime,endTime,ssfzr,htzt,dqsheng,dqshi,htjemax,htjemin);
-            for(int i=0;i<list.size();i++){
-                list.get(i).setHtfl(htflMapper.selectByPrimaryKey(new BigDecimal(list.get(i).getHtfl())).getFlmc());
-            }
         }
 
         //实施用户权限
         if(role.getQxid().longValue()== Const.Role.ROLE_SSYH){
             list=htMapper.selectss(user.getId(),htfl,startTime,endTime,fzr,htzt,dqsheng,dqshi,htjemax,htjemin);
-            for(int i=0;i<list.size();i++){
-                list.get(i).setHtfl(htflMapper.selectByPrimaryKey(new BigDecimal(list.get(i).getHtfl())).getFlmc());
-            }
         }
         //财务用户权限
         if(role.getQxid().longValue()== Const.Role.ROLE_CWQX){
-            list=htMapper.select(htfl,startTime,endTime,fzr,ssfzr,htzt,dqsheng,dqshi,htjemax,htjemin);
-            for(int i=0;i<list.size();i++){
-                list.get(i).setHtfl(htflMapper.selectByPrimaryKey(new BigDecimal(list.get(i).getHtfl())).getFlmc());
-            }
+          list=htMapper.select(htfl,startTime,endTime,fzr,ssfzr,htzt,dqsheng,dqshi,htjemax,htjemin);
         }
         PageInfo<Ht> pageInfo = new PageInfo<Ht>(list);
         return ServiceResponsebg.createBySuccess(role.getQxid().longValue(),pageInfo.getTotal(),list);
@@ -276,44 +255,23 @@ public class HtServiceImpl implements HtService {
         return ServerResponse.createBySuccess(users);
     }
 
+    //定时查询所有进行中的合同
     @Override
-    public ServerResponse<List<CalReport>> selectReport(Users user, String qsrq) {
-        String startTime="";
-        String endTime="";
-        if(qsrq!=""&&qsrq!=null ) {
-            String date[] = qsrq.split(",");
-            startTime = date[0].toString().substring(1,date[0].toString().length()-1);
-            endTime = date[1].toString().substring(1,date[1].toString().length()-1);
-        }
-        List<CalReport> list = htMapper.selectReport(startTime,endTime);
-        return ServerResponse.createBySuccess(list);
+    public List<Ht> queryAll() {
+        return htMapper.queryAll("1");
     }
 
+    //定时器更改逾期状态
     @Override
-    public ServerResponse<List<CalReport>> selectReportavg(Users user, String qsrq) {
-        String startTime="";
-        String endTime="";
-        if(qsrq!=""&&qsrq!=null ) {
-            String date[] = qsrq.split(",");
-            startTime = date[0].toString().substring(1,date[0].toString().length()-1);
-            endTime = date[1].toString().substring(1,date[1].toString().length()-1);
-        }
-        List<CalReport> list = htMapper.selectReportavg(startTime,endTime);
-        return ServerResponse.createBySuccess(list);
+    public int updateyqzt(int id, String htzt) {
+        int i=htMapper.updatezt(new BigDecimal(id),htzt);
+        return i;
     }
 
+    //定时器更改逾期天数
     @Override
-    public ServerResponse<List<CalReport>> selectReportcount(Users user, String qsrq) {
-        String startTime="";
-        String endTime="";
-        if(qsrq!=""&&qsrq!=null ) {
-            String date[] = qsrq.split(",");
-            startTime = date[0].toString().substring(1,date[0].toString().length()-1);
-            endTime = date[1].toString().substring(1,date[1].toString().length()-1);
-        }
-        List<CalReport> list = htMapper.selectReportcount(startTime,endTime);
-        return ServerResponse.createBySuccess(list);
+    public int updateyqts(int id, String yqts,String htsyts) {
+        int i=htMapper.updateyqts(new BigDecimal(id),yqts,htsyts);
+        return i;
     }
-
-
 }
