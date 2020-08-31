@@ -24,4 +24,11 @@ public interface HtService {
     ServerResponse<List<Users>> queryfzr();
     //查询实施用户
     ServerResponse<List<Users>> queryssfzr();
+
+    //查询所有进行中的合同
+    List<Ht> queryAll();
+    //定时器更改逾期状态
+    int updateyqzt(int id,String htzt);
+    //定时器更改逾期天数
+    int updateyqts(int id, String yqts,String htsyts);
 }

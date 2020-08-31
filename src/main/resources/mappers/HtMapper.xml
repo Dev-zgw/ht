@@ -35,12 +35,16 @@
       <arg column="FZRID" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
       <arg column="SSFZR" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="SSFZRID" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="HTQSRQ" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="HTZZRQ" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="YQTS" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="HTSYTS" jdbcType="VARCHAR" javaType="java.lang.String" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
     ID, HTBH, QSRQ, FZR, YYMC, HTNR, HTNRHTNR, FKZQ, NYWFJE, NYWFSJ, XXKXM, XXKLXFS,
     CWKXM, CWKLXFS, YWDJR, YWDJRLXFS, SFSKWC, SKJE, HTSFDQ, HTZT, BZ, YYJB, DQSHENG,
-    DQSHI, HTFL, CREATE_BY, UPDATE_BY, CREATE_TIME, UPDATE_TIME, FZRID,SSFZR,SSFZRID
+    DQSHI, HTFL, CREATE_BY, UPDATE_BY, CREATE_TIME, UPDATE_TIME, FZRID,SSFZR,SSFZRID,HTQSRQ,HTZZRQ,YQTS,HTSYTS
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
     select
@@ -62,7 +66,7 @@
       HTZT, BZ, YYJB, DQSHENG,
       DQSHI, HTFL, CREATE_BY,
       UPDATE_BY, CREATE_TIME, UPDATE_TIME,
-      FZRID,SSFZR,SSFZRID)
+      FZRID,SSFZR,SSFZRID,HTQSRQ,HTZZRQ,YQTS,HTSYTS)
     values (#{id,jdbcType=DECIMAL}, #{htbh,jdbcType=VARCHAR}, #{qsrq,jdbcType=TIMESTAMP},
       #{fzr,jdbcType=VARCHAR}, #{yymc,jdbcType=VARCHAR}, #{htnr,jdbcType=VARCHAR}, #{htnrhtnr,jdbcType=DECIMAL},
       #{fkzq,jdbcType=DECIMAL}, #{nywfje,jdbcType=DECIMAL}, #{nywfsj,jdbcType=TIMESTAMP},
@@ -73,7 +77,7 @@
       #{dqshi,jdbcType=VARCHAR}, #{htfl,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR},
       #{updateBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
       #{fzrid,jdbcType=DECIMAL}),#{ssfzr,jdbcType=VARCHAR},
-      #{ssfzrid,jdbcType=DECIMAL})
+      #{ssfzrid,jdbcType=DECIMAL}, #{htqsrq,jdbcType=TIMESTAMP}, #{htzzrq,jdbcType=TIMESTAMP}, #{yqts,jdbcType=VARCHAR},#{htsyts,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="contract.pojo.Ht" >
     insert into HT
@@ -174,6 +178,18 @@
       <if test="ssfzrid != null" >
         SSFZRID,
       </if>
+      <if test="htqsrq != null" >
+        HTQSRQ,
+      </if>
+      <if test="htzzrq != null" >
+        HTZZRQ,
+      </if>
+      <if test="yqts != null" >
+        YQTS,
+      </if>
+      <if test="htsyts != null" >
+        HTSYTS,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -272,6 +288,18 @@
       <if test="ssfzrid != null" >
         #{ssfzrid,jdbcType=DECIMAL},
       </if>
+      <if test="htqsrq != null" >
+        #{htqsrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="htzzrq != null" >
+        #{htzzrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="yqts != null" >
+        #{yqts,jdbcType=VARCHAR},
+      </if>
+      <if test="htsyts != null" >
+        #{htsyts,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="contract.pojo.Ht" >
@@ -340,10 +368,10 @@
       <if test="yyjb != null" >
         YYJB = #{yyjb,jdbcType=VARCHAR},
       </if>
-      <if test="dqsheng != null" >
+      <if test="dqsheng != null and dqsheng != ''" >
         DQSHENG = #{dqsheng,jdbcType=VARCHAR},
       </if>
-      <if test="dqshi != null" >
+      <if test="dqshi != null and dqshi != ''" >
         DQSHI = #{dqshi,jdbcType=VARCHAR},
       </if>
       <if test="htfl != null" >
@@ -369,6 +397,18 @@
       </if>
       <if test="ssfzrid != null" >
         SSFZRID = #{ssfzrid,jdbcType=DECIMAL},
+      </if>
+      <if test="htqsrq != null" >
+        HTQSRQ = #{htqsrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="htzzrq != null" >
+        HTZZRQ = #{htzzrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="yqts != null" >
+        YQTS = #{yqts,jdbcType=VARCHAR},
+      </if>
+      <if test="htsyts != null" >
+        HtSYTS = #{htsyts,jdbcType=VARCHAR},
       </if>
     </set>
     where ID = #{id,jdbcType=DECIMAL}
@@ -405,7 +445,11 @@
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
       FZRID = #{fzrid,jdbcType=DECIMAL},
       SSFZR = #{ssfzr,jdbcType=VARCHAR},
-      SSFZRID = #{ssfzrid,jdbcType=DECIMAL}
+      SSFZRID = #{ssfzrid,jdbcType=DECIMAL},
+      HTQSRQ = #{htqsrq,jdbcType=TIMESTAMP},
+      HTZZRQ = #{htzzrq,jdbcType=TIMESTAMP},
+      YQTS = #{yqts,jdbcType=VARCHAR},
+      HTSYTS = #{htsyts,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=DECIMAL}
   </update>
   <select id="select" resultMap="BaseResultMap" >
@@ -523,6 +567,19 @@
   <update id="updatezt">
     update HT
     set HTZT = #{htzt,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <select id="queryAll" resultMap="BaseResultMap" >
+  select
+  <include refid="Base_Column_List" />
+  from HT
+  where HTZT = #{htzt,jdbcType=VARCHAR}
+  </select>
+
+  <update id="updateyqts">
+    update HT
+    set YQTS = #{yqts,jdbcType=VARCHAR},
+    HTSYTS = #{htsyts,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=DECIMAL}
   </update>
 </mapper>

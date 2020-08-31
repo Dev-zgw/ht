@@ -30,7 +30,13 @@ public class Htqs {
 
     private Date sj;
 
-    public Htqs(BigDecimal id, String htbh, Long qs, BigDecimal je, Date yjsj, String sgyq, String sfskwc, BigDecimal skje, String createBy, String updateBy, Date createTime, Date updateTime, Date sj) {
+    private String ssfzr;
+
+    private BigDecimal ssfzrid;
+
+    private String bz;
+
+    public Htqs(BigDecimal id, String htbh, Long qs, BigDecimal je, Date yjsj, String sgyq, String sfskwc, BigDecimal skje, String createBy, String updateBy, Date createTime, Date updateTime, Date sj, String ssfzr, BigDecimal ssfzrid, String bz) {
         this.id = id;
         this.htbh = htbh;
         this.qs = qs;
@@ -44,6 +50,33 @@ public class Htqs {
         this.createTime = createTime;
         this.updateTime = updateTime;
         this.sj = sj;
+        this.ssfzr = ssfzr;
+        this.ssfzrid = ssfzrid;
+        this.bz = bz;
+    }
+
+    public String getBz() {
+        return bz;
+    }
+
+    public void setBz(String bz) {
+        this.bz = bz;
+    }
+
+    public String getSsfzr() {
+        return ssfzr;
+    }
+
+    public void setSsfzr(String ssfzr) {
+        this.ssfzr = ssfzr;
+    }
+
+    public BigDecimal getSsfzrid() {
+        return ssfzrid;
+    }
+
+    public void setSsfzrid(BigDecimal ssfzrid) {
+        this.ssfzrid = ssfzrid;
     }
 
     public Htqs() {

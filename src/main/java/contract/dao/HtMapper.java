@@ -35,4 +35,8 @@ public interface HtMapper {
                     ,@Param("htjemax") String htjemax,@Param("htjemin") String htjemin);
 
     int updatezt(@Param("id") BigDecimal id,@Param("htzt") String htzt);
+
+    List<Ht> queryAll(@Param("htzt") String htzt);
+
+    int updateyqts(@Param("id") BigDecimal id,@Param("yqts") String ysts,@Param("htsyts") String htsyts);
 }

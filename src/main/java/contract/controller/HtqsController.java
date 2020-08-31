@@ -4,7 +4,6 @@ import contract.dao.UsersMapper;
 import contract.pojo.Htqs;
 import contract.pojo.Users;
 import contract.service.HtqsService;
-import contract.utils.Const;
 import contract.utils.ServerResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -51,7 +49,7 @@ public class HtqsController {
      */
     @RequestMapping(value = "update.do",method =RequestMethod.POST)
     @ResponseBody
-    private ServerResponse update(String userid,String id, String htbh, Long yjsj,Long sj,String je){
+    private ServerResponse update(String userid,String id, String htbh, Long yjsj,Long sj,String je,String ssfzr,String bz){
         Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
         Htqs htqs=new Htqs();
         htqs.setId(new BigDecimal(id));
@@ -59,6 +57,8 @@ public class HtqsController {
         htqs.setJe(new BigDecimal(je));
         htqs.setSj(new Date(sj));
         htqs.setYjsj(new Date(yjsj));
+        htqs.setSsfzrid(new BigDecimal(ssfzr));
+        htqs.setBz(bz);
         return htqsService.update(user,htqs);
     }
 
@@ -70,7 +70,7 @@ public class HtqsController {
      */
     @RequestMapping(value = "xinzeng.do",method = RequestMethod.POST)
     @ResponseBody
-    private ServerResponse  xinzeng(String userid, String htbh, Long yjsj,Long sj,String je){
+    private ServerResponse  xinzeng(String userid, String htbh, Long yjsj,Long sj,String je,String ssfzr,String bz){
         Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Htqs htqs=new Htqs();
@@ -78,6 +78,8 @@ public class HtqsController {
         htqs.setJe(new BigDecimal(je));
         htqs.setSj(new Date(sj));
         htqs.setYjsj(new Date(yjsj));
+        htqs.setSsfzrid(new BigDecimal(ssfzr));
+        htqs.setBz(bz);
         return htqsService.xinzeng(user,htqs);
     }
 

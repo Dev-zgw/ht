@@ -2,6 +2,7 @@ package contract.service.impl;
 
 import contract.dao.HtqsMapper;
 import contract.dao.ResultMapper;
+import contract.dao.UsersMapper;
 import contract.pojo.Htqs;
 import contract.pojo.Result;
 import contract.pojo.Users;
@@ -23,6 +24,9 @@ public class HtqsServiceImpl implements HtqsService {
     @Autowired
     private ResultMapper resultMapper;
 
+    @Autowired
+    private UsersMapper userMapper;
+
     /**
      * 根据合同编码查询合同期数
      * @param users
@@ -43,6 +47,7 @@ public class HtqsServiceImpl implements HtqsService {
      */
     @Override
     public ServerResponse update(Users users, Htqs htqs) {
+        htqs.setSsfzr(userMapper.selectByPrimaryKey(htqs.getSsfzrid()).getXm());
         htqs.setUpdateTime(new Date());
         htqs.setUpdateBy(users.getXm());
         int i=htqsMapper.updateByPrimaryKeySelective(htqs);
@@ -76,9 +81,11 @@ public class HtqsServiceImpl implements HtqsService {
      */
     @Override
     public ServerResponse xinzeng(Users users, Htqs htqs) {
+        htqs.setSsfzr(userMapper.selectByPrimaryKey(htqs.getSsfzrid()).getXm());
         htqs.setCreateTime(new Date());
         htqs.setCreateBy(users.getXm());
         htqs.setSfskwc("1");
+        htqs.setSgyq("1");
         int i=htqsMapper.insertSelective(htqs);
         if(i<=0){
             Result result=new Result();

@@ -68,7 +68,15 @@ public class Ht {
 
     private BigDecimal ssfzrid;
 
-    public Ht(BigDecimal id, String htbh, Date qsrq, String fzr, String yymc, String htnr, BigDecimal htnrhtnr, Long fkzq, BigDecimal nywfje, Date nywfsj, String xxkxm, String xxklxfs, String cwkxm, String cwklxfs, String ywdjr, String ywdjrlxfs, String sfskwc, BigDecimal skje, String htsfdq, String htzt, String bz, String yyjb, String dqsheng, String dqshi, String htfl, String createBy, String updateBy, Date createTime, Date updateTime, BigDecimal fzrid, String ssfzr, BigDecimal ssfzrid) {
+    private Date htqsrq;
+
+    private Date htzzrq;
+
+    private String yqts;
+
+    private String htsyts;
+
+    public Ht(BigDecimal id, String htbh, Date qsrq, String fzr, String yymc, String htnr, BigDecimal htnrhtnr, Long fkzq, BigDecimal nywfje, Date nywfsj, String xxkxm, String xxklxfs, String cwkxm, String cwklxfs, String ywdjr, String ywdjrlxfs, String sfskwc, BigDecimal skje, String htsfdq, String htzt, String bz, String yyjb, String dqsheng, String dqshi, String htfl, String createBy, String updateBy, Date createTime, Date updateTime, BigDecimal fzrid, String ssfzr, BigDecimal ssfzrid, Date htqsrq, Date htzzrq, String yqts, String htsyts) {
         this.id = id;
         this.htbh = htbh;
         this.qsrq = qsrq;
@@ -101,8 +109,47 @@ public class Ht {
         this.fzrid = fzrid;
         this.ssfzr = ssfzr;
         this.ssfzrid = ssfzrid;
+        this.htqsrq = htqsrq;
+        this.htzzrq = htzzrq;
+        this.yqts = yqts;
+        this.htsyts = htsyts;
     }
+
+    public String getHtsyts() {
+        return htsyts;
+    }
+
+    public void setHtsyts(String htsyts) {
+        this.htsyts = htsyts;
+    }
+
+    public String getYqts() {
+        return yqts;
+    }
+
+
+    public void setYqts(String yqts) {
+        this.yqts = yqts;
+    }
+
+    public Date getHtqsrq() {
+        return htqsrq;
+    }
+
+    public void setHtqsrq(Date htqsrq) {
+        this.htqsrq = htqsrq;
+    }
+
+    public Date getHtzzrq() {
+        return htzzrq;
+    }
+
+    public void setHtzzrq(Date htzzrq) {
+        this.htzzrq = htzzrq;
+    }
+
     public Ht(){}
+
     public BigDecimal getId() {
         return id;
     }

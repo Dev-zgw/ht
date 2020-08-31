@@ -4,7 +4,6 @@ import contract.dao.UsersMapper;
 import contract.pojo.Ht;
 import contract.pojo.Users;
 import contract.service.HtService;
-import contract.utils.Const;
 import contract.utils.ServerResponse;
 import contract.utils.ServiceResponsebg;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +44,7 @@ public class HtController {
     @RequestMapping(value = "getquery.do", method = RequestMethod.POST)
     @ResponseBody
     private ServiceResponsebg<List<Ht>> getquery( @RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
-                                                 @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,String userid, String htfl, String qsrq,
+                                                 @RequestParam(value = "pageSize", defaultValue = "5") int pageSize,String userid, String htfl, String qsrq,
                                                  String fzr,String ssfzr, String htzt, String dqsheng, String diqushi, String je){
         Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
         return htService.query(user,currentPage,pageSize,htfl,qsrq,fzr,ssfzr,htzt,dqsheng,diqushi,je);
@@ -59,7 +58,7 @@ public class HtController {
      */
     @RequestMapping(value = "update.do", method =RequestMethod.POST)
     @ResponseBody
-    private ServerResponse update(int id,String userid, String htbh, Long qsrq,String fzr,String ssfzr,String yymc,String yyjb,
+    private ServerResponse update(int id,String userid, String htbh, Long qsrq,Long htqsrq,Long htzzrq,String fzr,String ssfzr,String yymc,String yyjb,
                                   String dqsheng,String dqshi,String htfl,String htnrhtnr,String nywfje,Long nywfsj,String xxkxm,
                                   String xxklxfs,String cwkxm,String cwklxfs,String ywdjr,String ywdjrlxfs,String bz){
         Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
@@ -67,6 +66,8 @@ public class HtController {
         ht.setId(new BigDecimal(id));
         ht.setHtbh(htbh);
         ht.setQsrq(new Date(qsrq));
+        ht.setHtqsrq(new Date(htqsrq));
+        ht.setHtzzrq(new Date(htzzrq));
         ht.setFzrid(new BigDecimal(fzr));
         ht.setSsfzrid(new BigDecimal(ssfzr));
         ht.setYymc(yymc);
@@ -123,13 +124,15 @@ public class HtController {
      */
     @RequestMapping(value = "xinzeng.do", method = RequestMethod.POST)
     @ResponseBody
-    private ServerResponse xinzeng(String userid, String htbh, Long qsrq,String fzr,String ssfzr,String yymc,String yyjb,
+    private ServerResponse xinzeng(String userid, String htbh, Long qsrq,Long htqsrq,Long htzzrq,String fzr,String ssfzr,String yymc,String yyjb,
                                    String dqsheng,String dqshi,String htfl,String htnrhtnr,String nywfje,Long nywfsj,String xxkxm,
                                    String xxklxfs,String cwkxm,String cwklxfs,String ywdjr,String ywdjrlxfs,String bz){
         Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
         Ht ht=new Ht();
         ht.setHtbh(htbh);
         ht.setQsrq(new Date(qsrq));
+        ht.setHtqsrq(new Date(htqsrq));
+        ht.setHtzzrq(new Date(htzzrq));
         ht.setFzrid(new BigDecimal(fzr));
         ht.setSsfzrid(new BigDecimal(ssfzr));
         ht.setYymc(yymc);

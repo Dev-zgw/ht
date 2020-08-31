@@ -31,8 +31,6 @@ public class HtServiceImpl implements HtService {
     @Autowired
     private ResultMapper resultMapper;
 
-    @Autowired
-    private HtflMapper htflMapper;
 
     @Autowired
     private HtqsMapper htqsMapper;
@@ -88,34 +86,22 @@ public class HtServiceImpl implements HtService {
             for(int i=0;i<listUser.size();i++){
                 //分别查询每个用户的合同
                 List<Ht> htList=htMapper.selectyh(listUser.get(i).getId(),htfl,startTime,endTime,ssfzr,htzt,dqsheng,dqshi,htjemax,htjemin);
-                for(int j=0;j<htList.size();j++){
-                    //查询出的数据放入一个list集合中分页使用
-                    list.add(htList.get(j));
-                }
+                list.addAll(htList);
             }
         }
 
         //普通用户只能查看自己的合同信息
         if(role.getQxid().longValue()== Const.Role.ROLE_CUSTOMER){
             list=htMapper.selectyh(user.getId(),htfl,startTime,endTime,ssfzr,htzt,dqsheng,dqshi,htjemax,htjemin);
-            for(int i=0;i<list.size();i++){
-                list.get(i).setHtfl(htflMapper.selectByPrimaryKey(new BigDecimal(list.get(i).getHtfl())).getFlmc());
-            }
         }
 
         //实施用户权限
         if(role.getQxid().longValue()== Const.Role.ROLE_SSYH){
             list=htMapper.selectss(user.getId(),htfl,startTime,endTime,fzr,htzt,dqsheng,dqshi,htjemax,htjemin);
-            for(int i=0;i<list.size();i++){
-                list.get(i).setHtfl(htflMapper.selectByPrimaryKey(new BigDecimal(list.get(i).getHtfl())).getFlmc());
-            }
         }
         //财务用户权限
         if(role.getQxid().longValue()== Const.Role.ROLE_CWQX){
-            list=htMapper.select(htfl,startTime,endTime,fzr,ssfzr,htzt,dqsheng,dqshi,htjemax,htjemin);
-            for(int i=0;i<list.size();i++){
-                list.get(i).setHtfl(htflMapper.selectByPrimaryKey(new BigDecimal(list.get(i).getHtfl())).getFlmc());
-            }
+          list=htMapper.select(htfl,startTime,endTime,fzr,ssfzr,htzt,dqsheng,dqshi,htjemax,htjemin);
         }
         PageInfo<Ht> pageInfo = new PageInfo<Ht>(list);
         return ServiceResponsebg.createBySuccess(role.getQxid().longValue(),pageInfo.getTotal(),list);
@@ -267,5 +253,25 @@ public class HtServiceImpl implements HtService {
     public ServerResponse<List<Users>> queryssfzr() {
         List<Users> users= userMapper.queryss();
         return ServerResponse.createBySuccess(users);
+    }
+
+    //定时查询所有进行中的合同
+    @Override
+    public List<Ht> queryAll() {
+        return htMapper.queryAll("1");
+    }
+
+    //定时器更改逾期状态
+    @Override
+    public int updateyqzt(int id, String htzt) {
+        int i=htMapper.updatezt(new BigDecimal(id),htzt);
+        return i;
+    }
+
+    //定时器更改逾期天数
+    @Override
+    public int updateyqts(int id, String yqts,String htsyts) {
+        int i=htMapper.updateyqts(new BigDecimal(id),yqts,htsyts);
+        return i;
     }
 }
