@@ -37,4 +37,6 @@ public interface UsersMapper {
 
     //查询所有用户
     List<Users> selectUserList(@Param("xm") String xm, @Param("bmid") Integer bmid, @Param("zzzt") String zzzt);
+
+    Users selectByID(@Param("id")BigDecimal id);
 }
