@@ -25,6 +25,7 @@ public class ResultServiceImpl implements ResultService {
 
     /**
      * 分页查询日志信息
+     *
      * @param pageNum
      * @param pageSize
      * @param htbh
@@ -39,15 +40,20 @@ public class ResultServiceImpl implements ResultService {
         PageHelper.startPage(pageNum, pageSize);
         List<Result> list = resultMapper.query(htbh, startTime, endTime, xm);
         PageInfo<Result> resultPageInfo = new PageInfo<>(list);
-        return ServiceResponsebg.createBySuccess(resultPageInfo.getTotal(),list);
+        return ServiceResponsebg.createBySuccess(resultPageInfo.getTotal(), list);
     }
 
     @Override
     public ServerResponse deleteAll() {
         int i = resultMapper.deleteAll();
         if (i == 1){
-            return ServerResponse.createBySuccessMessage("已清空日志");
+            return ServerResponse.createBySuccessMessage("日志已清空");
         }
-        return ServerResponse.createByErrorMessage("清空日志失败");
+        return ServerResponse.createByErrorMessage("日志清空失败");
+    }
+
+    @Override
+    public void addResult(Result result) {
+        resultMapper.insertSelective(result);
     }
 }

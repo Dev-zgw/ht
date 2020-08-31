@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="contract.pojo.Department" >
     <constructor >
       <idArg column="ID" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="PID" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
       <arg column="BMMC" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="BMZT" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="CREATE_BY" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -13,7 +14,7 @@
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, BMMC, BMZT, CREATE_BY, UPDATE_BY, CREATE_TIME, UPDATE_TIME
+    ID, PID, BMMC, BMZT, CREATE_BY, UPDATE_BY, CREATE_TIME, UPDATE_TIME
   </sql>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
@@ -22,7 +23,7 @@
     from DEPARTMENT
     where ID = #{id,jdbcType=DECIMAL}
   </select>
-
+  <!--查询部门所有数据-->
   <select id="selectAll" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/>
     from department
@@ -32,6 +33,7 @@
     delete from DEPARTMENT
     where ID = #{id,jdbcType=DECIMAL}
   </delete>
+
   <insert id="insert" parameterType="contract.pojo.Department" >
     insert into DEPARTMENT (ID, BMMC, BMZT,
       CREATE_BY, UPDATE_BY, CREATE_TIME,
@@ -45,6 +47,9 @@
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         ID,
+      </if>
+      <if test="pid != null" >
+        PID,
       </if>
       <if test="bmmc != null" >
         BMMC,
@@ -69,6 +74,9 @@
       <if test="id != null" >
         #{id,jdbcType=DECIMAL},
       </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=DECIMAL},
+      </if>
       <if test="bmmc != null" >
         #{bmmc,jdbcType=VARCHAR},
       </if>
@@ -89,6 +97,8 @@
       </if>
     </trim>
   </insert>
+
+
   <update id="updateByPrimaryKeySelective" parameterType="contract.pojo.Department" >
     update DEPARTMENT
     <set >

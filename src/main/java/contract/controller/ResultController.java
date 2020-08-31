@@ -1,21 +1,17 @@
 package contract.controller;
 
-import contract.pojo.Users;
 import contract.service.ResultService;
-import contract.utils.Const;
 import contract.utils.ServerResponse;
 import contract.utils.ServiceResponsebg;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
-import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-@Controller
+
+@RestController
 @RequestMapping("/result/")
 public class ResultController {
 
@@ -24,7 +20,7 @@ public class ResultController {
 
     /**
      * 分页查看日志信息
-     * @param session
+     *
      * @param currentPage
      * @param pageSize
      * @param htbh
@@ -33,22 +29,35 @@ public class ResultController {
      * @param xm
      * @return
      */
-    @RequestMapping(value = "query.do",method = RequestMethod.POST)
+    @RequestMapping(value = "list.do", method = RequestMethod.POST)
     @ResponseBody
-    private ServiceResponsebg query(HttpSession session,
-                                    @RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
+    private ServiceResponsebg query(@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
                                     @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
-                                    String htbh, String startTime, String endTime, String xm){
-//        Users user=(Users) session.getAttribute(Const.CURRENT_USER);
-//        if(user==null){
-//            return ServiceResponsebg.createByErrorMessage("用户未登陆");
-//        }
-        int i = 0;
-       return resultService.query(currentPage,pageSize,htbh,startTime,endTime,xm);
+                                    String htbh, String startTime, String endTime, String xm) throws ParseException {
+        String nstartTime = null;
+        String nendTime = null;
+        if (startTime != null && endTime != null){
+            startTime = startTime.replace("Z", " UTC");
+            endTime = endTime.replace("Z", " UTC");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS Z");
+            Date date_startTime = format.parse(startTime);
+            Date date_endTime = format.parse(endTime);
+
+            SimpleDateFormat formatToString = new SimpleDateFormat("yyyy-MM-dd");
+            nstartTime = formatToString.format(date_startTime);
+            nendTime = formatToString.format(date_endTime);
+        }
+        return resultService.query(currentPage, pageSize, htbh, nstartTime, nendTime, xm);
     }
 
-    @RequestMapping(value = "deleteAll.do",method = RequestMethod.POST)
-    public ServerResponse deleteAll(){
+    /**
+     * 清空日志
+     *
+     * @return
+     */
+    @RequestMapping(value = "delete.do", method = RequestMethod.POST)
+    public ServerResponse deleteAll() {
         return resultService.deleteAll();
     }
+
 }

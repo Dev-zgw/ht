@@ -60,8 +60,6 @@
             </if>
         </where>
     </select>
-
-
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal">
         select
         <include refid="Base_Column_List"/>
