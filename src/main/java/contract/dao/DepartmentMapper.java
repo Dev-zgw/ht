@@ -1,8 +1,11 @@
 package contract.dao;
 
 import contract.pojo.Department;
+import org.apache.ibatis.annotations.Param;
+
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 public interface DepartmentMapper {
     int deleteByPrimaryKey(BigDecimal id);
@@ -17,6 +20,6 @@ public interface DepartmentMapper {
 
     int updateByPrimaryKey(Department record);
 
-    //查询所有
+    //查询所有部门
     List<Department> selectAll();
 }

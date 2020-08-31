@@ -60,8 +60,6 @@
             </if>
         </where>
     </select>
-
-
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal">
         select
         <include refid="Base_Column_List"/>
@@ -313,6 +311,22 @@
         <include refid="Base_Column_List"/>
         from USERS
         where JSID = 5
+    </select>
+
+    <select id="querybybm" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from USERS
+        where SSBM = #{ssbm,jdbcType=DECIMAL}
+        and jsid !=5
+    </select>
+
+    <select id="queryssbybm" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from USERS
+        where SSBM = #{ssbm,jdbcType=DECIMAL}
+        and JSID = 5
     </select>
 </mapper>
 

@@ -1,34 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="contract.dao.ResultMapper" >
-  <resultMap id="BaseResultMap" type="contract.pojo.Result" >
-    <constructor >
-      <idArg column="ID" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
-      <arg column="HTBH" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="USERID" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
-      <arg column="XM" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="CZSJ" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-      <arg column="CZNR" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="BZ" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="CREATE_BY" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="CREATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-    </constructor>
-  </resultMap>
-  <sql id="Base_Column_List" >
+<mapper namespace="contract.dao.ResultMapper">
+    <resultMap id="BaseResultMap" type="contract.pojo.Result">
+        <constructor>
+            <idArg column="ID" jdbcType="DECIMAL" javaType="java.math.BigDecimal"/>
+            <arg column="HTBH" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="USERID" jdbcType="DECIMAL" javaType="java.math.BigDecimal"/>
+            <arg column="XM" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="CZSJ" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+            <arg column="CZNR" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="BZ" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="CREATE_BY" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="CREATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
     ID, HTBH, USERID, XM, CZSJ, CZNR, BZ, CREATE_BY, CREATE_TIME
   </sql>
 
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
-    select
-    <include refid="Base_Column_List" />
-    from RESULT
-    where ID = #{id,jdbcType=DECIMAL}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal">
+        select
+        <include refid="Base_Column_List"/>
+        from RESULT
+        where ID = #{id,jdbcType=DECIMAL}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
     delete from RESULT
     where ID = #{id,jdbcType=DECIMAL}
   </delete>
-  <insert id="insert" parameterType="contract.pojo.Result" >
+
+    <insert id="insert" parameterType="contract.pojo.Result">
     insert into RESULT (ID, HTBH, USERID,
       XM, CZSJ, CZNR, BZ,
       CREATE_BY, CREATE_TIME)
@@ -36,98 +37,98 @@
       #{xm,jdbcType=VARCHAR}, #{czsj,jdbcType=TIMESTAMP}, #{cznr,jdbcType=VARCHAR}, #{bz,jdbcType=VARCHAR},
       #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="contract.pojo.Result" >
-    insert into RESULT
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        ID,
-      </if>
-      <if test="htbh != null" >
-        HTBH,
-      </if>
-      <if test="userid != null" >
-        USERID,
-      </if>
-      <if test="xm != null" >
-        XM,
-      </if>
-      <if test="czsj != null" >
-        CZSJ,
-      </if>
-      <if test="cznr != null" >
-        CZNR,
-      </if>
-      <if test="bz != null" >
-        BZ,
-      </if>
-      <if test="createBy != null" >
-        CREATE_BY,
-      </if>
-      <if test="createTime != null" >
-        CREATE_TIME,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=DECIMAL},
-      </if>
-      <if test="htbh != null" >
-        #{htbh,jdbcType=VARCHAR},
-      </if>
-      <if test="userid != null" >
-        #{userid,jdbcType=DECIMAL},
-      </if>
-      <if test="xm != null" >
-        #{xm,jdbcType=VARCHAR},
-      </if>
-      <if test="czsj != null" >
-        #{czsj,jdbcType=TIMESTAMP},
-      </if>
-      <if test="cznr != null" >
-        #{cznr,jdbcType=VARCHAR},
-      </if>
-      <if test="bz != null" >
-        #{bz,jdbcType=VARCHAR},
-      </if>
-      <if test="createBy != null" >
-        #{createBy,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="contract.pojo.Result" >
-    update RESULT
-    <set >
-      <if test="htbh != null" >
-        HTBH = #{htbh,jdbcType=VARCHAR},
-      </if>
-      <if test="userid != null" >
-        USERID = #{userid,jdbcType=DECIMAL},
-      </if>
-      <if test="xm != null" >
-        XM = #{xm,jdbcType=VARCHAR},
-      </if>
-      <if test="czsj != null" >
-        CZSJ = #{czsj,jdbcType=TIMESTAMP},
-      </if>
-      <if test="cznr != null" >
-        CZNR = #{cznr,jdbcType=VARCHAR},
-      </if>
-      <if test="bz != null" >
-        BZ = #{bz,jdbcType=VARCHAR},
-      </if>
-      <if test="createBy != null" >
-        CREATE_BY = #{createBy,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
-        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where ID = #{id,jdbcType=DECIMAL}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="contract.pojo.Result" >
+    <insert id="insertSelective" parameterType="contract.pojo.Result">
+        insert into RESULT
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="htbh != null">
+                HTBH,
+            </if>
+            <if test="userid != null">
+                USERID,
+            </if>
+            <if test="xm != null">
+                XM,
+            </if>
+            <if test="czsj != null">
+                CZSJ,
+            </if>
+            <if test="cznr != null">
+                CZNR,
+            </if>
+            <if test="bz != null">
+                BZ,
+            </if>
+            <if test="createBy != null">
+                CREATE_BY,
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=DECIMAL},
+            </if>
+            <if test="htbh != null">
+                #{htbh,jdbcType=VARCHAR},
+            </if>
+            <if test="userid != null">
+                #{userid,jdbcType=DECIMAL},
+            </if>
+            <if test="xm != null">
+                #{xm,jdbcType=VARCHAR},
+            </if>
+            <if test="czsj != null">
+                #{czsj,jdbcType=TIMESTAMP},
+            </if>
+            <if test="cznr != null">
+                #{cznr,jdbcType=VARCHAR},
+            </if>
+            <if test="bz != null">
+                #{bz,jdbcType=VARCHAR},
+            </if>
+            <if test="createBy != null">
+                #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="contract.pojo.Result">
+        update RESULT
+        <set>
+            <if test="htbh != null">
+                HTBH = #{htbh,jdbcType=VARCHAR},
+            </if>
+            <if test="userid != null">
+                USERID = #{userid,jdbcType=DECIMAL},
+            </if>
+            <if test="xm != null">
+                XM = #{xm,jdbcType=VARCHAR},
+            </if>
+            <if test="czsj != null">
+                CZSJ = #{czsj,jdbcType=TIMESTAMP},
+            </if>
+            <if test="cznr != null">
+                CZNR = #{cznr,jdbcType=VARCHAR},
+            </if>
+            <if test="bz != null">
+                BZ = #{bz,jdbcType=VARCHAR},
+            </if>
+            <if test="createBy != null">
+                CREATE_BY = #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=DECIMAL}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="contract.pojo.Result">
     update RESULT
     set HTBH = #{htbh,jdbcType=VARCHAR},
       USERID = #{userid,jdbcType=DECIMAL},
@@ -140,24 +141,27 @@
     where ID = #{id,jdbcType=DECIMAL}
   </update>
 
-  <select id="query" resultMap="BaseResultMap" parameterType="string" >
-    select <include refid="Base_Column_List" />
-    from RESULT
-    where 1=1
-    <if test="htbh != null and htbh != ''">
-      and  htbh = #{htbh,jdbcType=VARCHAR}
-    </if>
-    <if test="startTime!= null and startTime != ''">
-      and  czsj &gt;= to_date(#{startTime,jdbcType=VARCHAR}, 'yyyy-mm-dd')
-    </if>
-    <if test="endTime != null and endTime != ''">
-      and  czsj &lt;= to_date(#{endTime,jdbcType=VARCHAR}, 'yyyy-mm-dd ')
-    </if>
-    <if test="xm != null and xm != ''">
-      and  xm = #{xm,jdbcType=VARCHAR}
-    </if>
-  </select>
-  <delete id="deleteAll" parameterType="java.math.BigDecimal">
-    delete from RESULT
+    <select id="query" resultMap="BaseResultMap" parameterType="string">
+        select
+        <include refid="Base_Column_List"/>
+        from RESULT
+        <where>
+            <if test="htbh != null and htbh != ''">
+                and htbh = #{htbh,jdbcType=VARCHAR}
+            </if>
+            <if test="startTime!= null and startTime != ''">
+                and czsj &gt;= to_date(#{startTime,jdbcType=VARCHAR}, 'yyyy-mm-dd')
+            </if>
+            <if test="endTime != null and endTime != ''">
+                and czsj &lt;= to_date(#{endTime,jdbcType=VARCHAR}, 'yyyy-mm-dd ')
+            </if>
+            <if test="xm != null and xm != ''">
+                and xm = #{xm,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+    <!--清空表-->
+    <delete id="deleteAll" parameterType="java.math.BigDecimal">
+    delete from RESULT where 1=1
   </delete>
 </mapper>

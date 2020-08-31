@@ -1,9 +1,9 @@
 package contract.service;
 
-import contract.pojo.Ht;
-import contract.pojo.Report;
-import contract.pojo.Users;
+import contract.dao.DepartmentMapper;
+import contract.pojo.*;
 import contract.utils.ServerResponse;
+import contract.utils.ServiceResponsebg;
 
 import java.util.List;
 
@@ -14,5 +14,56 @@ import java.util.List;
  */
 public interface ReportService {
 
-        ServerResponse<List<Report>> getBasicInfo(Users user, int htCount,int htTotalPrice,int departmentPeopleNum,int totalPeopleNum);
+        ServerResponse<List<Chart1>> selectChart1(Users user, String htfl, String qsrq,
+                                                  String fzr,String fzrbm, String ssfzr, String ssfzrbm, String dqsheng, String dqshi);
+
+        ServerResponse<List<Chart5>> selectChart5(Users user, String qsrq);
+
+//        ServerResponse<List<Chart6>> selectChart6(Users user, String qsrq,String htfl,String fzr, String fzrbm,String dqsheng,String dqshi);
+//        ServerResponse<List<String>> selectChart6_htfl(Users user, String qsrq,String htfl,String fzr, String fzrbm,String dqsheng,String dqshi);
+//        ServerResponse<List<String>> selectChart6_sum(Users user, String qsrq,String htfl,String fzr, String fzrbm,String dqsheng,String dqshi);
+
+        ServerResponse<List<getchart9info>> selectChart9(Users user, String htfl, String qsrq,
+                                                         String fzr,String fzrbm, String ssfzr, String ssfzrbm, String dqsheng, String dqshi);
+
+        ServerResponse<List<getchart9info>> selectChart9_sum(Users user, String htfl, String qsrq,
+                                                             String fzr,String fzrbm, String ssfzr, String ssfzrbm, String dqsheng, String dqshi);
+
+        ServerResponse<List<getchart9info>> selectChart9_count(Users user, String htfl, String qsrq,
+                                                               String fzr,String fzrbm, String ssfzr, String ssfzrbm, String dqsheng, String dqshi);
+
+        ServerResponse<List<getchart9info>> selectChart9_avg(Users user, String htfl, String qsrq,
+                                                             String fzr,String fzrbm, String ssfzr, String ssfzrbm, String dqsheng, String dqshi);
+
+        ServerResponse<List<String>> selectChart9_htfl(Users user, String htfl, String qsrq,
+                                                             String fzr,String fzrbm, String ssfzr, String ssfzrbm, String dqsheng, String dqshi);
+
+        ServerResponse<List<Place>> selectSheng();
+
+        ServerResponse<List<Currentinfo>> selectPersonalcurrentinfo(Users user);
+
+
+        ServerResponse<List<Currentinfo>> selectDepartmentcurrentinfo(String fzr);
+
+        ServerResponse<List<Currentinfo>> selectCompanycurrentinfo();
+
+        //个人查询合同
+        ServiceResponsebg<List<Ht>> queryPersonaltable(Users user, int pageNum, int pageSize, String htfl, String qsrq,
+                                                      String fzr,String fzrbm, String ssfzr, String ssfzrbm,String dqsheng, String dqshi);
+
+        //个权限查询合同
+        ServiceResponsebg<List<Ht>> query(Users user, int pageNum, int pageSize, String htfl, String qsrq,
+                                          String fzr, String ssfzr, String htzt, String dqsheng, String dqshi, String je);
+
+        //个权限查询合同
+        ServiceResponsebg<List<Ht>> queryall(Users user, int pageNum, int pageSize, String htfl, String qsrq,
+                                          String fzr, String ssfzr, String htzt, String dqsheng, String dqshi, String je);
+
+        //查询部门
+        ServerResponse<List<Department>> querybm();
+
+        //查询用户
+        ServerResponse<List<Users>> queryfzrbybm(String  bm);
+        //查询实施用户
+        ServerResponse<List<Users>> queryssfzrbybm(String bm);
 }

@@ -1,19 +1,22 @@
 package contract.controller;
+import com.sun.org.apache.bcel.internal.generic.ElementValuePairGen;
 import contract.dao.UsersMapper;
-import contract.pojo.Ht;
-import contract.pojo.Users;
+import contract.pojo.*;
 import contract.service.HtService;
 import contract.service.ReportService;
 import contract.utils.Const;
 import contract.utils.ServerResponse;
+import contract.utils.ServiceResponsebg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @Description
@@ -31,39 +34,165 @@ public class ReportController {
     @Autowired
     private UsersMapper usersMapper;
 
-    /**
-     * 查询合同信息
-     * @param session
-     * @param pageNum   页码
-     * @param pageSize  每页显示条数
-     * @param htfl      合同分类
-     * @param startTime 开始时间
-     * @param endTime   结束时间
-     * @param fzr       负责人
-     * @param htnrhtnr  合同金额
-     * @param htzt      合同状态
-     * @param dqsheng   地区-省
-     * @param diqushi   地区-市
-     * @return
-     */
-    @RequestMapping(value = "getquery.do", method = RequestMethod.POST)
+    @RequestMapping(value = "getchart1.do",method = RequestMethod.POST)
     @ResponseBody
-    private ServerResponse getquery(HttpSession session, int pageNum, int pageSize, String htfl, String startTime,
-                                    String endTime, String fzr, String htzt, String dqsheng, String diqushi,int htnrhtnr){
-       /* Users user=(Users) session.getAttribute(Const.CURRENT_USER);
+    public ServerResponse<List<Chart1>> selectChart1(String userid, String htfl, String qsrq,
+                                                     String fzr, String ssfzr,String fzrbm, String ssfzrbm, String dqsheng, String diqushi){
+        Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
         if(user==null){
             return ServerResponse.createByErrorMessage("用户未登陆");
-        }*/
-        Users user = usersMapper.selectByPrimaryKey(new BigDecimal(1));
-        //return reportService.query(user,pageNum,pageSize,htfl,startTime,endTime,fzr,htzt,dqsheng,diqushi,htnrhtnr);
-        return null;
+        }
+        return reportService.selectChart1(user,htfl,qsrq,fzr,fzrbm,ssfzr,ssfzrbm,dqsheng,diqushi);
     }
 
-    @RequestMapping(value = "getBasicInfo.do", method = RequestMethod.POST)
+    @RequestMapping(value = "getchart5.do",method = RequestMethod.POST)
     @ResponseBody
-    private ServerResponse getBasicInfo(HttpSession session,int htCount,int htTotalPrice,int departmentPeopleNum,int totalPeopleNum){
-        Users user = usersMapper.selectByPrimaryKey(new BigDecimal(1));
-        return reportService.getBasicInfo(user,htCount,htTotalPrice,departmentPeopleNum,totalPeopleNum);
+    public ServerResponse<List<Chart5>> selectChart5(String userid, String qsrq){
+        Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
+        if(user==null){
+            return ServerResponse.createByErrorMessage("用户未登陆");
+        }
+        return reportService.selectChart5(user,qsrq);
+    }
+
+    @RequestMapping(value = "getchart9.do",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse<List<getchart9info>> selectChart9(String userid, String htfl, String qsrq,
+                                                            String fzr, String ssfzr,String fzrbm, String ssfzrbm, String dqsheng, String diqushi){
+        Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
+        if(user==null){
+            return ServerResponse.createByErrorMessage("用户未登陆");
+        }
+        return reportService.selectChart9(user,htfl,qsrq,fzr,fzrbm,ssfzr,ssfzrbm,dqsheng,diqushi);
+    }
+
+    @RequestMapping(value = "getchart9_sum.do",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse<List<getchart9info>> selectChart9_sum(String userid, String htfl, String qsrq,
+                                                                String fzr, String ssfzr,String fzrbm, String ssfzrbm, String dqsheng, String diqushi){
+        Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
+        if(user==null){
+            return ServerResponse.createByErrorMessage("用户未登陆");
+        }
+        return reportService.selectChart9_sum(user,htfl,qsrq,fzr,fzrbm,ssfzr,ssfzrbm,dqsheng,diqushi);
+    }
+    @RequestMapping(value = "getchart9_avg.do",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse<List<getchart9info>> selectChart9_avg(String userid, String htfl, String qsrq,
+                                                                String fzr, String ssfzr,String fzrbm, String ssfzrbm, String dqsheng, String diqushi){
+        Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
+        if(user==null){
+            return ServerResponse.createByErrorMessage("用户未登陆");
+        }
+        return reportService.selectChart9_avg(user,htfl,qsrq,fzr,fzrbm,ssfzr,ssfzrbm,dqsheng,diqushi);
+    }
+    @RequestMapping(value = "getchart9_count.do",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse<List<getchart9info>> selectChart9_count(String userid, String htfl, String qsrq,
+                                                                  String fzr, String ssfzr,String fzrbm, String ssfzrbm, String dqsheng, String diqushi){
+        Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
+        if(user==null){
+            return ServerResponse.createByErrorMessage("用户未登陆");
+        }
+        return reportService.selectChart9_count(user,htfl,qsrq,fzr,fzrbm,ssfzr,ssfzrbm,dqsheng,diqushi);
+    }
+
+    @RequestMapping(value = "getchart9_htfl.do",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse<List<String>> selectChart9_htfl(String userid, String htfl, String qsrq,
+                                                                  String fzr, String ssfzr,String fzrbm, String ssfzrbm, String dqsheng, String diqushi){
+        Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
+        if(user==null){
+            return ServerResponse.createByErrorMessage("用户未登陆");
+        }
+        return reportService.selectChart9_htfl(user,htfl,qsrq,fzr,fzrbm,ssfzr,ssfzrbm,dqsheng,diqushi);
+    }
+
+    @RequestMapping(value = "getsheng.do",method = RequestMethod.POST)
+    @ResponseBody
+    private ServerResponse selectSheng(){
+        return reportService.selectSheng();
+    }
+
+    @RequestMapping(value = "selectPersonalcurrentinfo.do",method = RequestMethod.POST)
+    @ResponseBody
+    private ServerResponse selectPersonalcurrentinfo(String userid){
+        Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
+        if(user==null){
+            return ServerResponse.createByErrorMessage("用户未登陆");
+        }
+        return reportService.selectPersonalcurrentinfo(user);
+    }
+
+    @RequestMapping(value = "selectDepartmentcurrentinfo.do",method = RequestMethod.POST)
+    @ResponseBody
+    private ServerResponse selectDepartmentcurrentinfo(String userid){
+        Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
+        if(user==null){
+            return ServerResponse.createByErrorMessage("用户未登陆");
+        }
+        return reportService.selectDepartmentcurrentinfo(user.getXm());
+    }
+
+    @RequestMapping(value = "selectCompanycurrentinfo.do",method = RequestMethod.POST)
+    @ResponseBody
+    private ServerResponse selectCompanycurrentinfo(){
+        return reportService.selectCompanycurrentinfo();
+    }
+
+    @RequestMapping(value = "selectPersonalatble.do",method = RequestMethod.POST)
+    @ResponseBody
+    private ServiceResponsebg<List<Ht>> selectPersonalatble(@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
+                                               @RequestParam(value = "pageSize", defaultValue = "5") int pageSize,String userid, String htfl, String qsrq,
+                                               String fzr, String ssfzr,String fzrbm, String ssfzrbm, String htzt, String dqsheng, String diqushi){
+        Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
+        return reportService.queryPersonaltable(user, currentPage,pageSize,htfl,qsrq,fzr,fzrbm,ssfzr,ssfzrbm,dqsheng,diqushi);
+    }
+
+    @RequestMapping(value = "getquery.do", method = RequestMethod.POST)
+    @ResponseBody
+    private ServiceResponsebg<List<Ht>> getquery(@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
+                                                 @RequestParam(value = "pageSize", defaultValue = "5") int pageSize, String userid, String htfl, String qsrq,
+                                                 String fzr, String ssfzr, String htzt, String dqsheng, String diqushi, String je){
+        Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
+        return reportService.query(user,currentPage,pageSize,htfl,qsrq,fzr,ssfzr,htzt,dqsheng,diqushi,je);
+    }
+
+    @RequestMapping(value = "getqueryall.do", method = RequestMethod.POST)
+    @ResponseBody
+    private ServiceResponsebg<List<Ht>> getqueryall(@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
+                                                 @RequestParam(value = "pageSize", defaultValue = "5") int pageSize, String userid, String htfl, String qsrq,
+                                                 String fzr, String ssfzr, String htzt, String dqsheng, String diqushi, String je){
+        Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
+        return reportService.queryall(user,currentPage,pageSize,htfl,qsrq,fzr,ssfzr,htzt,dqsheng,diqushi,je);
+    }
+
+    //查询所有部门
+    @RequestMapping(value = "querybm.do",method =RequestMethod.POST)
+    @ResponseBody
+    private ServerResponse querybm(){
+        return reportService.querybm();
+    }
+
+
+    //查询所有用户
+    @RequestMapping(value = "queryfzrbybm.do",method =RequestMethod.POST)
+    @ResponseBody
+    private ServerResponse queryfzr(String bm){
+        if (bm==""|| bm==null){
+            return null;
+        }
+        return reportService.queryfzrbybm(bm);
+    }
+
+    //查询所有实施用户
+    @RequestMapping(value = "queryssfzrbybm.do",method = RequestMethod.POST)
+    @ResponseBody
+    private ServerResponse queryssfzr(String bm){
+        if (bm==""|| bm==null){
+            return null;
+        }
+        return reportService.queryssfzrbybm(bm);
     }
 
 }

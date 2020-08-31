@@ -14,4 +14,7 @@ public interface ResultService {
 
     //删除所有记录
     ServerResponse deleteAll();
+
+    //插入记录
+    void addResult(Result result);
 }

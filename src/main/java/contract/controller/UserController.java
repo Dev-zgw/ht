@@ -6,20 +6,16 @@ import contract.utils.Const;
 import contract.utils.ServerResponse;
 import contract.utils.ServiceResponsebg;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.beans.PropertyEditorSupport;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * @author zgh
- * @create 2020/7/28 11:42
- */
 @RestController
 @RequestMapping("/user/")
 public class UserController {
@@ -49,10 +45,8 @@ public class UserController {
      * @param users
      * @return
      */
-    //TODO
     @RequestMapping(value = "update.do", method = RequestMethod.POST)
     public ServerResponse updateUserInfo(Users users) {
-        int i = 0;
         return userService.updateByPrimaryKeySelective(users);
     }
 
@@ -67,7 +61,6 @@ public class UserController {
     public ServiceResponsebg getRoleList(@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
                                          @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
                                          String xm, Integer bmid, String zzzt) {
-        int i = 0;
         return userService.selectUserList(currentPage, pageSize, xm, bmid, zzzt);
     }
 
@@ -90,7 +83,6 @@ public class UserController {
      */
     @RequestMapping(value = "add.do", method = RequestMethod.POST)
     public ServerResponse addUser(Users users) {
-        int i=0;
         return userService.addUser(users);
     }
 
@@ -110,5 +102,7 @@ public class UserController {
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
+
+
 
 }

@@ -25,6 +25,10 @@ public interface UsersMapper {
 
     List<Users> queryss();
 
+    List<Users> querybybm(@Param("ssbm") String ssbm);
+
+    List<Users> queryssbybm(@Param("ssbm") String ssbm);
+
     //登录
     Users selectByUP(@Param("name") String name, @Param("password") String password);
 

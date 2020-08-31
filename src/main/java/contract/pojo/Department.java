@@ -6,6 +6,8 @@ import java.util.Date;
 public class Department {
     private BigDecimal id;
 
+    private BigDecimal pid;
+
     private String bmmc;
 
     private String bmzt;
@@ -18,18 +20,18 @@ public class Department {
 
     private Date updateTime;
 
-    public Department(BigDecimal id, String bmmc, String bmzt, String createBy, String updateBy, Date createTime, Date updateTime) {
+    public Department() {
+    }
+
+    public Department(BigDecimal id, BigDecimal pid, String bmmc, String bmzt, String createBy, String updateBy, Date createTime, Date updateTime) {
         this.id = id;
+        this.pid = pid;
         this.bmmc = bmmc;
         this.bmzt = bmzt;
         this.createBy = createBy;
         this.updateBy = updateBy;
         this.createTime = createTime;
         this.updateTime = updateTime;
-    }
-
-    public Department() {
-        super();
     }
 
     public BigDecimal getId() {
@@ -86,5 +88,13 @@ public class Department {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public BigDecimal getPid() {
+        return pid;
+    }
+
+    public void setPid(BigDecimal pid) {
+        this.pid = pid;
     }
 }
