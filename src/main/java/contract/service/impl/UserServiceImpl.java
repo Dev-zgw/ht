@@ -102,16 +102,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ServerResponse addUser(Users users) {
-        users.setPassword(MD5Util.MD5EncodeUtf8(users.getPassword()));
+        int i1 = usersMapper.selectOne(users.getName());
+        if (i1 == 0){
+            users.setPassword(MD5Util.MD5EncodeUtf8(users.getPassword()));
+            //设置部门名称
+            Department department = departmentMapper.selectByPrimaryKey(users.getBmid());
+            users.setSsbm(department.getBmmc());
 
-        Department department = departmentMapper.selectByPrimaryKey(users.getBmid());
-        users.setSsbm(department.getBmmc());
-
-        int i = usersMapper.insertSelective(users);
-        if (i == 1) {
-            return ServerResponse.createBySuccessMessage("添加用户成功");
+            int i = usersMapper.insertSelective(users);
+            if (i == 1) {
+                return ServerResponse.createBySuccessMessage("添加用户成功");
+            }
         }
-        return ServerResponse.createByErrorMessage("添加用户失败");
+        return ServerResponse.createByErrorMessage("添加用户失败，该用户名已被使用，请更换！");
     }
 
     @Override
