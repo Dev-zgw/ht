@@ -78,7 +78,15 @@ public class Ht {
 
     private String htmc;
 
-    public Ht(BigDecimal id, String htbh, Date qsrq, String fzr, String yymc, String htnr, BigDecimal htnrhtnr, Long fkzq, BigDecimal nywfje, Date nywfsj, String xxkxm, String xxklxfs, String cwkxm, String cwklxfs, String ywdjr, String ywdjrlxfs, String sfskwc, BigDecimal skje, String htsfdq, String htzt, String bz, String yyjb, String dqsheng, String dqshi, String htfl, String createBy, String updateBy, Date createTime, Date updateTime, BigDecimal fzrid, String ssfzr, BigDecimal ssfzrid, Date htqsrq, Date htzzrq, String yqts, String htsyts, String htmc) {
+    private String sfgb;
+
+    private String sfjxfw;
+
+    private Date yjqysj;
+
+    private String xmqksm;
+
+    public Ht(BigDecimal id, String htbh, Date qsrq, String fzr, String yymc, String htnr, BigDecimal htnrhtnr, Long fkzq, BigDecimal nywfje, Date nywfsj, String xxkxm, String xxklxfs, String cwkxm, String cwklxfs, String ywdjr, String ywdjrlxfs, String sfskwc, BigDecimal skje, String htsfdq, String htzt, String bz, String yyjb, String dqsheng, String dqshi, String htfl, String createBy, String updateBy, Date createTime, Date updateTime, BigDecimal fzrid, String ssfzr, BigDecimal ssfzrid, Date htqsrq, Date htzzrq, String yqts, String htsyts, String htmc, String sfgb, String sfjxfw, Date yjqysj, String xmqksm) {
         this.id = id;
         this.htbh = htbh;
         this.qsrq = qsrq;
@@ -116,6 +124,42 @@ public class Ht {
         this.yqts = yqts;
         this.htsyts = htsyts;
         this.htmc = htmc;
+        this.sfgb = sfgb;
+        this.sfjxfw = sfjxfw;
+        this.yjqysj = yjqysj;
+        this.xmqksm = xmqksm;
+    }
+
+    public Date getYjqysj() {
+        return yjqysj;
+    }
+
+    public void setYjqysj(Date yjqysj) {
+        this.yjqysj = yjqysj;
+    }
+
+    public String getSfgb() {
+        return sfgb;
+    }
+
+    public void setSfgb(String sfgb) {
+        this.sfgb = sfgb;
+    }
+
+    public String getSfjxfw() {
+        return sfjxfw;
+    }
+
+    public void setSfjxfw(String sfjxfw) {
+        this.sfjxfw = sfjxfw;
+    }
+
+    public String getXmqksm() {
+        return xmqksm;
+    }
+
+    public void setXmqksm(String xmqksm) {
+        this.xmqksm = xmqksm;
     }
 
     public String getHtmc() {

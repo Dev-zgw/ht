@@ -39,7 +39,8 @@ public class HtServiceImpl implements HtService {
     //查询合同信息
     @Override
     public ServiceResponsebg<List<Ht>> query(Users user, int pageNum, int pageSize, String htfl, String qsrq,
-                                          String fzr,String ssfzr,String htzt,String dqsheng,String dqshi,String je) {
+                                          String fzr,String ssfzr,String htzt,String dqsheng,String dqshi,String je,
+                                             String htbh,String sfjxfw) {
         String htjemin="";
         String htjemax="";
         if(("0").equals(je)){
@@ -70,12 +71,12 @@ public class HtServiceImpl implements HtService {
         List<Ht> list=new ArrayList<>();
         //管理员查询所有合同信息
         if(role.getQxid().longValue()== Const.Role.ROLE_ADMIN){
-            list=htMapper.select(htfl,startTime,endTime,fzr,ssfzr,htzt,dqsheng,dqshi,htjemax,htjemin);
+            list=htMapper.select(htfl,startTime,endTime,fzr,ssfzr,htzt,dqsheng,dqshi,htjemax,htjemin,htbh,sfjxfw);
         }
 
         //总经理权限查看合同信息
         if(role.getQxid().longValue()== Const.Role.ROLE_ZJL){
-            list=htMapper.select(htfl,startTime,endTime,fzr,ssfzr,htzt,dqsheng,dqshi,htjemax,htjemin);
+            list=htMapper.select(htfl,startTime,endTime,fzr,ssfzr,htzt,dqsheng,dqshi,htjemax,htjemin,htbh,sfjxfw);
         }
 
         //部门经理只能查看该部门的合同信息
@@ -85,23 +86,23 @@ public class HtServiceImpl implements HtService {
 
             for(int i=0;i<listUser.size();i++){
                 //分别查询每个用户的合同
-                List<Ht> htList=htMapper.selectyh(listUser.get(i).getId(),htfl,startTime,endTime,ssfzr,htzt,dqsheng,dqshi,htjemax,htjemin);
+                List<Ht> htList=htMapper.selectyh(listUser.get(i).getId(),htfl,startTime,endTime,ssfzr,htzt,dqsheng,dqshi,htjemax,htjemin,htbh,sfjxfw);
                 list.addAll(htList);
             }
         }
 
         //普通用户只能查看自己的合同信息
         if(role.getQxid().longValue()== Const.Role.ROLE_CUSTOMER){
-            list=htMapper.selectyh(user.getId(),htfl,startTime,endTime,ssfzr,htzt,dqsheng,dqshi,htjemax,htjemin);
+            list=htMapper.selectyh(user.getId(),htfl,startTime,endTime,ssfzr,htzt,dqsheng,dqshi,htjemax,htjemin,htbh,sfjxfw);
         }
 
         //实施用户权限
         if(role.getQxid().longValue()== Const.Role.ROLE_SSYH){
-            list=htMapper.selectss(user.getId(),htfl,startTime,endTime,fzr,htzt,dqsheng,dqshi,htjemax,htjemin);
+            list=htMapper.selectss(user.getId(),htfl,startTime,endTime,fzr,htzt,dqsheng,dqshi,htjemax,htjemin,htbh,sfjxfw);
         }
         //财务用户权限
         if(role.getQxid().longValue()== Const.Role.ROLE_CWQX){
-          list=htMapper.select(htfl,startTime,endTime,fzr,ssfzr,htzt,dqsheng,dqshi,htjemax,htjemin);
+          list=htMapper.select(htfl,startTime,endTime,fzr,ssfzr,htzt,dqsheng,dqshi,htjemax,htjemin,htbh,sfjxfw);
         }
         PageInfo<Ht> pageInfo = new PageInfo<Ht>(list);
         return ServiceResponsebg.createBySuccess(role.getQxid().longValue(),pageInfo.getTotal(),list);
@@ -110,8 +111,6 @@ public class HtServiceImpl implements HtService {
     //修改合同信息
     @Override
     public ServerResponse update(Users users, Ht ht){
-        ht.setFzr(userMapper.selectByPrimaryKey(ht.getFzrid()).getXm());
-        ht.setSsfzr(userMapper.selectByPrimaryKey(ht.getSsfzrid()).getXm());
         ht.setUpdateTime(new Date());
         ht.setUpdateBy(users.getXm());
         int i=htMapper.updateByPrimaryKeySelective(ht);
@@ -145,8 +144,6 @@ public class HtServiceImpl implements HtService {
         if(hts!=null){
             return ServerResponse.createByErrorMessage("合同编号已存在");
         }
-        ht.setFzr(userMapper.selectByPrimaryKey(ht.getFzrid()).getXm());
-        ht.setSsfzr(userMapper.selectByPrimaryKey(ht.getSsfzrid()).getXm());
         ht.setCreateTime(new Date());
         ht.setCreateBy(users.getXm());
         ht.setHtzt(String.valueOf(Const.HtState.TO_BE_CONFIRMED));
