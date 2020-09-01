@@ -339,17 +339,18 @@ public class ReportServiceImpl implements ReportService {
             }
         }
         for(int m=0;m<fkhtlist.size();m++){
-            if(fkhtlist.get(m).getIfsk()=="2"){ //已收款
+            if(("2").equals(fkhtlist.get(m).getIfsk())){ //已收款
                 fkhtcount++;
-                if(fkhtlist.get(m).getFkje()==null||fkhtlist.get(m).getFkje()==""){
-
+                System.out.print(fkhtlist.get(m).getFkje());
+                if(fkhtlist.get(m).getFkje()==null||("").equals(fkhtlist.get(m).getFkje())){
+                    fkhtsum +=0;
                 }else{
                     fkhtsum += Double.parseDouble(fkhtlist.get(m).getFkje());
                 }
             }else{//未收款
                 wfkhtcount++;
-                if(fkhtlist.get(m).getFkje()==null||fkhtlist.get(m).getFkje()==""){
-
+                if(fkhtlist.get(m).getFkje()==null||("").equals(fkhtlist.get(m).getFkje())){
+                    //wfkhtsum+=0;
                 }else{
                     wfkhtsum += Double.parseDouble(fkhtlist.get(m).getFkje());
                 }

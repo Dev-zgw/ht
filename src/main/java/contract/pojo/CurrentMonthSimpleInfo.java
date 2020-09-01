@@ -12,16 +12,16 @@ public class CurrentMonthSimpleInfo {
     String fkhtcount;       //已付款合同数量
     String fkhtje;          //已付款合同金额
     String wfkhtcount;      //未付款合同数量
-    String wfkhtsum;        //未付款合同金额
+    String wfkhtje;        //未付款合同金额
 
-    public CurrentMonthSimpleInfo(String qdhtcount, String qdhtje, String qdhtdqcount, String fkhtcount, String fkhtje, String wfkhtcount, String wfkhtsum) {
+    public CurrentMonthSimpleInfo(String qdhtcount, String qdhtje, String qdhtdqcount, String fkhtcount, String fkhtje, String wfkhtcount, String wfkhtje) {
         this.qdhtcount = qdhtcount;
         this.qdhtje = qdhtje;
         this.qdhtdqcount = qdhtdqcount;
         this.fkhtcount = fkhtcount;
         this.fkhtje = fkhtje;
         this.wfkhtcount = wfkhtcount;
-        this.wfkhtsum = wfkhtsum;
+        this.wfkhtje = wfkhtje;
     }
 
     public String getQdhtcount() {
@@ -72,12 +72,12 @@ public class CurrentMonthSimpleInfo {
         this.wfkhtcount = wfkhtcount;
     }
 
-    public String getWfkhtsum() {
-        return wfkhtsum;
+    public String getWfkhtje() {
+        return wfkhtje;
     }
 
-    public void setWfkhtsum(String wfkhtsum) {
-        this.wfkhtsum = wfkhtsum;
+    public void setWfkhtje(String wfkhtje) {
+        this.wfkhtje = wfkhtje;
     }
 
     @Override
@@ -89,7 +89,7 @@ public class CurrentMonthSimpleInfo {
                 ", fkhtcount='" + fkhtcount + '\'' +
                 ", fkhtje='" + fkhtje + '\'' +
                 ", wfkhtcount='" + wfkhtcount + '\'' +
-                ", wfkhtsum='" + wfkhtsum + '\'' +
+                ", wfkhtje='" + wfkhtje + '\'' +
                 '}';
     }
 }

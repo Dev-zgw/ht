@@ -173,7 +173,7 @@
     </select>
     <!--按月付款合同信息-->
     <select id="selectMonthFkInfo" resultMap="simplehtqs">
-        select to_char(htqs.sj, 'YYYY-MM') as httime,htqs.SFSKWC as ifsk,htqs.SKJE as fkje,htqs.HTBH as htbh,ht.fzr as fzr,htqs.ssfzr
+        select to_char(htqs.sj, 'YYYY-MM') as httime,htqs.SFSKWC as ifsk,htqs.JE as fkje,htqs.HTBH as htbh,ht.fzr as fzr,htqs.ssfzr
         from htqs left join ht on ht.htbh=htqs.htbh
         where 1=1
         <if test="month != null and month != ''">
