@@ -25,16 +25,18 @@ public class DsqController {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            if(htzzsj<dqsj){
-              htService.updateyqzt(htList.get(i).getId().intValue(),"4");
-              long yqts=(dqsj-htzzsj)/(1000L*3600L*24L);
-              String htsyts="已到期";
-              htService.updateyqts(htList.get(i).getId().intValue(),Long.toString(yqts),htsyts);
-          }else{
-              String yqts="未到期";
-              long htsyts=(htzzsj-dqsj)/(1000L*3600L*24L);
-              htService.updateyqts(htList.get(i).getId().intValue(),yqts,Long.toString(htsyts));
-          }
+            if(Long.parseLong(htList.get(i).getHtzt())!=2){
+                if(htzzsj<dqsj){
+                    htService.updateyqzt(htList.get(i).getId().intValue(),"4");
+                    long yqts=(dqsj-htzzsj)/(1000L*3600L*24L);
+                    String htsyts="已到期";
+                    htService.updateyqts(htList.get(i).getId().intValue(),Long.toString(yqts),htsyts);
+                }else{
+                    String yqts="未到期";
+                    long htsyts=(htzzsj-dqsj)/(1000L*3600L*24L);
+                    htService.updateyqts(htList.get(i).getId().intValue(),yqts,Long.toString(htsyts));
+                }
+            }
         }
         System.out.println("执行定时器成功 : "+format.format(new Date()));
     }

@@ -54,7 +54,9 @@ public class HtflServiceImpl implements HtflService {
     }
 
     @Override
-    public ServerResponse insert(Users users, Htfl htfl) {
+    public ServerResponse insert(Users users, String flmc) {
+        Htfl htfl=new Htfl();
+        htfl.setFlmc(flmc);
         htfl.setCreateTime(new Date());
         htfl.setCreateBy(users.getXm());
         int i=htflMapper.insertSelective(htfl);

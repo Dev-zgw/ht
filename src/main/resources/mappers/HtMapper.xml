@@ -39,12 +39,13 @@
       <arg column="HTZZRQ" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="YQTS" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="HTSYTS" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="HTMC" jdbcType="VARCHAR" javaType="java.lang.String" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
     ID, HTBH, QSRQ, FZR, YYMC, HTNR, HTNRHTNR, FKZQ, NYWFJE, NYWFSJ, XXKXM, XXKLXFS,
     CWKXM, CWKLXFS, YWDJR, YWDJRLXFS, SFSKWC, SKJE, HTSFDQ, HTZT, BZ, YYJB, DQSHENG,
-    DQSHI, HTFL, CREATE_BY, UPDATE_BY, CREATE_TIME, UPDATE_TIME, FZRID,SSFZR,SSFZRID,HTQSRQ,HTZZRQ,YQTS,HTSYTS
+    DQSHI, HTFL, CREATE_BY, UPDATE_BY, CREATE_TIME, UPDATE_TIME, FZRID,SSFZR,SSFZRID,HTQSRQ,HTZZRQ,YQTS,HTSYTS,HTMC
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
     select
@@ -66,7 +67,7 @@
       HTZT, BZ, YYJB, DQSHENG,
       DQSHI, HTFL, CREATE_BY,
       UPDATE_BY, CREATE_TIME, UPDATE_TIME,
-      FZRID,SSFZR,SSFZRID,HTQSRQ,HTZZRQ,YQTS,HTSYTS)
+      FZRID,SSFZR,SSFZRID,HTQSRQ,HTZZRQ,YQTS,HTSYTS,HTMC)
     values (#{id,jdbcType=DECIMAL}, #{htbh,jdbcType=VARCHAR}, #{qsrq,jdbcType=TIMESTAMP},
       #{fzr,jdbcType=VARCHAR}, #{yymc,jdbcType=VARCHAR}, #{htnr,jdbcType=VARCHAR}, #{htnrhtnr,jdbcType=DECIMAL},
       #{fkzq,jdbcType=DECIMAL}, #{nywfje,jdbcType=DECIMAL}, #{nywfsj,jdbcType=TIMESTAMP},
@@ -77,7 +78,7 @@
       #{dqshi,jdbcType=VARCHAR}, #{htfl,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR},
       #{updateBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
       #{fzrid,jdbcType=DECIMAL}),#{ssfzr,jdbcType=VARCHAR},
-      #{ssfzrid,jdbcType=DECIMAL}, #{htqsrq,jdbcType=TIMESTAMP}, #{htzzrq,jdbcType=TIMESTAMP}, #{yqts,jdbcType=VARCHAR},#{htsyts,jdbcType=VARCHAR})
+      #{ssfzrid,jdbcType=DECIMAL}, #{htqsrq,jdbcType=TIMESTAMP}, #{htzzrq,jdbcType=TIMESTAMP}, #{yqts,jdbcType=VARCHAR},#{htsyts,jdbcType=VARCHAR},#{htmc,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="contract.pojo.Ht" >
     insert into HT
@@ -190,6 +191,9 @@
       <if test="htsyts != null" >
         HTSYTS,
       </if>
+      <if test="htmc != null" >
+        HTMC,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -299,6 +303,9 @@
       </if>
       <if test="htsyts != null" >
         #{htsyts,jdbcType=VARCHAR},
+      </if>
+      <if test="htmc != null" >
+        #{htmc,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -410,6 +417,9 @@
       <if test="htsyts != null" >
         HtSYTS = #{htsyts,jdbcType=VARCHAR},
       </if>
+      <if test="htmc != null" >
+        HTMC = #{htmc,jdbcType=VARCHAR},
+      </if>
     </set>
     where ID = #{id,jdbcType=DECIMAL}
   </update>
@@ -449,7 +459,8 @@
       HTQSRQ = #{htqsrq,jdbcType=TIMESTAMP},
       HTZZRQ = #{htzzrq,jdbcType=TIMESTAMP},
       YQTS = #{yqts,jdbcType=VARCHAR},
-      HTSYTS = #{htsyts,jdbcType=VARCHAR}
+      HTSYTS = #{htsyts,jdbcType=VARCHAR},
+      HTMC = #{htmc,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=DECIMAL}
   </update>
   <select id="select" resultMap="BaseResultMap" >

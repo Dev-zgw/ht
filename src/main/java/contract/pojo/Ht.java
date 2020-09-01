@@ -76,7 +76,9 @@ public class Ht {
 
     private String htsyts;
 
-    public Ht(BigDecimal id, String htbh, Date qsrq, String fzr, String yymc, String htnr, BigDecimal htnrhtnr, Long fkzq, BigDecimal nywfje, Date nywfsj, String xxkxm, String xxklxfs, String cwkxm, String cwklxfs, String ywdjr, String ywdjrlxfs, String sfskwc, BigDecimal skje, String htsfdq, String htzt, String bz, String yyjb, String dqsheng, String dqshi, String htfl, String createBy, String updateBy, Date createTime, Date updateTime, BigDecimal fzrid, String ssfzr, BigDecimal ssfzrid, Date htqsrq, Date htzzrq, String yqts, String htsyts) {
+    private String htmc;
+
+    public Ht(BigDecimal id, String htbh, Date qsrq, String fzr, String yymc, String htnr, BigDecimal htnrhtnr, Long fkzq, BigDecimal nywfje, Date nywfsj, String xxkxm, String xxklxfs, String cwkxm, String cwklxfs, String ywdjr, String ywdjrlxfs, String sfskwc, BigDecimal skje, String htsfdq, String htzt, String bz, String yyjb, String dqsheng, String dqshi, String htfl, String createBy, String updateBy, Date createTime, Date updateTime, BigDecimal fzrid, String ssfzr, BigDecimal ssfzrid, Date htqsrq, Date htzzrq, String yqts, String htsyts, String htmc) {
         this.id = id;
         this.htbh = htbh;
         this.qsrq = qsrq;
@@ -113,7 +115,17 @@ public class Ht {
         this.htzzrq = htzzrq;
         this.yqts = yqts;
         this.htsyts = htsyts;
+        this.htmc = htmc;
     }
+
+    public String getHtmc() {
+        return htmc;
+    }
+
+    public void setHtmc(String htmc) {
+        this.htmc = htmc;
+    }
+
 
     public String getHtsyts() {
         return htsyts;
