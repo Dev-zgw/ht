@@ -332,8 +332,11 @@ public class ReportServiceImpl implements ReportService {
             if(!dq.contains(qdhtlist.get(j).getDqsheng()+"_"+dq.contains(qdhtlist.get(j).getDqshi()))){
                 dq.add(qdhtlist.get(j).getDqsheng()+"_"+dq.contains(qdhtlist.get(j).getDqshi()));
             }
-            qdhtsum += Double.parseDouble(qdhtlist.get(j).getHtje());
-            System.out.print(qdhtsum);
+            if(qdhtlist.get(j).getHtje()==null||qdhtlist.get(j).getHtje()==""){
+
+            }else{
+                qdhtsum += Double.parseDouble(qdhtlist.get(j).getHtje());
+            }
         }
         for(int m=0;m<fkhtlist.size();m++){
             if(fkhtlist.get(m).getIfsk()=="2"){ //已收款
@@ -345,7 +348,6 @@ public class ReportServiceImpl implements ReportService {
                 }
             }else{//未收款
                 wfkhtcount++;
-                wfkhtsum += Double.parseDouble(fkhtlist.get(m).getFkje());
                 if(fkhtlist.get(m).getFkje()==null||fkhtlist.get(m).getFkje()==""){
 
                 }else{

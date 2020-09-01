@@ -39,6 +39,11 @@
             <arg column="HTZZRQ" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
             <arg column="YQTS" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="HTSYTS" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="HTMC" jdbcType="VARCHAR" javaType="java.lang.String" />
+            <arg column="SFGB" jdbcType="VARCHAR" javaType="java.lang.String" />
+            <arg column="SFJXFW" jdbcType="VARCHAR" javaType="java.lang.String" />
+            <arg column="YJQYSJ" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+            <arg column="XMQKSM" jdbcType="VARCHAR" javaType="java.lang.String" />
         </constructor>
     </resultMap>
     <resultMap id="Chart1Map" type="contract.pojo.Chart1">
@@ -101,7 +106,8 @@
     <sql id="Base_Column_List">
     ID, HTBH, QSRQ, FZR, YYMC, HTNR, HTNRHTNR, FKZQ, NYWFJE, NYWFSJ, XXKXM, XXKLXFS,
     CWKXM, CWKLXFS, YWDJR, YWDJRLXFS, SFSKWC, SKJE, HTSFDQ, HTZT, BZ, YYJB, DQSHENG,
-    DQSHI, HTFL, CREATE_BY, UPDATE_BY, CREATE_TIME, UPDATE_TIME, FZRID,SSFZR,SSFZRID,HTQSRQ,HTZZRQ,YQTS,HTSYTS,,HTMC
+    DQSHI, HTFL, CREATE_BY, UPDATE_BY, CREATE_TIME, UPDATE_TIME, FZRID,SSFZR,SSFZRID,HTQSRQ,HTZZRQ,YQTS,HTSYTS,HTMC
+    ,SFGB,SFJXFW,YJQYSJ,XMQKSM
   </sql>
     <!--个人报表界面本月签订信息(本月签订合同数量及金额)-->
     <select id="selectPersonalcurrentinfo" resultMap="Currentinfo">
@@ -191,7 +197,7 @@
         CWKXM, CWKLXFS, YWDJR, YWDJRLXFS, SFSKWC, SKJE, HTSFDQ, HTZT, BZ, YYJB, DQSHENG,DQSHI,
         HTFL.FLMC AS HTFL,
         HT.CREATE_BY AS CREATE_BY, HT.UPDATE_BY AS UPDATE_BY, HT.CREATE_TIME AS CREATE_TIME, HT.UPDATE_TIME AS
-        UPDATE_TIME, FZRID,SSFZR,SSFZRID,HTQSRQ,HTZZRQ,YQTS,HTSYTS
+        UPDATE_TIME, FZRID,SSFZR,SSFZRID,HTQSRQ,HTZZRQ,YQTS,HTSYTS,HTMC,SFGB,SFJXFW,YJQYSJ,XMQKSM
         from HT
         LEFT JOIN HTFL ON HTFL.ID=HT.HTFL
         where 1=1
