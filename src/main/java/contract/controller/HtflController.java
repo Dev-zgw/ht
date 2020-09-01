@@ -34,6 +34,7 @@ public class HtflController {
     @Autowired
     private UsersMapper usersMapper;
 
+
     /**
      * 查询合同分类
      * @param session
@@ -94,9 +95,9 @@ public class HtflController {
     @ResponseBody
     private ServiceResponsebg<List<Ht>> getquery(@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
                                                  @RequestParam(value = "pageSize", defaultValue = "5") int pageSize, String userid, String htfl, String qsrq,
-                                                 String fzr, String ssfzr, String htzt, String dqsheng, String diqushi, String je){
+                                                 String fzr, String ssfzr, String htzt, String dqsheng, String diqushi, String je,String htbh,String sfjxfw){
         Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
-        return htService.query(user,currentPage,pageSize,htfl,qsrq,fzr,ssfzr,htzt,dqsheng,diqushi,je);
+        return htService.query(user,currentPage,pageSize,htfl,qsrq,fzr,ssfzr,htzt,dqsheng,diqushi,je,htbh,sfjxfw);
     }
 
     /**
@@ -107,27 +108,53 @@ public class HtflController {
      */
     @RequestMapping(value = "update.do", method =RequestMethod.POST)
     @ResponseBody
-    private ServerResponse update(int id,String userid, String htbh,String htmc,Long qsrq,Long htqsrq,Long htzzrq,String fzr,String ssfzr,String yymc,String yyjb,
-                                  String dqsheng,String dqshi,String htfl,String htnrhtnr,String nywfje,Long nywfsj,String xxkxm,
-                                  String xxklxfs,String cwkxm,String cwklxfs,String ywdjr,String ywdjrlxfs,String bz){
-        Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
-        Ht ht=new Ht();
+    private ServerResponse update(int id,String userid, String htbh,String htmc,String qsrq,String htqsrq,String htzzrq,String fzr,String ssfzr,String yymc,String yyjb,
+                                  String dqsheng,String dqshi,String htfl,String htnrhtnr,String nywfje,String nywfsj,String xxkxm,
+                                  String xxklxfs,String cwkxm,String cwklxfs,String ywdjr,String ywdjrlxfs,String bz,String sfgb,String sfjxfw,String yjqysj,String xmqksm) {
+        Users user = usersMapper.selectByPrimaryKey(new BigDecimal(userid));
+        Ht ht = new Ht();
+        ht.setSfgb(sfgb);
+        ht.setSfjxfw(sfjxfw);
+        if(!("").equals(yjqysj)){
+            ht.setYjqysj(new Date(Long.parseLong(yjqysj)));
+        }
+        ht.setXmqksm(xmqksm);
         ht.setId(new BigDecimal(id));
         ht.setHtbh(htbh);
         ht.setHtmc(htmc);
-        ht.setQsrq(new Date(qsrq));
-        ht.setHtqsrq(new Date(htqsrq));
-        ht.setHtzzrq(new Date(htzzrq));
-        ht.setFzrid(new BigDecimal(fzr));
-        ht.setSsfzrid(new BigDecimal(ssfzr));
+        if (!("").equals(qsrq)) {
+
+            ht.setQsrq(new Date(Long.parseLong(qsrq)));
+        }
+        if (!("").equals(htqsrq)) {
+            ht.setHtqsrq(new Date(Long.parseLong(htqsrq)));
+        }
+        if (!("").equals(htzzrq)) {
+            ht.setHtzzrq(new Date(Long.parseLong(htzzrq)));
+        }
+        if (!("").equals(fzr)) {
+            ht.setFzrid(new BigDecimal(fzr));
+            ht.setFzr(usersMapper.selectByPrimaryKey(ht.getFzrid()).getXm());
+        }
+        if (!("").equals(ssfzr)) {
+            ht.setSsfzrid(new BigDecimal(ssfzr));
+            ht.setSsfzr(usersMapper.selectByPrimaryKey(ht.getSsfzrid()).getXm());
+        }
         ht.setYymc(yymc);
         ht.setYyjb(yyjb);
         ht.setDqsheng(dqsheng);
         ht.setDqshi(dqshi);
         ht.setHtfl(htfl);
-        ht.setHtnrhtnr(new BigDecimal(htnrhtnr));
-        ht.setNywfje(new BigDecimal(nywfje));
-        ht.setNywfsj(new Date(nywfsj));
+
+        if (!("").equals(htnrhtnr)) {
+            ht.setHtnrhtnr(new BigDecimal(htnrhtnr));
+        }
+        if (!("").equals(nywfje)) {
+            ht.setNywfje(new BigDecimal(nywfje));
+        }
+        if (!("".equals(nywfsj))) {
+            ht.setNywfsj(new Date(Long.parseLong(nywfsj)));
+        }
         ht.setXxkxm(xxkxm);
         ht.setXxklxfs(xxklxfs);
         ht.setCwkxm(cwkxm);
@@ -135,7 +162,7 @@ public class HtflController {
         ht.setYwdjr(ywdjr);
         ht.setYwdjrlxfs(ywdjrlxfs);
         ht.setBz(bz);
-        return htService.update(user,ht);
+        return htService.update(user, ht);
     }
 
     //查询所有用户
@@ -174,35 +201,60 @@ public class HtflController {
      */
     @RequestMapping(value = "xinzeng.do", method = RequestMethod.POST)
     @ResponseBody
-    private ServerResponse xinzeng(String userid, String htbh, String htmc,Long qsrq,Long htqsrq,Long htzzrq,String fzr,String ssfzr,String yymc,String yyjb,
-                                   String dqsheng,String dqshi,String htfl,String htnrhtnr,String nywfje,Long nywfsj,String xxkxm,
-                                   String xxklxfs,String cwkxm,String cwklxfs,String ywdjr,String ywdjrlxfs,String bz){
-        Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
-        Ht ht=new Ht();
-        ht.setHtbh(htbh);
-        ht.setHtmc(htmc);
-        ht.setQsrq(new Date(qsrq));
-        ht.setHtqsrq(new Date(htqsrq));
-        ht.setHtzzrq(new Date(htzzrq));
-        ht.setFzrid(new BigDecimal(fzr));
-        ht.setSsfzrid(new BigDecimal(ssfzr));
-        ht.setYymc(yymc);
-        ht.setYyjb(yyjb);
-        ht.setDqsheng(dqsheng);
-        ht.setDqshi(dqshi);
-        ht.setHtfl(htfl);
-        ht.setHtnrhtnr(new BigDecimal(htnrhtnr));
-        ht.setNywfje(new BigDecimal(nywfje));
-        ht.setNywfsj(new Date(nywfsj));
-        ht.setXxkxm(xxkxm);
-        ht.setXxklxfs(xxklxfs);
-        ht.setCwkxm(cwkxm);
-        ht.setCwklxfs(cwklxfs);
-        ht.setYwdjr(ywdjr);
-        ht.setYwdjrlxfs(ywdjrlxfs);
-        ht.setBz(bz);
-        return htService.xinzeng(user,ht);
-    }
+        private ServerResponse xinzeng(String userid, String htbh, String htmc,String qsrq,String htqsrq,String htzzrq,String fzr,String ssfzr,String yymc,String yyjb,
+                String dqsheng,String dqshi,String htfl,String htnrhtnr,String nywfje,String nywfsj,String xxkxm,
+                String xxklxfs,String cwkxm,String cwklxfs,String ywdjr,String ywdjrlxfs,String bz,
+                                       String sfgb,String sfjxfw,String yjqysj,String xmqksm){
+            Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
+            Ht ht=new Ht();
+            ht.setSfgb(sfgb);
+            ht.setSfjxfw(sfjxfw);
+            if(!("").equals(yjqysj)){
+                ht.setYjqysj(new Date(Long.parseLong(yjqysj)));
+            }
+            ht.setXmqksm(xmqksm);
+            ht.setHtbh(htbh);
+            ht.setHtmc(htmc);
+            if(!("").equals(qsrq)){
+                ht.setQsrq(new Date(Long.parseLong(qsrq)));
+            }
+            if(!("").equals(htqsrq)){
+                ht.setHtqsrq(new Date(Long.parseLong(htqsrq)));
+            }
+            if(!("").equals(htzzrq)){
+                ht.setHtzzrq(new Date(Long.parseLong(htzzrq)));
+            }
+            if(!("").equals(fzr)){
+                ht.setFzrid(new BigDecimal(fzr));
+                ht.setFzr(usersMapper.selectByPrimaryKey(ht.getFzrid()).getXm());
+            }
+            if(!("").equals(ssfzr)){
+                ht.setSsfzrid(new BigDecimal(ssfzr));
+                ht.setSsfzr(usersMapper.selectByPrimaryKey(ht.getSsfzrid()).getXm());
+            }
+            ht.setYymc(yymc);
+            ht.setYyjb(yyjb);
+            ht.setDqsheng(dqsheng);
+            ht.setDqshi(dqshi);
+            ht.setHtfl(htfl);
+            if(!("").equals(htnrhtnr)){
+                ht.setHtnrhtnr(new BigDecimal(htnrhtnr));
+            }
+            if(!("").equals(nywfje)){
+                ht.setNywfje(new BigDecimal(nywfje));
+            }
+            if(!("".equals(nywfsj))){
+                ht.setNywfsj(new Date(Long.parseLong(nywfsj)));
+            }
+            ht.setXxkxm(xxkxm);
+            ht.setXxklxfs(xxklxfs);
+            ht.setCwkxm(cwkxm);
+            ht.setCwklxfs(cwklxfs);
+            ht.setYwdjr(ywdjr);
+            ht.setYwdjrlxfs(ywdjrlxfs);
+            ht.setBz(bz);
+            return htService.xinzeng(user,ht);
+        }
 
     /**
      * 合同删除

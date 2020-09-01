@@ -49,15 +49,24 @@ public class HtqsController {
      */
     @RequestMapping(value = "update.do",method =RequestMethod.POST)
     @ResponseBody
-    private ServerResponse update(String userid,String id, String htbh, Long yjsj,Long sj,String je,String ssfzr,String bz){
+    private ServerResponse update(String userid,String id, String htbh, String yjsj,String sj,String je,String ssfzr,String bz){
         Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
         Htqs htqs=new Htqs();
         htqs.setId(new BigDecimal(id));
         htqs.setHtbh(htbh);
-        htqs.setJe(new BigDecimal(je));
-        htqs.setSj(new Date(sj));
-        htqs.setYjsj(new Date(yjsj));
-        htqs.setSsfzrid(new BigDecimal(ssfzr));
+        if(!("").equals(je)){
+            htqs.setJe(new BigDecimal(je));
+        }
+        if(!("").equals(sj)){
+            htqs.setSj(new Date(Long.parseLong(sj)));
+        }
+        if(!("").equals(yjsj)){
+            htqs.setYjsj(new Date(Long.parseLong(yjsj)));
+        }
+        if(!("").equals(ssfzr)){
+            htqs.setSsfzrid(new BigDecimal(ssfzr));
+            htqs.setSsfzr(usersMapper.selectByPrimaryKey(htqs.getSsfzrid()).getXm());
+        }
         htqs.setBz(bz);
         return htqsService.update(user,htqs);
     }
@@ -70,15 +79,24 @@ public class HtqsController {
      */
     @RequestMapping(value = "xinzeng.do",method = RequestMethod.POST)
     @ResponseBody
-    private ServerResponse  xinzeng(String userid, String htbh, Long yjsj,Long sj,String je,String ssfzr,String bz){
+    private ServerResponse  xinzeng(String userid, String htbh, String yjsj,String sj,String je,String ssfzr,String bz){
         Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Htqs htqs=new Htqs();
         htqs.setHtbh(htbh);
-        htqs.setJe(new BigDecimal(je));
-        htqs.setSj(new Date(sj));
-        htqs.setYjsj(new Date(yjsj));
-        htqs.setSsfzrid(new BigDecimal(ssfzr));
+        if(!("").equals(je)){
+            htqs.setJe(new BigDecimal(je));
+        }
+        if(!("").equals(sj)){
+            htqs.setSj(new Date(Long.parseLong(sj)));
+        }
+        if(!("").equals(yjsj)){
+            htqs.setYjsj(new Date(Long.parseLong(yjsj)));
+        }
+        if(!("").equals(ssfzr)){
+            htqs.setSsfzrid(new BigDecimal(ssfzr));
+            htqs.setSsfzr(usersMapper.selectByPrimaryKey(htqs.getSsfzrid()).getXm());
+        }
         htqs.setBz(bz);
         return htqsService.xinzeng(user,htqs);
     }

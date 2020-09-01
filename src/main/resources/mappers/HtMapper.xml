@@ -40,12 +40,17 @@
       <arg column="YQTS" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="HTSYTS" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="HTMC" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SFGB" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SFJXFW" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="YJQYSJ" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="XMQKSM" jdbcType="VARCHAR" javaType="java.lang.String" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
     ID, HTBH, QSRQ, FZR, YYMC, HTNR, HTNRHTNR, FKZQ, NYWFJE, NYWFSJ, XXKXM, XXKLXFS,
     CWKXM, CWKLXFS, YWDJR, YWDJRLXFS, SFSKWC, SKJE, HTSFDQ, HTZT, BZ, YYJB, DQSHENG,
     DQSHI, HTFL, CREATE_BY, UPDATE_BY, CREATE_TIME, UPDATE_TIME, FZRID,SSFZR,SSFZRID,HTQSRQ,HTZZRQ,YQTS,HTSYTS,HTMC
+    ,SFGB,SFJXFW,YJQYSJ,XMQKSM
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
     select
@@ -67,7 +72,7 @@
       HTZT, BZ, YYJB, DQSHENG,
       DQSHI, HTFL, CREATE_BY,
       UPDATE_BY, CREATE_TIME, UPDATE_TIME,
-      FZRID,SSFZR,SSFZRID,HTQSRQ,HTZZRQ,YQTS,HTSYTS,HTMC)
+      FZRID,SSFZR,SSFZRID,HTQSRQ,HTZZRQ,YQTS,HTSYTS,HTMC,SFGB,SFJXFW,YJQYSJ,XMQKSM)
     values (#{id,jdbcType=DECIMAL}, #{htbh,jdbcType=VARCHAR}, #{qsrq,jdbcType=TIMESTAMP},
       #{fzr,jdbcType=VARCHAR}, #{yymc,jdbcType=VARCHAR}, #{htnr,jdbcType=VARCHAR}, #{htnrhtnr,jdbcType=DECIMAL},
       #{fkzq,jdbcType=DECIMAL}, #{nywfje,jdbcType=DECIMAL}, #{nywfsj,jdbcType=TIMESTAMP},
@@ -78,7 +83,9 @@
       #{dqshi,jdbcType=VARCHAR}, #{htfl,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR},
       #{updateBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
       #{fzrid,jdbcType=DECIMAL}),#{ssfzr,jdbcType=VARCHAR},
-      #{ssfzrid,jdbcType=DECIMAL}, #{htqsrq,jdbcType=TIMESTAMP}, #{htzzrq,jdbcType=TIMESTAMP}, #{yqts,jdbcType=VARCHAR},#{htsyts,jdbcType=VARCHAR},#{htmc,jdbcType=VARCHAR})
+      #{ssfzrid,jdbcType=DECIMAL}, #{htqsrq,jdbcType=TIMESTAMP}, #{htzzrq,jdbcType=TIMESTAMP},
+      #{yqts,jdbcType=VARCHAR},#{htsyts,jdbcType=VARCHAR},#{htmc,jdbcType=VARCHAR},
+      #{sfgb,jdbcType=VARCHAR},#{sfjxfw,jdbcType=VARCHAR},#{yjqysj,jdbcType=TIMESTAMP},#{xmqksm,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="contract.pojo.Ht" >
     insert into HT
@@ -194,6 +201,18 @@
       <if test="htmc != null" >
         HTMC,
       </if>
+      <if test="sfgb != null" >
+        SFGB,
+      </if>
+      <if test="sfjxfw != null" >
+        SFJXFW,
+      </if>
+      <if test="yjqysj != null" >
+        YJQYSJ,
+      </if>
+      <if test="xmqksm != null" >
+        XMQKSM,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -306,6 +325,18 @@
       </if>
       <if test="htmc != null" >
         #{htmc,jdbcType=VARCHAR},
+      </if>
+      <if test="sfgb != null" >
+        #{sfgb,jdbcType=VARCHAR},
+      </if>
+      <if test="sfjxfw != null" >
+        #{sfjxfw,jdbcType=VARCHAR},
+      </if>
+      <if test="yjqysj != null" >
+        #{yjqysj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="xmqksm != null" >
+        #{xmqksm,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -420,6 +451,18 @@
       <if test="htmc != null" >
         HTMC = #{htmc,jdbcType=VARCHAR},
       </if>
+      <if test="sfgb != null" >
+        SFGB = #{sfgb,jdbcType=VARCHAR},
+      </if>
+      <if test="sfjxfw != null" >
+        SFJXFW = #{sfjxfw,jdbcType=VARCHAR},
+      </if>
+      <if test="yjqysj != null" >
+        YJQYSJ = #{yjqysj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="xmqksm != null" >
+        XMQKSM = #{xmqksm,jdbcType=VARCHAR},
+      </if>
     </set>
     where ID = #{id,jdbcType=DECIMAL}
   </update>
@@ -460,7 +503,11 @@
       HTZZRQ = #{htzzrq,jdbcType=TIMESTAMP},
       YQTS = #{yqts,jdbcType=VARCHAR},
       HTSYTS = #{htsyts,jdbcType=VARCHAR},
-      HTMC = #{htmc,jdbcType=VARCHAR}
+      HTMC = #{htmc,jdbcType=VARCHAR},
+      SFGB = #{sfgb,jdbcType=VARCHAR},
+      SFJXFW = #{sfjxfw,jdbcType=VARCHAR},
+      YJQYSJ = #{yjqysj,jdbcType=TIMESTAMP},
+      XMQKSM = #{xmqksm,jdbcType=VARCHAR},
     where ID = #{id,jdbcType=DECIMAL}
   </update>
   <select id="select" resultMap="BaseResultMap" >
@@ -498,6 +545,12 @@
     <if test="htjemin != null and htjemin != ''">
       and  HTNRHTNR &gt; #{htjemin,jdbcType=DECIMAL}
     </if>
+    <if test="htbh != null and htbh != ''">
+      and  HTBH LIKE CONCAT(CONCAT('%', #{htbh}), '%')
+    </if>
+    <if test="sfjxfw != null and sfjxfw != ''">
+      and  SFJXFW = #{sfjxfw,jdbcType=VARCHAR}
+    </if>
   </select>
   <select id="selectyh" resultMap="BaseResultMap" >
     select
@@ -531,6 +584,12 @@
     </if>
     <if test="htjemin != null and htjemin != ''">
       and  HTNRHTNR &gt; #{htjemin,jdbcType=DECIMAL}
+    </if>
+    <if test="htbh != null and htbh != ''">
+      and  HTBH LIKE CONCAT(CONCAT('%', #{htbh}), '%')
+    </if>
+    <if test="sfjxfw != null and sfjxfw != ''">
+      and  SFJXFW = #{sfjxfw,jdbcType=VARCHAR}
     </if>
   </select>
   <select id="selects" resultMap="BaseResultMap">
@@ -572,6 +631,12 @@
     </if>
     <if test="htjemin != null and htjemin != ''">
       and  HTNRHTNR &gt; #{htjemin,jdbcType=DECIMAL}
+    </if>
+    <if test="htbh != null and htbh != ''">
+      and  HTBH LIKE CONCAT(CONCAT('%', #{htbh}), '%')
+    </if>
+    <if test="sfjxfw != null and sfjxfw != ''">
+      and  SFJXFW = #{sfjxfw,jdbcType=VARCHAR}
     </if>
   </select>
 

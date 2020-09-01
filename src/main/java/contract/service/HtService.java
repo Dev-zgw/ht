@@ -11,7 +11,7 @@ public interface HtService {
 
     //个权限查询合同
     ServiceResponsebg<List<Ht>> query(Users user, int pageNum, int pageSize, String htfl, String qsrq,
-                                      String fzr,String ssfzr, String htzt, String dqsheng, String dqshi, String je);
+                                      String fzr,String ssfzr, String htzt, String dqsheng, String dqshi, String je,String htbh,String sfjxfw);
     //修改合同
     ServerResponse update(Users users, Ht ht);
     //新增合同

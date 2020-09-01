@@ -47,7 +47,6 @@ public class HtqsServiceImpl implements HtqsService {
      */
     @Override
     public ServerResponse update(Users users, Htqs htqs) {
-        htqs.setSsfzr(userMapper.selectByPrimaryKey(htqs.getSsfzrid()).getXm());
         htqs.setUpdateTime(new Date());
         htqs.setUpdateBy(users.getXm());
         int i=htqsMapper.updateByPrimaryKeySelective(htqs);
@@ -81,7 +80,6 @@ public class HtqsServiceImpl implements HtqsService {
      */
     @Override
     public ServerResponse xinzeng(Users users, Htqs htqs) {
-        htqs.setSsfzr(userMapper.selectByPrimaryKey(htqs.getSsfzrid()).getXm());
         htqs.setCreateTime(new Date());
         htqs.setCreateBy(users.getXm());
         htqs.setSfskwc("1");
