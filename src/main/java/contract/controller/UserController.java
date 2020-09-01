@@ -33,9 +33,6 @@ public class UserController {
     @RequestMapping(value = "login.do", method = RequestMethod.POST)
     public ServerResponse<Users> login(HttpSession session, @Param("name") String name, @Param("password") String password) {
         ServerResponse<Users> login = userService.login(name, password);
-        if (login.isSuccess()) {
-            session.setAttribute(Const.CURRENT_USER, login.getData());
-        }
         return login;
     }
 
