@@ -35,7 +35,7 @@
     <!--前后交互跨域问题-->
     <mvc:cors>
         <mvc:mapping path="/**"
-                     allowed-origins="http://127.0.0.1:8090,http://localhost:8090"
+                     allowed-origins="http://192.168.0.222:8089,http://192.168.0.222:8090"
                      allowed-methods="POST,GET,OPTIONS,DELETE,PUT"
                      allowed-headers="Content-Type,ContentType,Access-Control-Allow-Headers, Authorization, X-Requested-With Access-Control-Allow-Origin"
                      allow-credentials="true"/>

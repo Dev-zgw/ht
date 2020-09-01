@@ -303,7 +303,7 @@
     group by flmc,ssbm order by flmc,ssbm
   </select>
     <select id="selectChart9" resultMap="Chart9Map">
-    select count(*) as count,sum(htje) as sum,avg(htje) as avg,htfl as htfl from
+    select count(*) as count,sum(htje) as sum,round(avg(htje),2) as avg,htfl as htfl from
        (select to_char(ht.qsrq, 'YYYY-MM') as httime,htfl.flmc as htfl,ht.htnrhtnr as htje from ht,htfl where ht.htfl=htfl.id
         <if test="htfl != null and htfl != ''">
             and htfl.flmc = #{htfl,jdbcType=VARCHAR}
