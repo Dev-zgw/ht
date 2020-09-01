@@ -11,5 +11,5 @@ public interface HtflService {
 
     ServerResponse delete(Users users, int id);
 
-    ServerResponse insert(Users users,Htfl htfl);
+    ServerResponse insert(Users users,String flmc);
 }
