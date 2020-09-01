@@ -58,13 +58,14 @@ public class HtController {
      */
     @RequestMapping(value = "update.do", method =RequestMethod.POST)
     @ResponseBody
-    private ServerResponse update(int id,String userid, String htbh, Long qsrq,Long htqsrq,Long htzzrq,String fzr,String ssfzr,String yymc,String yyjb,
+    private ServerResponse update(int id,String userid, String htbh,String htmc,Long qsrq,Long htqsrq,Long htzzrq,String fzr,String ssfzr,String yymc,String yyjb,
                                   String dqsheng,String dqshi,String htfl,String htnrhtnr,String nywfje,Long nywfsj,String xxkxm,
                                   String xxklxfs,String cwkxm,String cwklxfs,String ywdjr,String ywdjrlxfs,String bz){
         Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
         Ht ht=new Ht();
         ht.setId(new BigDecimal(id));
         ht.setHtbh(htbh);
+        ht.setHtmc(htmc);
         ht.setQsrq(new Date(qsrq));
         ht.setHtqsrq(new Date(htqsrq));
         ht.setHtzzrq(new Date(htzzrq));
@@ -124,12 +125,13 @@ public class HtController {
      */
     @RequestMapping(value = "xinzeng.do", method = RequestMethod.POST)
     @ResponseBody
-    private ServerResponse xinzeng(String userid, String htbh, Long qsrq,Long htqsrq,Long htzzrq,String fzr,String ssfzr,String yymc,String yyjb,
+    private ServerResponse xinzeng(String userid, String htbh, String htmc,Long qsrq,Long htqsrq,Long htzzrq,String fzr,String ssfzr,String yymc,String yyjb,
                                    String dqsheng,String dqshi,String htfl,String htnrhtnr,String nywfje,Long nywfsj,String xxkxm,
                                    String xxklxfs,String cwkxm,String cwklxfs,String ywdjr,String ywdjrlxfs,String bz){
         Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
         Ht ht=new Ht();
         ht.setHtbh(htbh);
+        ht.setHtmc(htmc);
         ht.setQsrq(new Date(qsrq));
         ht.setHtqsrq(new Date(htqsrq));
         ht.setHtzzrq(new Date(htzzrq));

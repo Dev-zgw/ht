@@ -58,9 +58,9 @@ public class HtflController {
      */
     @RequestMapping(value = "insert",method = RequestMethod.POST)
     @ResponseBody
-    private ServerResponse insert(String userid, Htfl htfl){
+    private ServerResponse insert(String userid, String flmc){
         Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
-        return htflService.insert(user, htfl);
+        return htflService.insert(user, flmc);
     }
 
 }
