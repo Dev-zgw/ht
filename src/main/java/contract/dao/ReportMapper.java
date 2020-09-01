@@ -26,8 +26,6 @@ public interface ReportMapper {
                               @Param("fzr") String fzr,@Param("fzrbm") String fzrbm,@Param("ssfzr") String ssfzr,@Param("ssfzrbm") String ssfzrbm,
                               @Param("dqsheng") String dqsheng, @Param("dqshi")  String dqshi);
 
-    List<Place> selectSheng();
-
     List<Currentinfo> selectPersonalcurrentinfo(@Param("fzr") String fzr);
 
     List<Currentinfo> selectPersonalsscurrentinfo(@Param("ssfzr") String ssfzr);

@@ -19,9 +19,9 @@ public interface ReportService {
 
         ServerResponse<List<Chart5>> selectChart5(Users user, String qsrq);
 
-//        ServerResponse<List<Chart6>> selectChart6(Users user, String qsrq,String htfl,String fzr, String fzrbm,String dqsheng,String dqshi);
-//        ServerResponse<List<String>> selectChart6_htfl(Users user, String qsrq,String htfl,String fzr, String fzrbm,String dqsheng,String dqshi);
-//        ServerResponse<List<String>> selectChart6_sum(Users user, String qsrq,String htfl,String fzr, String fzrbm,String dqsheng,String dqshi);
+        ServerResponse<List<getchart6info>> selectChart6(Users user, String qsrq,String htfl,String fzr, String fzrbm,String dqsheng,String dqshi);
+        ServerResponse<List<String>> selectChart6_htfl(Users user, String qsrq,String htfl,String fzr, String fzrbm,String dqsheng,String dqshi);
+        ServerResponse<List<String>> selectChart6_sum(Users user, String qsrq,String htfl,String fzr, String fzrbm,String dqsheng,String dqshi);
 
         ServerResponse<List<getchart9info>> selectChart9(Users user, String htfl, String qsrq,
                                                          String fzr,String fzrbm, String ssfzr, String ssfzrbm, String dqsheng, String dqshi);
@@ -37,8 +37,6 @@ public interface ReportService {
 
         ServerResponse<List<String>> selectChart9_htfl(Users user, String htfl, String qsrq,
                                                              String fzr,String fzrbm, String ssfzr, String ssfzrbm, String dqsheng, String dqshi);
-
-        ServerResponse<List<Place>> selectSheng();
 
         ServerResponse<List<Currentinfo>> selectPersonalcurrentinfo(Users user);
 

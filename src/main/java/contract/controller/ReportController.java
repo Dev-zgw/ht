@@ -66,6 +66,17 @@ public class ReportController {
         return reportService.selectChart9(user,htfl,qsrq,fzr,fzrbm,ssfzr,ssfzrbm,dqsheng,diqushi);
     }
 
+    @RequestMapping(value = "getchart6.do",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse<List<getchart6info>> selectChart6(String userid, String htfl, String qsrq,
+                                                            String fzr, String ssfzr,String fzrbm, String ssfzrbm, String dqsheng, String diqushi){
+        Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
+        if(user==null){
+            return ServerResponse.createByErrorMessage("用户未登陆");
+        }
+        return reportService.selectChart6(user,qsrq,htfl,fzr,fzrbm,dqsheng,diqushi);
+    }
+
     @RequestMapping(value = "getchart9_sum.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<List<getchart9info>> selectChart9_sum(String userid, String htfl, String qsrq,
@@ -106,12 +117,6 @@ public class ReportController {
             return ServerResponse.createByErrorMessage("用户未登陆");
         }
         return reportService.selectChart9_htfl(user,htfl,qsrq,fzr,fzrbm,ssfzr,ssfzrbm,dqsheng,diqushi);
-    }
-
-    @RequestMapping(value = "getsheng.do",method = RequestMethod.POST)
-    @ResponseBody
-    private ServerResponse selectSheng(){
-        return reportService.selectSheng();
     }
 
     @RequestMapping(value = "selectPersonalcurrentinfo.do",method = RequestMethod.POST)

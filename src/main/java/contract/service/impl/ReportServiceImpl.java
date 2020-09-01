@@ -116,43 +116,43 @@ public class ReportServiceImpl implements ReportService {
         return ServerResponse.createBySuccess(list1);
     }
 
-//    @Override
-//    public ServerResponse<List<Chart6>> selectChart6(Users user, String qsrq,String htfl,String fzr, String fzrbm,String dqsheng,String dqshi){
-//        String startTime="";
-//        String endTime="";
-//        if(qsrq!=""&&qsrq!=null ) {
-//            String date[] = qsrq.split(",");
-//            startTime = date[0].toString().substring(1,date[0].toString().length()-1);
-//            endTime = date[1].toString().substring(1,date[1].toString().length()-1);
-//        }
-//        //List<Chart6> list = reportMapper.selectChart6(startTime,endTime);
-//        List<Htfl> htfls = htflMapper.select();
-//        for(int i =0;i<htfls.size();i++){
-//            String flmc = htfls.get(i).getFlmc();
-//            List<String> value = new ArrayList<String>();
-//            List<Department> departments = departmentMapper.selectAll();
-//            List<getchart6info> info = new ArrayList<getchart6info>();
-//            for(int j =0;j<departments.size();j++){
-//                List<Chart6> list2 = reportMapper.selectChart6(startTime,endTime,"",departments.get(j).getBmmc(),"","");
-//                if(list2.size()>0){
-//                    value.add(list2.get(j).getSum());
-//                }
-//            }
-//            info.add(new getchart6info(flmc,"bar","bar",value));
-//        }
-//        //return ServerResponse.createBySuccess(list2);
-//        return null;
-//    }
-//
-//    @Override
-//    public ServerResponse<List<String>> selectChart6_htfl(Users user, String qsrq, String htfl, String fzr, String fzrbm, String dqsheng, String dqshi) {
-//        return null;
-//    }
-//
-//    @Override
-//    public ServerResponse<List<String>> selectChart6_sum(Users user, String qsrq, String htfl, String fzr, String fzrbm, String dqsheng, String dqshi) {
-//        return null;
-//    }
+    @Override
+    public ServerResponse<List<getchart6info>> selectChart6(Users user, String qsrq,String htfl,String fzr, String fzrbm,String dqsheng,String dqshi){
+        String startTime="";
+        String endTime="";
+        if(qsrq!=""&&qsrq!=null ) {
+            String date[] = qsrq.split(",");
+            startTime = date[0].toString().substring(1,date[0].toString().length()-1);
+            endTime = date[1].toString().substring(1,date[1].toString().length()-1);
+        }
+        List<Htfl> htfls = htflMapper.select();
+        List<getchart6info> info = new ArrayList<getchart6info>();
+        for(int i =0;i<htfls.size();i++){
+            String flmc = htfls.get(i).getFlmc();
+            List<String> value = new ArrayList<String>();
+            List<Department> departments = departmentMapper.selectAll();
+            for(int j =0;j<departments.size();j++){
+                List<Chart6> list2 = reportMapper.selectChart6(startTime,endTime,"",departments.get(j).getBmmc(),"","");
+                if(list2.size()>0){
+                    value.add(list2.get(j).getSum());
+                }
+            }
+            info.add(new getchart6info(flmc,"bar","bar",value));
+            System.out.println("info                "+info);
+        }
+        return ServerResponse.createBySuccess(info);
+        //return null;
+    }
+
+    @Override
+    public ServerResponse<List<String>> selectChart6_htfl(Users user, String qsrq, String htfl, String fzr, String fzrbm, String dqsheng, String dqshi) {
+        return null;
+    }
+
+    @Override
+    public ServerResponse<List<String>> selectChart6_sum(Users user, String qsrq, String htfl, String fzr, String fzrbm, String dqsheng, String dqshi) {
+        return null;
+    }
 
 
     @Override
@@ -248,12 +248,6 @@ public class ReportServiceImpl implements ReportService {
             System.out.print("list1 htfl         "+list1.get(i));
         }
         return ServerResponse.createBySuccess(list1);
-    }
-
-    @Override
-    public ServerResponse<List<Place>> selectSheng() {
-        List<Place> sheng= reportMapper.selectSheng();
-        return ServerResponse.createBySuccess(sheng);
     }
 
     @Override
