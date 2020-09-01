@@ -128,6 +128,16 @@ public class ReportController {
         return reportService.selectPersonalcurrentinfo(user);
     }
 
+    @RequestMapping(value = "selectCurrentMonthSimpleInfo.do",method = RequestMethod.POST)
+    @ResponseBody
+    private ServerResponse selectCurrentMonthSimpleInfo(String userid){
+        Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
+        if(user==null){
+            return ServerResponse.createByErrorMessage("用户未登陆");
+        }
+        return reportService.selectCurrentMonthSimpleInfo(user);
+    }
+
     @RequestMapping(value = "selectDepartmentcurrentinfo.do",method = RequestMethod.POST)
     @ResponseBody
     private ServerResponse selectDepartmentcurrentinfo(String userid){

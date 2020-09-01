@@ -45,6 +45,9 @@ public interface ReportService {
 
         ServerResponse<List<Currentinfo>> selectCompanycurrentinfo();
 
+        //本月签署合同信息
+        ServerResponse<List<CurrentMonthSimpleInfo>> selectCurrentMonthSimpleInfo(Users user);
+
         //个人查询合同
         ServiceResponsebg<List<Ht>> queryPersonaltable(Users user, int pageNum, int pageSize, String htfl, String qsrq,
                                                       String fzr,String fzrbm, String ssfzr, String ssfzrbm,String dqsheng, String dqshi);

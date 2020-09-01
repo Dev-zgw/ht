@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.Console;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -298,6 +299,64 @@ public class ReportServiceImpl implements ReportService {
             list.add(a);
         }
         return ServerResponse.createBySuccess(list);
+    }
+
+    @Override
+    public ServerResponse<List<CurrentMonthSimpleInfo>> selectCurrentMonthSimpleInfo(Users user){
+        Role role=roleMapper.selectByPrimaryKey(user.getJsid());
+        List<SimpHt> qdhtlist = new ArrayList<SimpHt>();
+        List<SimpHtqs> fkhtlist = new ArrayList<SimpHtqs>();
+        List<CurrentMonthSimpleInfo> currentMonthSimpleInfos = new ArrayList<CurrentMonthSimpleInfo>();
+        int qdhtcount=0,qdhtdqcount=0,fkhtcount=0,wfkhtcount = 0;
+        double qdhtsum=0.0d,fkhtsum=0.0d,wfkhtsum = 0.0d;
+        Date date=new Date();
+        String currentmonth = new SimpleDateFormat("yyyy-MM").format(date);
+        //查询本月合同基本信息
+        if(role.getQxid().longValue()== Const.Role.ROLE_ZJL || role.getQxid().longValue()== Const.Role.ROLE_ADMIN || role.getQxid().longValue()== Const.Role.ROLE_CWQX){ //总经理&财务&管理员看到的是本月公司所有合同基本信息
+            qdhtlist = reportMapper.selectMonthHtInfo(currentmonth,"", "","");
+            fkhtlist = reportMapper.selectMonthFkInfo(currentmonth,"", "","");
+        }else if(role.getQxid().longValue()== Const.Role.ROLE_BMJL){//部门经理看到的部门合同基本信息
+            qdhtlist = reportMapper.selectMonthHtInfo(currentmonth,"", "",user.getXm());
+            fkhtlist = reportMapper.selectMonthFkInfo(currentmonth,"", "",user.getXm());
+        }else if(role.getQxid().longValue()== Const.Role.ROLE_SSYH){//实施看到的是是自己部署的合同的基本信息
+            qdhtlist = reportMapper.selectMonthHtInfo(currentmonth,"", user.getXm(),"");
+            fkhtlist = reportMapper.selectMonthFkInfo(currentmonth,"", user.getXm(),"");
+        }else{//其他权限的普通用户 看到的都是自己为负责人的合同的基本信息（）
+            qdhtlist = reportMapper.selectMonthHtInfo(currentmonth,user.getXm(), "","");
+            fkhtlist = reportMapper.selectMonthFkInfo(currentmonth,user.getXm(), "","");
+        }
+        qdhtcount = qdhtlist.size();
+        List<String> dq = new ArrayList<String>();
+        System.out.print("statr               "+" start");
+        for(int j=0;j<qdhtlist.size();j++){
+            if(!dq.contains(qdhtlist.get(j).getDqsheng()+"_"+dq.contains(qdhtlist.get(j).getDqshi()))){
+                dq.add(qdhtlist.get(j).getDqsheng()+"_"+dq.contains(qdhtlist.get(j).getDqshi()));
+            }
+            qdhtsum += Double.parseDouble(qdhtlist.get(j).getHtje());
+            System.out.print(qdhtsum);
+        }
+        for(int m=0;m<fkhtlist.size();m++){
+            if(fkhtlist.get(m).getIfsk()=="2"){ //已收款
+                fkhtcount++;
+                if(fkhtlist.get(m).getFkje()==null||fkhtlist.get(m).getFkje()==""){
+
+                }else{
+                    fkhtsum += Double.parseDouble(fkhtlist.get(m).getFkje());
+                }
+            }else{//未收款
+                wfkhtcount++;
+                wfkhtsum += Double.parseDouble(fkhtlist.get(m).getFkje());
+                if(fkhtlist.get(m).getFkje()==null||fkhtlist.get(m).getFkje()==""){
+
+                }else{
+                    wfkhtsum += Double.parseDouble(fkhtlist.get(m).getFkje());
+                }
+            }
+        }
+        qdhtdqcount = dq.size();
+
+        currentMonthSimpleInfos.add(new CurrentMonthSimpleInfo(String.valueOf(qdhtcount),String.valueOf(qdhtsum), String.valueOf(qdhtdqcount), String.valueOf(fkhtcount), String.valueOf(fkhtsum), String.valueOf(wfkhtcount), String.valueOf(wfkhtsum)));
+        return ServerResponse.createBySuccess(currentMonthSimpleInfos);
     }
 
     @Override

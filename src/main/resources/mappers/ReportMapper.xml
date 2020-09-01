@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="contract.dao.ReportMapper">
-    <resultMap id="BaseResultMap" type="contract.pojo.Ht" >
-        <constructor >
-            <idArg column="ID" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
-            <arg column="HTBH" jdbcType="VARCHAR" javaType="java.lang.String" />
-            <arg column="QSRQ" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-            <arg column="FZR" jdbcType="VARCHAR" javaType="java.lang.String" />
-            <arg column="YYMC" jdbcType="VARCHAR" javaType="java.lang.String" />
-            <arg column="HTNR" jdbcType="VARCHAR" javaType="java.lang.String" />
-            <arg column="HTNRHTNR" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
-            <arg column="FKZQ" jdbcType="DECIMAL" javaType="java.lang.Long" />
-            <arg column="NYWFJE" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
-            <arg column="NYWFSJ" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-            <arg column="XXKXM" jdbcType="VARCHAR" javaType="java.lang.String" />
-            <arg column="XXKLXFS" jdbcType="VARCHAR" javaType="java.lang.String" />
-            <arg column="CWKXM" jdbcType="VARCHAR" javaType="java.lang.String" />
-            <arg column="CWKLXFS" jdbcType="VARCHAR" javaType="java.lang.String" />
-            <arg column="YWDJR" jdbcType="VARCHAR" javaType="java.lang.String" />
-            <arg column="YWDJRLXFS" jdbcType="VARCHAR" javaType="java.lang.String" />
-            <arg column="SFSKWC" jdbcType="VARCHAR" javaType="java.lang.String" />
-            <arg column="SKJE" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
-            <arg column="HTSFDQ" jdbcType="VARCHAR" javaType="java.lang.String" />
-            <arg column="HTZT" jdbcType="VARCHAR" javaType="java.lang.String" />
-            <arg column="BZ" jdbcType="VARCHAR" javaType="java.lang.String" />
-            <arg column="YYJB" jdbcType="VARCHAR" javaType="java.lang.String" />
-            <arg column="DQSHENG" jdbcType="VARCHAR" javaType="java.lang.String" />
-            <arg column="DQSHI" jdbcType="VARCHAR" javaType="java.lang.String" />
-            <arg column="HTFL" jdbcType="VARCHAR" javaType="java.lang.String" />
-            <arg column="CREATE_BY" jdbcType="VARCHAR" javaType="java.lang.String" />
-            <arg column="UPDATE_BY" jdbcType="VARCHAR" javaType="java.lang.String" />
-            <arg column="CREATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-            <arg column="UPDATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-            <arg column="FZRID" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
-            <arg column="SSFZR" jdbcType="VARCHAR" javaType="java.lang.String" />
-            <arg column="SSFZRID" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
-            <arg column="HTQSRQ" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-            <arg column="HTZZRQ" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-            <arg column="YQTS" jdbcType="VARCHAR" javaType="java.lang.String" />
-            <arg column="HTSYTS" jdbcType="VARCHAR" javaType="java.lang.String" />
+    <resultMap id="BaseResultMap" type="contract.pojo.Ht">
+        <constructor>
+            <idArg column="ID" jdbcType="DECIMAL" javaType="java.math.BigDecimal"/>
+            <arg column="HTBH" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="QSRQ" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+            <arg column="FZR" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="YYMC" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="HTNR" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="HTNRHTNR" jdbcType="DECIMAL" javaType="java.math.BigDecimal"/>
+            <arg column="FKZQ" jdbcType="DECIMAL" javaType="java.lang.Long"/>
+            <arg column="NYWFJE" jdbcType="DECIMAL" javaType="java.math.BigDecimal"/>
+            <arg column="NYWFSJ" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+            <arg column="XXKXM" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="XXKLXFS" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="CWKXM" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="CWKLXFS" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="YWDJR" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="YWDJRLXFS" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="SFSKWC" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="SKJE" jdbcType="DECIMAL" javaType="java.math.BigDecimal"/>
+            <arg column="HTSFDQ" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="HTZT" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="BZ" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="YYJB" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="DQSHENG" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="DQSHI" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="HTFL" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="CREATE_BY" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="UPDATE_BY" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="CREATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+            <arg column="UPDATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+            <arg column="FZRID" jdbcType="DECIMAL" javaType="java.math.BigDecimal"/>
+            <arg column="SSFZR" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="SSFZRID" jdbcType="DECIMAL" javaType="java.math.BigDecimal"/>
+            <arg column="HTQSRQ" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+            <arg column="HTZZRQ" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+            <arg column="YQTS" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="HTSYTS" jdbcType="VARCHAR" javaType="java.lang.String"/>
         </constructor>
     </resultMap>
     <resultMap id="Chart1Map" type="contract.pojo.Chart1">
@@ -49,12 +49,31 @@
             <arg column="avg" jdbcType="VARCHAR" javaType="java.lang.String"/>
         </constructor>
     </resultMap>
-    <resultMap id="Currentinfo" type="contract.pojo.Chart1">
+    <resultMap id="Currentinfo" type="contract.pojo.Currentinfo">
         <constructor>
             <arg column="httime" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="count" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="sum" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="avg" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="dqcount" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        </constructor>
+    </resultMap>
+    <resultMap id="simpleht" type="contract.pojo.SimpHt">
+        <constructor>
+            <arg column="httime" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="htje" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="dqsheng" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="dqshi" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        </constructor>
+    </resultMap>
+    <resultMap id="simplehtqs" type="contract.pojo.SimpHtqs">
+        <constructor>
+            <arg column="httime" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="ifsk" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="fkje" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="htbh" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="fzr" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="ssfzr" jdbcType="VARCHAR" javaType="java.lang.String"/>
         </constructor>
     </resultMap>
     <resultMap id="Chart5Map" type="contract.pojo.Chart5">
@@ -79,16 +98,16 @@
             <arg column="avg" jdbcType="VARCHAR" javaType="java.lang.String"/>
         </constructor>
     </resultMap>
-    <sql id="Base_Column_List" >
+    <sql id="Base_Column_List">
     ID, HTBH, QSRQ, FZR, YYMC, HTNR, HTNRHTNR, FKZQ, NYWFJE, NYWFSJ, XXKXM, XXKLXFS,
     CWKXM, CWKLXFS, YWDJR, YWDJRLXFS, SFSKWC, SKJE, HTSFDQ, HTZT, BZ, YYJB, DQSHENG,
     DQSHI, HTFL, CREATE_BY, UPDATE_BY, CREATE_TIME, UPDATE_TIME, FZRID,SSFZR,SSFZRID,HTQSRQ,HTZZRQ,YQTS,HTSYTS
   </sql>
-    <!--个人报表界面本月信息-->
+    <!--个人报表界面本月签订信息(本月签订合同数量及金额)-->
     <select id="selectPersonalcurrentinfo" resultMap="Currentinfo">
-        select httime,count(*) as count,sum(htje) as sum,avg(htje) as avg from
+        select httime,count(*) as count,count(dqshi) as dqcount,sum(htje) as sum,round(avg(htje),2) as avg from
         (
-        select to_char(qsrq, 'YYYY-MM') as httime,htnrhtnr as htje from ht
+        select to_char(qsrq, 'YYYY-MM') as httime,htnrhtnr as htje,dqshi from ht
         where 1=1 and TO_CHAR(qsrq,'YYYY-MM')=TO_CHAR(SYSDATE,'YYYY-MM')
         <if test="fzr != null and fzr != ''">
             and FZR = #{fzr,jdbcType=VARCHAR}
@@ -96,12 +115,11 @@
         )
         group by httime order by httime
     </select>
-
-    <!--ss个人报表界面本月信息-->
+    <!--ss个人报表界面本月签订信息(本月签订合同数量及金额)-->
     <select id="selectPersonalsscurrentinfo" resultMap="Currentinfo">
-        select httime,count(*) as count,sum(htje) as sum,avg(htje) as avg from
+        select httime,count(*) as count,count(dqshi) as dqcount,sum(htje) as sum,round(avg(htje),2) as avg from
         (
-        select to_char(qsrq, 'YYYY-MM') as httime,htnrhtnr as htje from ht
+        select to_char(qsrq, 'YYYY-MM') as httime,htnrhtnr as htje,dqshi from ht
         where 1=1 and TO_CHAR(qsrq,'YYYY-MM')=TO_CHAR(SYSDATE,'YYYY-MM')
         <if test="fzr != null and fzr != ''">
             and SSFZR = #{ssfzr,jdbcType=VARCHAR}
@@ -109,11 +127,11 @@
         )
         group by httime order by httime
     </select>
-    <!--部门经理报表本月信息-->
+    <!--部门经理报表本月签订信息(本月签订合同数量及金额)-->
     <select id="selectDepartmentcurrentinfo" resultMap="Currentinfo">
-        select httime,count(*) as count,sum(htje) as sum,avg(htje) as avg from
+        select httime,count(*) as count,count(dqshi) as dqcount,sum(htje) as sum,round(avg(htje),2) as avg from
         (
-        select to_char(qsrq, 'YYYY-MM') as httime,htnrhtnr as htje from ht
+        select to_char(qsrq, 'YYYY-MM') as httime,htnrhtnr as htje,dqshi from ht
         where 1=1 and TO_CHAR(qsrq,'YYYY-MM')=TO_CHAR(SYSDATE,'YYYY-MM')
         <if test="fzr != null and fzr != ''">
             and FZR in (select xm from users where ssbm =(select ssbm from users where xm=#{fzr,jdbcType=VARCHAR}) )
@@ -121,55 +139,90 @@
         )
         group by httime order by httime
     </select>
-
-    <!--总经理报表本月信息-->
+    <!--总经理报表本月签订信息(本月签订合同数量及金额)-->
     <select id="selectCompanycurrentinfo" resultMap="Currentinfo">
-        select httime,count(*) as count,sum(htje) as sum,avg(htje) as avg from
+        select httime,count(*) as count,count(dqshi) as dqcount,sum(htje) as sum,round(avg(htje),2) as avg from
         (
-        select to_char(qsrq, 'YYYY-MM') as httime,htnrhtnr as htje from ht
+        select to_char(qsrq, 'YYYY-MM') as httime,htnrhtnr as htje,dqshi from ht
         where 1=1 and TO_CHAR(qsrq,'YYYY-MM')=TO_CHAR(SYSDATE,'YYYY-MM')
         )
         group by httime order by httime
     </select>
+    <!--按月签署合同信息-->
+    <select id="selectMonthHtInfo" resultMap="simpleht">
+        select to_char(qsrq, 'YYYY-MM') as httime,htnrhtnr as htje,dqshi,dqsheng from ht
+        where 1=1
+        <if test="month != null and month != ''">
+            and TO_CHAR(qsrq,'YYYY-MM') =  #{month,jdbcType=VARCHAR}
+        </if>
+        <if test="fzr != null and fzr != ''">
+            and FZR = #{fzr,jdbcType=VARCHAR}
+        </if>
+        <if test="ssfzr != null and ssfzr != ''">
+            and SSFZR = #{ssfzr,jdbcType=VARCHAR}
+        </if>
+        <if test="bmjl != null and bmjl != ''">
+            and FZR in (select xm from users where ssbm =(select ssbm from users where xm=#{bmjl,jdbcType=VARCHAR}) )
+        </if>
+    </select>
+    <!--按月付款合同信息-->
+    <select id="selectMonthFkInfo" resultMap="simplehtqs">
+        select to_char(htqs.sj, 'YYYY-MM') as httime,htqs.SFSKWC as ifsk,htqs.SKJE as fkje,htqs.HTBH as htbh,ht.fzr as fzr,htqs.ssfzr
+        from htqs left join ht on ht.htbh=htqs.htbh
+        where 1=1
+        <if test="month != null and month != ''">
+            and TO_CHAR(htqs.sj,'YYYY-MM') =  #{month,jdbcType=VARCHAR}
+        </if>
+        <if test="fzr != null and fzr != ''">
+            and FZR = #{fzr,jdbcType=VARCHAR}
+        </if>
+        <if test="ssfzr != null and ssfzr != ''">
+            and SSFZR = #{ssfzr,jdbcType=VARCHAR}
+        </if>
+        <if test="bmjl != null and bmjl != ''">
+            and FZR in (select xm from users where ssbm =(select ssbm from users where xm=#{bmjl,jdbcType=VARCHAR}) )
+        </if>
+    </select>
 
     <!--个人报表页面table信息-->
-    <select id="selectPersonalTable" resultMap="BaseResultMap" >
+    <select id="selectPersonalTable" resultMap="BaseResultMap">
         select
         HT.ID AS ID,HTBH, QSRQ, FZR, YYMC, HTNR, HTNRHTNR, FKZQ, NYWFJE, NYWFSJ, XXKXM, XXKLXFS,
         CWKXM, CWKLXFS, YWDJR, YWDJRLXFS, SFSKWC, SKJE, HTSFDQ, HTZT, BZ, YYJB, DQSHENG,DQSHI,
         HTFL.FLMC AS HTFL,
-        HT.CREATE_BY AS CREATE_BY, HT.UPDATE_BY AS UPDATE_BY, HT.CREATE_TIME AS CREATE_TIME, HT.UPDATE_TIME AS UPDATE_TIME, FZRID,SSFZR,SSFZRID,HTQSRQ,HTZZRQ,YQTS,HTSYTS
+        HT.CREATE_BY AS CREATE_BY, HT.UPDATE_BY AS UPDATE_BY, HT.CREATE_TIME AS CREATE_TIME, HT.UPDATE_TIME AS
+        UPDATE_TIME, FZRID,SSFZR,SSFZRID,HTQSRQ,HTZZRQ,YQTS,HTSYTS
         from HT
         LEFT JOIN HTFL ON HTFL.ID=HT.HTFL
         where 1=1
         --负责人部门名称
         <if test="fzrbm != null and fzrbm != ''">
-        and  fzr in (select xm from users where ssbm=#{fzrbm,jdbcType=VARCHAR})
+            and fzr in (select xm from users where ssbm=#{fzrbm,jdbcType=VARCHAR})
         </if>
         --负责人名称
         <if test="fzr != null and fzr != ''">
-            and  FZR = #{fzr,jdbcType=VARCHAR}
+            and FZR = #{fzr,jdbcType=VARCHAR}
         </if>
         --实施负责人部门名称
         <if test="ssfzrbm != null and ssfzrbm != ''">
-        and ssfzr in (select xm from users where ssbm=#{ssfzrbm,jdbcType=VARCHAR})
+            and ssfzr in (select xm from users where ssbm=#{ssfzrbm,jdbcType=VARCHAR})
         </if>
         --实施负责人名称
         <if test="ssfzr != null and ssfzr != ''">
-            and  SSFZR = #{ssfzr,jdbcType=VARCHAR}
+            and SSFZR = #{ssfzr,jdbcType=VARCHAR}
         </if>
         --合同分类
         <if test="htfl != null and htfl != ''">
             and htfl.flmc = #{htfl,jdbcType=VARCHAR}
         </if>
         <if test="dqsheng != null and dqsheng != ''">
-            and  DQSHENG = #{dqsheng,jdbcType=VARCHAR}
+            and DQSHENG = #{dqsheng,jdbcType=VARCHAR}
         </if>
         <if test="dqshi != null and dqshi != ''">
-            and  DQSHI = #{dqshi,jdbcType=VARCHAR}
+            and DQSHI = #{dqshi,jdbcType=VARCHAR}
         </if>
         <if test="startTime != null and startTime != ''">
-        and to_char(qsrq, 'yyyy-mm-dd') &gt;= #{startTime,jdbcType=VARCHAR}
+            and to_char(qsrq, 'yyyy-mm-dd') &gt;= #{startTime,jdbcType=VARCHAR}
         </if>
         <if test="endTime != null and endTime != ''">
             and to_char(qsrq, 'yyyy-mm-dd') &lt;= #{endTime,jdbcType=VARCHAR}
@@ -178,75 +231,75 @@
     </select>
 
 
-    <select id="select" resultMap="BaseResultMap" >
+    <select id="select" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         from HT
         where 1=1
         <if test="htfl != null and htfl != ''">
-            and  HTFL = #{htfl,jdbcType=VARCHAR}
+            and HTFL = #{htfl,jdbcType=VARCHAR}
         </if>
         <if test="startTime!= null and startTime != ''">
-            and  QSRQ &gt;= to_date(#{startTime,jdbcType=VARCHAR}, 'yyyy-mm-dd')
+            and QSRQ &gt;= to_date(#{startTime,jdbcType=VARCHAR}, 'yyyy-mm-dd')
         </if>
         <if test="endTime != null and endTime != ''">
-            and  QSRQ &lt;= to_date(#{endTime,jdbcType=VARCHAR}, 'yyyy-mm-dd ')
+            and QSRQ &lt;= to_date(#{endTime,jdbcType=VARCHAR}, 'yyyy-mm-dd ')
         </if>
         <if test="fzr != null and fzr != ''">
-            and  FZR = #{fzr,jdbcType=VARCHAR}
+            and FZR = #{fzr,jdbcType=VARCHAR}
         </if>
         <if test="ssfzr != null and ssfzr != ''">
-            and  SSFZR = #{ssfzr,jdbcType=VARCHAR}
+            and SSFZR = #{ssfzr,jdbcType=VARCHAR}
         </if>
         <if test="htzt != null and htzt != ''">
-            and  HTZT = #{htzt,jdbcType=VARCHAR}
+            and HTZT = #{htzt,jdbcType=VARCHAR}
         </if>
         <if test="dqsheng != null and dqsheng != ''">
-            and  DQSHENG = #{dqsheng,jdbcType=VARCHAR}
+            and DQSHENG = #{dqsheng,jdbcType=VARCHAR}
         </if>
         <if test="dqshi != null and dqshi != ''">
-            and  DQSHI = #{dqshi,jdbcType=VARCHAR}
+            and DQSHI = #{dqshi,jdbcType=VARCHAR}
         </if>
         <if test="htjemax != null and htjemax != ''">
-            and  HTNRHTNR &lt;= #{htjemax,jdbcType=DECIMAL}
+            and HTNRHTNR &lt;= #{htjemax,jdbcType=DECIMAL}
         </if>
         <if test="htjemin != null and htjemin != ''">
-            and  HTNRHTNR &gt; #{htjemin,jdbcType=DECIMAL}
+            and HTNRHTNR &gt; #{htjemin,jdbcType=DECIMAL}
         </if>
         order by QSRQ
     </select>
-    <select id="selectyh" resultMap="BaseResultMap" >
+    <select id="selectyh" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         from HT
         where
         FZRID = #{fzrid,jdbcType=DECIMAL}
         <if test="htfl != null and htfl != ''">
-            and  HTFL = #{htfl,jdbcType=VARCHAR}
+            and HTFL = #{htfl,jdbcType=VARCHAR}
         </if>
         <if test="startTime!= null and startTime != ''">
-            and  QSRQ &gt;= to_date(#{startTime,jdbcType=VARCHAR}, 'yyyy-mm-dd')
+            and QSRQ &gt;= to_date(#{startTime,jdbcType=VARCHAR}, 'yyyy-mm-dd')
         </if>
         <if test="endTime != null and endTime != ''">
-            and  QSRQ &lt;= to_date(#{endTime,jdbcType=VARCHAR}, 'yyyy-mm-dd ')
+            and QSRQ &lt;= to_date(#{endTime,jdbcType=VARCHAR}, 'yyyy-mm-dd ')
         </if>
         <if test="ssfzr != null and ssfzr != ''">
-            and  SSFZR = #{ssfzr,jdbcType=VARCHAR}
+            and SSFZR = #{ssfzr,jdbcType=VARCHAR}
         </if>
         <if test="htzt != null and htzt != ''">
-            and  HTZT = #{htzt,jdbcType=VARCHAR}
+            and HTZT = #{htzt,jdbcType=VARCHAR}
         </if>
         <if test="dqsheng != null and dqsheng != ''">
-            and  DQSHENG = #{dqsheng,jdbcType=VARCHAR}
+            and DQSHENG = #{dqsheng,jdbcType=VARCHAR}
         </if>
         <if test="dqshi != null and dqshi != ''">
-            and  DQSHI = #{dqshi,jdbcType=VARCHAR}
+            and DQSHI = #{dqshi,jdbcType=VARCHAR}
         </if>
         <if test="htjemax != null and htjemax != ''">
-            and  HTNRHTNR &lt;= #{htjemax,jdbcType=DECIMAL}
+            and HTNRHTNR &lt;= #{htjemax,jdbcType=DECIMAL}
         </if>
         <if test="htjemin != null and htjemin != ''">
-            and  HTNRHTNR &gt; #{htjemin,jdbcType=DECIMAL}
+            and HTNRHTNR &gt; #{htjemin,jdbcType=DECIMAL}
         </if>
         order by QSRQ
     </select>
@@ -267,7 +320,7 @@
         </if>
         --负责人部门名称
         <if test="fzrbm != null and fzrbm != ''">
-            and  fzr in (select xm from users where ssbm=#{fzrbm,jdbcType=VARCHAR})
+            and fzr in (select xm from users where ssbm=#{fzrbm,jdbcType=VARCHAR})
         </if>
         <if test="ssfzr != null and ssfzr != ''">
             and SSFZR = #{ssfzr,jdbcType=VARCHAR}
@@ -303,8 +356,9 @@
     group by flmc,ssbm order by flmc,ssbm
   </select>
     <select id="selectChart9" resultMap="Chart9Map">
-    select count(*) as count,sum(htje) as sum,avg(htje) as avg,htfl as htfl from
-       (select to_char(ht.qsrq, 'YYYY-MM') as httime,htfl.flmc as htfl,ht.htnrhtnr as htje from ht,htfl where ht.htfl=htfl.id
+        select count(*) as count,sum(htje) as sum,round(avg(htje),2) as avg,htfl as htfl from
+        (select to_char(ht.qsrq, 'YYYY-MM') as httime,htfl.flmc as htfl,ht.htnrhtnr as htje from ht,htfl where
+        ht.htfl=htfl.id
         <if test="htfl != null and htfl != ''">
             and htfl.flmc = #{htfl,jdbcType=VARCHAR}
         </if>
@@ -319,7 +373,7 @@
         </if>
         --负责人部门名称
         <if test="fzrbm != null and fzrbm != ''">
-            and  ht.fzr in (select xm from users where ssbm=#{fzrbm,jdbcType=VARCHAR})
+            and ht.fzr in (select xm from users where ssbm=#{fzrbm,jdbcType=VARCHAR})
         </if>
         <if test="ssfzr != null and ssfzr != ''">
             and ht.SSFZR = #{ssfzr,jdbcType=VARCHAR}
@@ -341,6 +395,6 @@
             and to_char(ht.qsrq, 'yyyy-mm-dd') &lt;= #{endTime,jdbcType=VARCHAR}
         </if>
         )
-    group by htfl order by htfl
-  </select>
+        group by htfl order by htfl
+    </select>
 </mapper>

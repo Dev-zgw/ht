@@ -5,14 +5,17 @@ public class Currentinfo {
     String count;
     String sum;
     String avg;
+    String dqcount;
 
-    public Currentinfo(String httime, String count, String sum, String avg) {
+    public Currentinfo() {
+    }
+
+    public Currentinfo(String httime, String count, String sum, String avg, String dqcount) {
         this.httime = httime;
         this.count = count;
         this.sum = sum;
         this.avg = avg;
-    }
-    public Currentinfo() {
+        this.dqcount = dqcount;
     }
 
     public String getHttime() {
@@ -47,6 +50,15 @@ public class Currentinfo {
         this.avg = avg;
     }
 
+
+    public String getDqcount() {
+        return dqcount;
+    }
+
+    public void setDqcount(String dqcount) {
+        this.dqcount = dqcount;
+    }
+
     @Override
     public String toString() {
         return "Currentinfo{" +
@@ -54,6 +66,7 @@ public class Currentinfo {
                 ", count='" + count + '\'' +
                 ", sum='" + sum + '\'' +
                 ", avg='" + avg + '\'' +
+                ", dqcount='" + dqcount + '\'' +
                 '}';
     }
 }
