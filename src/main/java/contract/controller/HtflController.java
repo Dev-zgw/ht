@@ -144,7 +144,9 @@ public class HtflController {
         ht.setYyjb(yyjb);
         ht.setDqsheng(dqsheng);
         ht.setDqshi(dqshi);
-        ht.setHtfl(htfl);
+        if (!("").equals(htfl)) {
+            ht.setHtfl(new BigDecimal(htfl));
+        }
 
         if (!("").equals(htnrhtnr)) {
             ht.setHtnrhtnr(new BigDecimal(htnrhtnr));
@@ -236,7 +238,9 @@ public class HtflController {
             ht.setYyjb(yyjb);
             ht.setDqsheng(dqsheng);
             ht.setDqshi(dqshi);
-            ht.setHtfl(htfl);
+        if (!("").equals(htfl)) {
+            ht.setHtfl(new BigDecimal(htfl));
+        }
             if(!("").equals(htnrhtnr)){
                 ht.setHtnrhtnr(new BigDecimal(htnrhtnr));
             }

@@ -15,7 +15,7 @@
       <arg column="UPDATE_BY" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="CREATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="UPDATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-      <arg column="SJ" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="SJ" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="SSFZR" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="SSFZRID" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
       <arg column="BZ" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -44,7 +44,7 @@
     values (#{id,jdbcType=DECIMAL}, #{htbh,jdbcType=VARCHAR}, #{qs,jdbcType=DECIMAL},
       #{je,jdbcType=DECIMAL}, #{yjsj,jdbcType=TIMESTAMP}, #{sgyq,jdbcType=VARCHAR}, #{sfskwc,jdbcType=VARCHAR},
       #{skje,jdbcType=DECIMAL}, #{createBy,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR},
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{sj,jdbcType=TIMESTAMP}
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{sj,jdbcType=VARCHAR}
       ,#{ssfzr,jdbcType=VARCHAR},
       #{ssfzrid,jdbcType=DECIMAL},
       ,#{bz,jdbcType=VARCHAR})
@@ -139,7 +139,7 @@
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="sj != null" >
-        #{sj,jdbcType=TIMESTAMP},
+        #{sj,jdbcType=VARCHAR},
       </if>
       <if test="ssfzr != null" >
         #{ssfzr,jdbcType=VARCHAR},
@@ -189,7 +189,7 @@
         UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="sj != null" >
-        SJ = #{sj,jdbcType=TIMESTAMP},
+        SJ = #{sj,jdbcType=VARCHAR},
       </if>
       <if test="ssfzr != null" >
         SSFZR = #{ssfzr,jdbcType=VARCHAR},
@@ -216,7 +216,7 @@
       UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
-      SJ = #{sj,jdbcType=TIMESTAMP},
+      SJ = #{sj,jdbcType=VARCHAR},
       SSFZR = #{ssfzr,jdbcType=VARCHAR},
       SSFZRID = #{ssfzrid,jdbcType=DECIMAL},
       BZ = #{bz,jdbcType=VARCHAR}
