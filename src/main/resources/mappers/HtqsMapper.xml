@@ -198,7 +198,7 @@
         SSFZRID = #{ssfzrid,jdbcType=DECIMAL},
       </if>
       <if test="bz != null" >
-        BZ = #{ssfzr,jdbcType=VARCHAR},
+        BZ = #{bz,jdbcType=VARCHAR},
       </if>
     </set>
     where ID = #{id,jdbcType=DECIMAL}
