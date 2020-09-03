@@ -39,4 +39,6 @@ public interface UsersMapper {
     List<Users> selectUserList(@Param("xm") String xm, @Param("bmid") Integer bmid, @Param("zzzt") String zzzt);
 
     Users selectByID(@Param("id")BigDecimal id);
+
+    Users queryxm(@Param("xm") String xm);
 }

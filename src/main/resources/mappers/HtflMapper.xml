@@ -121,4 +121,11 @@
     <include refid="Base_Column_List" />
     from HTFL
   </select>
+
+  <select id="query" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from HTFL
+    where FLMC = #{flmc,jdbcType=VARCHAR}
+  </select>
 </mapper>
