@@ -34,8 +34,8 @@ public class SendMessageUtil {
     //产品域名,无需替换
     static final String domain = "dysmsapi.aliyuncs.com";
     //传入github需要先删除
-    static final String accessKeyId = "LTAI4G1zw6oCBEdU3SVNndJX";
-    static final String accessKeySecret = "T4eULZAR8IkQrB0BJIG7AOiVZ5aLhh";
+    static final String accessKeyId = "";
+    static final String accessKeySecret = "";
 
     //管理员完成合同录入-合同负责人收到 -- 合同确认短信
     //${name}你好，你的合同${ht}已录入，请尽快至系统中进行确认！
