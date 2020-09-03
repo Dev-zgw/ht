@@ -48,6 +48,15 @@ public interface ReportService {
         //本月签署合同信息
         ServerResponse<List<CurrentMonthSimpleInfo>> selectCurrentMonthSimpleInfo(Users user);
 
+        //按条件筛选付款合同信息
+        ServerResponse<List<FkHtInfoToQt>> selectFkhtSimpleInfo(Users user, String htfl, String qsrq,
+                                                                  String fzr,String fzrbm, String ssfzr, String ssfzrbm, String dqsheng, String dqshi);
+
+        //查询合同htqs
+        ServiceResponsebg<List<ComplexHtqs>> selecthtqs(Users user, int pageNum, int pageSize, String htfl, String qsrq,
+                                                       String fzr,String fzrbm, String ssfzr, String ssfzrbm,String dqsheng, String dqshi);
+
+
         //个人查询合同
         ServiceResponsebg<List<Ht>> queryPersonaltable(Users user, int pageNum, int pageSize, String htfl, String qsrq,
                                                       String fzr,String fzrbm, String ssfzr, String ssfzrbm,String dqsheng, String dqshi);
