@@ -152,10 +152,10 @@ public class ReportController {
     @RequestMapping(value = "selecthtqs.do",method = RequestMethod.POST)
     @ResponseBody
     private ServiceResponsebg<List<ComplexHtqs>> selecthtqs(@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
-                                                            @RequestParam(value = "pageSize", defaultValue = "5") int pageSize,String userid, String htfl, String qsrq,
+                                                            @RequestParam(value = "pageSize", defaultValue = "5") int pageSize,String userid, String htfl,String htbh, String qsrq,
                                                             String fzr, String ssfzr,String fzrbm, String ssfzrbm, String dqsheng, String diqushi){
         Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
-        return reportService.selecthtqs(user, currentPage,pageSize,htfl,qsrq,fzr,fzrbm,ssfzr,ssfzrbm,dqsheng,diqushi);
+        return reportService.selecthtqs(user, currentPage,pageSize,htfl,htbh,qsrq,fzr,fzrbm,ssfzr,ssfzrbm,dqsheng,diqushi);
     }
 
     @RequestMapping(value = "selectDepartmentcurrentinfo.do",method = RequestMethod.POST)
@@ -176,30 +176,13 @@ public class ReportController {
 
     @RequestMapping(value = "selectPersonalatble.do",method = RequestMethod.POST)
     @ResponseBody
-    private ServiceResponsebg<List<Ht>> selectPersonalatble(@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
-                                               @RequestParam(value = "pageSize", defaultValue = "5") int pageSize,String userid, String htfl, String qsrq,
+    private ServiceResponsebg<List<ComplexHt>> selectPersonalatble(@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
+                                               @RequestParam(value = "pageSize", defaultValue = "5") int pageSize,String userid, String htfl,String htbh, String qsrq,
                                                String fzr, String ssfzr,String fzrbm, String ssfzrbm, String htzt, String dqsheng, String diqushi){
         Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
         return reportService.queryPersonaltable(user, currentPage,pageSize,htfl,qsrq,fzr,fzrbm,ssfzr,ssfzrbm,dqsheng,diqushi);
     }
 
-    @RequestMapping(value = "getquery.do", method = RequestMethod.POST)
-    @ResponseBody
-    private ServiceResponsebg<List<Ht>> getquery(@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
-                                                 @RequestParam(value = "pageSize", defaultValue = "5") int pageSize, String userid, String htfl, String qsrq,
-                                                 String fzr, String ssfzr, String htzt, String dqsheng, String diqushi, String je){
-        Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
-        return reportService.query(user,currentPage,pageSize,htfl,qsrq,fzr,ssfzr,htzt,dqsheng,diqushi,je);
-    }
-
-    @RequestMapping(value = "getqueryall.do", method = RequestMethod.POST)
-    @ResponseBody
-    private ServiceResponsebg<List<Ht>> getqueryall(@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
-                                                 @RequestParam(value = "pageSize", defaultValue = "5") int pageSize, String userid, String htfl, String qsrq,
-                                                 String fzr, String ssfzr, String htzt, String dqsheng, String diqushi, String je){
-        Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
-        return reportService.queryall(user,currentPage,pageSize,htfl,qsrq,fzr,ssfzr,htzt,dqsheng,diqushi,je);
-    }
 
     //查询所有部门
     @RequestMapping(value = "querybm.do",method =RequestMethod.POST)
