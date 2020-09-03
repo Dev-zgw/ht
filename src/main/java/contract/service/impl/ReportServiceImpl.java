@@ -5,16 +5,14 @@ import com.github.pagehelper.PageInfo;
 
 import contract.dao.*;
 import contract.pojo.*;
+import contract.pojo.Reportpage.*;
 import contract.service.ReportService;
 import contract.utils.Const;
 import contract.utils.ServerResponse;
 import contract.utils.ServiceResponsebg;
-import org.apache.ibatis.javassist.expr.NewArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.Console;
-import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -441,7 +439,7 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public ServiceResponsebg<List<ComplexHtqs>> selecthtqs(Users user, int pageNum, int pageSize, String htfl,String htbh, String qsrq, String fzr, String fzrbm, String ssfzr, String ssfzrbm, String dqsheng, String dqshi) {
+    public ServiceResponsebg<List<ComplexHtqs>> selecthtqs(Users user, int pageNum, int pageSize, String htfl, String htbh, String qsrq, String fzr, String fzrbm, String ssfzr, String ssfzrbm, String dqsheng, String dqshi) {
         String startTime = "";
         String endTime = "";
         if (qsrq != "" && qsrq != null) {

@@ -1,28 +1,32 @@
-package contract.pojo;
+package contract.pojo.Reportpage;
 
-public class Currentinfo {
+/**
+ * @Description
+ * @Author green_crane
+ * @Date 2020/8/21 11:35
+ */
+public class Chart1 {
     String httime;
     String count;
     String sum;
     String avg;
-    String dqcount;
 
-    public Currentinfo() {
-    }
 
-    public Currentinfo(String httime, String count, String sum, String avg, String dqcount) {
+    public Chart1(String httime, String count, String sum, String avg) {
         this.httime = httime;
         this.count = count;
         this.sum = sum;
         this.avg = avg;
-        this.dqcount = dqcount;
     }
 
-    public String getHttime() {
+    public Chart1() {
+    }
+
+    public String gethttime() {
         return httime;
     }
 
-    public void setHttime(String httime) {
+    public void sethttime(String httime) {
         this.httime = httime;
     }
 
@@ -50,23 +54,13 @@ public class Currentinfo {
         this.avg = avg;
     }
 
-
-    public String getDqcount() {
-        return dqcount;
-    }
-
-    public void setDqcount(String dqcount) {
-        this.dqcount = dqcount;
-    }
-
     @Override
     public String toString() {
-        return "Currentinfo{" +
+        return "Chart1{" +
                 "httime='" + httime + '\'' +
                 ", count='" + count + '\'' +
                 ", sum='" + sum + '\'' +
                 ", avg='" + avg + '\'' +
-                ", dqcount='" + dqcount + '\'' +
                 '}';
     }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="contract.dao.ReportMapper">
-    <resultMap id="htxx" type="contract.pojo.ComplexHt">
+    <resultMap id="htxx" type="contract.pojo.Reportpage.ComplexHt">
         <constructor>
             <idArg column="ID" jdbcType="DECIMAL" javaType="java.math.BigDecimal"/>
             <arg column="HTBH" jdbcType="VARCHAR" javaType="java.lang.String"/>
@@ -46,7 +46,7 @@
             <arg column="XMQKSM" jdbcType="VARCHAR" javaType="java.lang.String" />
         </constructor>
     </resultMap>
-    <resultMap id="Chart1Map" type="contract.pojo.Chart1">
+    <resultMap id="Chart1Map" type="contract.pojo.Reportpage.Chart1">
         <constructor>
             <arg column="httime" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="count" jdbcType="VARCHAR" javaType="java.lang.String"/>
@@ -54,7 +54,7 @@
             <arg column="avg" jdbcType="VARCHAR" javaType="java.lang.String"/>
         </constructor>
     </resultMap>
-    <resultMap id="Currentinfo" type="contract.pojo.Currentinfo">
+    <resultMap id="Currentinfo" type="contract.pojo.Reportpage.Currentinfo">
         <constructor>
             <arg column="httime" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="count" jdbcType="VARCHAR" javaType="java.lang.String"/>
@@ -81,7 +81,7 @@
             <arg column="ssfzr" jdbcType="VARCHAR" javaType="java.lang.String"/>
         </constructor>
     </resultMap>
-    <resultMap id="fkhtxx" type="contract.pojo.FkhtSimpleInfo">
+    <resultMap id="fkhtxx" type="contract.pojo.Reportpage.FkhtSimpleInfo">
         <constructor>
             <arg column="httime" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="ifsk" jdbcType="VARCHAR" javaType="java.lang.String"/>
@@ -95,21 +95,21 @@
             <arg column="flmc" jdbcType="VARCHAR" javaType="java.lang.String"/>
         </constructor>
     </resultMap>
-    <resultMap id="Chart5Map" type="contract.pojo.Chart5">
+    <resultMap id="Chart5Map" type="contract.pojo.Reportpage.Chart5">
         <constructor>
             <arg column="htfl" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="count" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="percent" jdbcType="VARCHAR" javaType="java.lang.String"/>
         </constructor>
     </resultMap>
-    <resultMap id="Chart6Map" type="contract.pojo.Chart5">
+    <resultMap id="Chart6Map" type="contract.pojo.Reportpage.Chart5">
         <constructor>
             <arg column="htfl" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="ssbm" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="sum" jdbcType="VARCHAR" javaType="java.lang.String"/>
         </constructor>
     </resultMap>
-    <resultMap id="Chart9Map" type="contract.pojo.Chart9">
+    <resultMap id="Chart9Map" type="contract.pojo.Reportpage.Chart9">
         <constructor>
             <arg column="htfl" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="count" jdbcType="VARCHAR" javaType="java.lang.String"/>
@@ -117,7 +117,7 @@
             <arg column="avg" jdbcType="VARCHAR" javaType="java.lang.String"/>
         </constructor>
     </resultMap>
-    <resultMap id="HTQS" type="contract.pojo.ComplexHtqs" >
+    <resultMap id="HTQS" type="contract.pojo.Reportpage.ComplexHtqs" >
         <constructor >
             <idArg column="ID" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
             <arg column="HTBH" jdbcType="VARCHAR" javaType="java.lang.String" />
