@@ -26,9 +26,13 @@ public interface HtMapper {
                     @Param("fzr") String fzr,@Param("ssfzr") String ssfzr, @Param("htzt") String htzt, @Param("dqsheng") String dqsheng,@Param("dqshi")  String dqshi
                     ,@Param("htjemax") String htjemax,@Param("htjemin") String htjemin,@Param("htbh") String htbh,@Param("sfjxfw") String sfjxfw);
 
-    List<Ht> selectyh(@Param("fzrid") BigDecimal fzrid,@Param("htfl") String htfl, @Param("startTime") String startTime, @Param("endTime") String endTime,
+    List<Ht> selectyh(@Param("ssbm") String ssbm,@Param("htfl") String htfl, @Param("startTime") String startTime, @Param("endTime") String endTime,
                       @Param("ssfzr") String ssfzr,@Param("htzt") String htzt,@Param("dqsheng") String dqsheng,@Param("dqshi")  String dqshi
                      ,@Param("htjemax") String htjemax,@Param("htjemin") String htjemin,@Param("htbh") String htbh,@Param("sfjxfw") String sfjxfw);
+
+    List<Ht> selectfzr(@Param("fzrid") BigDecimal fzrid,@Param("htfl") String htfl, @Param("startTime") String startTime, @Param("endTime") String endTime,
+                      @Param("ssfzr") String ssfzr,@Param("htzt") String htzt,@Param("dqsheng") String dqsheng,@Param("dqshi")  String dqshi
+            ,@Param("htjemax") String htjemax,@Param("htjemin") String htjemin,@Param("htbh") String htbh,@Param("sfjxfw") String sfjxfw);
 
     List<Ht> selectss(@Param("ssfzrid") BigDecimal ssfzrid,@Param("htfl") String htfl, @Param("startTime") String startTime, @Param("endTime") String endTime,
                     @Param("fzr") String fzr, @Param("htzt") String htzt, @Param("dqsheng") String dqsheng,@Param("dqshi")  String dqshi

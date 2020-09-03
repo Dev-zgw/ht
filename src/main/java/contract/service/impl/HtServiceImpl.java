@@ -81,19 +81,13 @@ public class HtServiceImpl implements HtService {
 
         //部门经理只能查看该部门的合同信息
         if(role.getQxid().longValue()== Const.Role.ROLE_BMJL){
-            //先查询该部门的所有用户
-            List<Users> listUser=userMapper.select(user.getSsbm());
-
-            for(int i=0;i<listUser.size();i++){
-                //分别查询每个用户的合同
-                List<Ht> htList=htMapper.selectyh(listUser.get(i).getId(),htfl,startTime,endTime,ssfzr,htzt,dqsheng,dqshi,htjemax,htjemin,htbh,sfjxfw);
-                list.addAll(htList);
-            }
+            //分别查询每个用户的合同
+            list=htMapper.selectyh(user.getSsbm(),htfl,startTime,endTime,ssfzr,htzt,dqsheng,dqshi,htjemax,htjemin,htbh,sfjxfw);
         }
 
         //普通用户只能查看自己的合同信息
         if(role.getQxid().longValue()== Const.Role.ROLE_CUSTOMER){
-            list=htMapper.selectyh(user.getId(),htfl,startTime,endTime,ssfzr,htzt,dqsheng,dqshi,htjemax,htjemin,htbh,sfjxfw);
+            list=htMapper.selectfzr(user.getId(),htfl,startTime,endTime,ssfzr,htzt,dqsheng,dqshi,htjemax,htjemin,htbh,sfjxfw);
         }
 
         //实施用户权限
