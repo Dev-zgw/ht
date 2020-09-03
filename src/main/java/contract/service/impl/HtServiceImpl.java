@@ -12,9 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service("htService")
 public class HtServiceImpl implements HtService {
@@ -34,6 +36,9 @@ public class HtServiceImpl implements HtService {
 
     @Autowired
     private HtqsMapper htqsMapper;
+
+    @Autowired
+    private HtflMapper htflMapper;
 
 
     //查询合同信息
@@ -264,5 +269,47 @@ public class HtServiceImpl implements HtService {
     public int updateyqts(int id, String yqts,String htsyts) {
         int i=htMapper.updateyqts(new BigDecimal(id),yqts,htsyts);
         return i;
+    }
+
+    @Override
+    public ServerResponse daoru(List<Map<String, Object>> list) throws Exception {
+        Ht ht=new Ht();
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+        //将excel表格中的数据写入到ht表中
+        if(!list.isEmpty()){
+            for (int i=0;i<list.size();i++){
+                Map<String, Object> map=list.get(i);
+                ht.setHtbh(map.get("htbh").toString());
+                ht.setHtmc(map.get("htmc").toString());
+                ht.setYymc(map.get("yymc").toString());
+                ht.setDqsheng(map.get("dqsheng").toString());
+                ht.setDqshi(map.get("dqshi").toString());
+                ht.setHtfl(htflMapper.query(map.get("htfl").toString()).getId());
+                ht.setYyjb(map.get("yyjb").toString());
+                ht.setQsrq(sf.parse(map.get("qsrq").toString()));
+                ht.setHtqsrq(sf.parse(map.get("htqsrq").toString()));
+                ht.setHtzzrq(sf.parse(map.get("htzzrq").toString()));
+                ht.setHtnrhtnr(new BigDecimal(map.get("htnrhtnr").toString()));
+                ht.setFzr(map.get("fzr").toString());
+                ht.setSsfzr(map.get("ssfzr").toString());
+                ht.setFzrid(userMapper.queryxm(map.get("fzr").toString()).getId());
+                ht.setSsfzrid(userMapper.queryxm(map.get("ssfzr").toString()).getId());
+                ht.setNywfje(new BigDecimal(map.get("nywfje").toString()));
+                ht.setNywfsj(sf.parse(map.get("nywfsj").toString()));
+                ht.setXxkxm(map.get("xxkxm").toString());
+                ht.setXxklxfs(map.get("xxklxfs").toString());
+                ht.setCwkxm(map.get("cwkxm").toString());
+                ht.setCwklxfs(map.get("cwklxfs").toString());
+                ht.setYwdjr(map.get("ywdjr").toString());
+                ht.setYwdjrlxfs(map.get("ywdjrlxfs").toString());
+                ht.setSfgb(map.get("sfgb").toString());
+                ht.setSfjxfw(map.get("sfjxfw").toString());
+                ht.setYjqysj(sf.parse(map.get("yjqysj").toString()));
+                ht.setXmqksm(map.get("xmqksm").toString());
+                ht.setBz(map.get("bz").toString());
+                htMapper.insertSelective(ht);
+            }
+        }
+        return ServerResponse.createBySuccess("文件导入成功");
     }
 }

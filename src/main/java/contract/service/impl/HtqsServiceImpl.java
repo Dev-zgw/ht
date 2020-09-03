@@ -12,8 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service("htqsService")
 public class HtqsServiceImpl implements HtqsService {
@@ -167,5 +169,35 @@ public class HtqsServiceImpl implements HtqsService {
         result.setBz("合同期数验收成功");
         resultMapper.insertSelective(result);
         return ServerResponse.createBySuccessMessage("操作成功");
+    }
+
+    @Override
+    public ServerResponse daoru(List<Map<String, Object>> list) throws Exception {
+        Htqs htqs=new Htqs();
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+        //将excel表格中的数据写入到ht表中
+        if(!list.isEmpty()){
+            for (int i=0;i<list.size();i++){
+                Map<String, Object> map=list.get(i);
+                if(map.get("htbh").toString()!=null&& !map.get("htbh").toString().equals("")){
+                    htqs.setHtbh(map.get("htbh").toString());
+                }
+                if(map.get("je")!=null){
+                    htqs.setJe(new BigDecimal(map.get("je").toString()));
+                }else{
+                    continue;
+                }
+                if(map.get("yjsj")!=null){
+                    htqs.setYjsj(sf.parse(map.get("yjsj").toString()));
+                }
+                if(map.get("ssfzr").toString()!=null){
+                    htqs.setSsfzr(map.get("ssfzr").toString());
+                    htqs.setSsfzrid(userMapper.queryxm(map.get("ssfzr").toString()).getId());
+                }
+                htqs.setBz(map.get("bz").toString());
+                htqsMapper.insertSelective(htqs);
+            }
+        }
+        return ServerResponse.createBySuccess("文件导入成功");
     }
 }

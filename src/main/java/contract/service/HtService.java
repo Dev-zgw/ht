@@ -6,6 +6,7 @@ import contract.utils.ServerResponse;
 import contract.utils.ServiceResponsebg;
 
 import java.util.List;
+import java.util.Map;
 
 public interface HtService {
 
@@ -31,4 +32,7 @@ public interface HtService {
     int updateyqzt(int id,String htzt);
     //定时器更改逾期天数
     int updateyqts(int id, String yqts,String htsyts);
+
+    //批量新增（导入）
+    ServerResponse daoru(List<Map<String, Object>> list) throws Exception;
 }
