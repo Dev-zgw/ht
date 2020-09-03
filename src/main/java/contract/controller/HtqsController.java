@@ -57,9 +57,7 @@ public class HtqsController {
         if(!("").equals(je)){
             htqs.setJe(new BigDecimal(je));
         }
-        if(!("").equals(sj)){
-            htqs.setSj(new Date(Long.parseLong(sj)));
-        }
+        htqs.setSj(sj);
         if(!("").equals(yjsj)){
             htqs.setYjsj(new Date(Long.parseLong(yjsj)));
         }
@@ -84,16 +82,14 @@ public class HtqsController {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Htqs htqs=new Htqs();
         htqs.setHtbh(htbh);
-        if(!("").equals(je)){
+        if(!("").equals(je)&&je!=null){
             htqs.setJe(new BigDecimal(je));
         }
-        if(!("").equals(sj)){
-            htqs.setSj(new Date(Long.parseLong(sj)));
-        }
-        if(!("").equals(yjsj)){
+        htqs.setSj(sj);
+        if(!("").equals(yjsj)&&yjsj!=null){
             htqs.setYjsj(new Date(Long.parseLong(yjsj)));
         }
-        if(!("").equals(ssfzr)){
+        if(!("").equals(ssfzr)&&ssfzr!=null){
             htqs.setSsfzrid(new BigDecimal(ssfzr));
             htqs.setSsfzr(usersMapper.selectByPrimaryKey(htqs.getSsfzrid()).getXm());
         }

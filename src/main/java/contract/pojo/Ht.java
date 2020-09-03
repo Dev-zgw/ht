@@ -52,7 +52,7 @@ public class Ht {
 
     private String dqshi;
 
-    private String htfl;
+    private BigDecimal htfl;
 
     private String createBy;
 
@@ -86,7 +86,7 @@ public class Ht {
 
     private String xmqksm;
 
-    public Ht(BigDecimal id, String htbh, Date qsrq, String fzr, String yymc, String htnr, BigDecimal htnrhtnr, Long fkzq, BigDecimal nywfje, Date nywfsj, String xxkxm, String xxklxfs, String cwkxm, String cwklxfs, String ywdjr, String ywdjrlxfs, String sfskwc, BigDecimal skje, String htsfdq, String htzt, String bz, String yyjb, String dqsheng, String dqshi, String htfl, String createBy, String updateBy, Date createTime, Date updateTime, BigDecimal fzrid, String ssfzr, BigDecimal ssfzrid, Date htqsrq, Date htzzrq, String yqts, String htsyts, String htmc, String sfgb, String sfjxfw, Date yjqysj, String xmqksm) {
+    public Ht(BigDecimal id, String htbh, Date qsrq, String fzr, String yymc, String htnr, BigDecimal htnrhtnr, Long fkzq, BigDecimal nywfje, Date nywfsj, String xxkxm, String xxklxfs, String cwkxm, String cwklxfs, String ywdjr, String ywdjrlxfs, String sfskwc, BigDecimal skje, String htsfdq, String htzt, String bz, String yyjb, String dqsheng, String dqshi, BigDecimal htfl, String createBy, String updateBy, Date createTime, Date updateTime, BigDecimal fzrid, String ssfzr, BigDecimal ssfzrid, Date htqsrq, Date htzzrq, String yqts, String htsyts, String htmc, String sfgb, String sfjxfw, Date yjqysj, String xmqksm) {
         this.id = id;
         this.htbh = htbh;
         this.qsrq = qsrq;
@@ -398,11 +398,11 @@ public class Ht {
         this.dqshi = dqshi;
     }
 
-    public String getHtfl() {
+    public BigDecimal getHtfl() {
         return htfl;
     }
 
-    public void setHtfl(String htfl) {
+    public void setHtfl(BigDecimal htfl) {
         this.htfl = htfl;
     }
 
