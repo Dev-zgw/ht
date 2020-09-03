@@ -26,5 +26,4 @@ public class HtController {
 
     @Autowired
     private UsersMapper usersMapper;
-
 }

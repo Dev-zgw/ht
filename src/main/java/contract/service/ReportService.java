@@ -53,21 +53,13 @@ public interface ReportService {
                                                                   String fzr,String fzrbm, String ssfzr, String ssfzrbm, String dqsheng, String dqshi);
 
         //查询合同htqs
-        ServiceResponsebg<List<ComplexHtqs>> selecthtqs(Users user, int pageNum, int pageSize, String htfl, String qsrq,
+        ServiceResponsebg<List<ComplexHtqs>> selecthtqs(Users user, int pageNum, int pageSize, String htfl,  String htbh, String qsrq,
                                                        String fzr,String fzrbm, String ssfzr, String ssfzrbm,String dqsheng, String dqshi);
 
 
         //个人查询合同
-        ServiceResponsebg<List<Ht>> queryPersonaltable(Users user, int pageNum, int pageSize, String htfl, String qsrq,
+        ServiceResponsebg<List<ComplexHt>> queryPersonaltable(Users user, int pageNum, int pageSize, String htfl, String qsrq,
                                                       String fzr,String fzrbm, String ssfzr, String ssfzrbm,String dqsheng, String dqshi);
-
-        //个权限查询合同
-        ServiceResponsebg<List<Ht>> query(Users user, int pageNum, int pageSize, String htfl, String qsrq,
-                                          String fzr, String ssfzr, String htzt, String dqsheng, String dqshi, String je);
-
-        //个权限查询合同
-        ServiceResponsebg<List<Ht>> queryall(Users user, int pageNum, int pageSize, String htfl, String qsrq,
-                                          String fzr, String ssfzr, String htzt, String dqsheng, String dqshi, String je);
 
         //查询部门
         ServerResponse<List<Department>> querybm();
