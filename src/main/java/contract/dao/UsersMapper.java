@@ -41,4 +41,6 @@ public interface UsersMapper {
     Users selectByID(@Param("id")BigDecimal id);
 
     Users queryxm(@Param("xm") String xm);
+
+    Users querybmjl(@Param("bmid") BigDecimal bmid,@Param("jsid") BigDecimal jsid);
 }

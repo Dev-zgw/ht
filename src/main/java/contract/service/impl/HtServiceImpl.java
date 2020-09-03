@@ -40,6 +40,8 @@ public class HtServiceImpl implements HtService {
     @Autowired
     private HtflMapper htflMapper;
 
+    @Autowired
+    private MessageServiceImpl messageServiceImpl;
 
     //查询合同信息
     @Override
@@ -165,7 +167,13 @@ public class HtServiceImpl implements HtService {
         result.setCzsj(new Date());
         result.setCznr("合同录入");
         result.setBz("合同录入成功");
-        resultMapper.insertSelective(result);
+        int j=resultMapper.insertSelective(result);
+        try {
+            //管理员完成合同录入-合同负责人收到 -- 合同确认短信
+            messageServiceImpl.sendHtqr(userMapper.queryxm(ht.getFzr()).getSjhm(), ht.getFzr(),ht.getHtmc());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return ServerResponse.createBySuccessMessage("合同录入成功");
     }
 
@@ -204,6 +212,7 @@ public class HtServiceImpl implements HtService {
     @Override
     public ServerResponse updatezt(Users users, int id, String htzt) {
         Ht ht=htMapper.selectByPrimaryKey(new BigDecimal(id));
+        Users usersbmjl=userMapper.querybmjl(users.getBmid(),new BigDecimal(3));
         List<Htqs> htqsList=htqsMapper.query(ht.getHtbh());
         if(("2").equals(htzt)) {
             int sk = 0;
@@ -235,6 +244,28 @@ public class HtServiceImpl implements HtService {
                 result.setBz("合同验收成功");
             }
             resultMapper.insertSelective(result);
+            if(htzt=="1"){
+                try {
+                   /* //合同负责人确认合同后 -- 部门经理收到 -- 合同签订短信
+                    messageServiceImpl.sendHtqd(usersbmjl.getSjhm(),usersbmjl.getXm(),ht.getFzr(),ht.getHtmc());
+                    //合同负责人确认合同后 -- 实施负责人收到 -- 通知短信
+                    String a=ht.getFzr()+" ,联系方式："+users.getSjhm();
+                    messageServiceImpl.sendTz(userMapper.queryxm(ht.getSsfzr()).getSjhm(),ht.getSsfzr(),ht.getYymc(),a);*/
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }else if(htzt=="2"){
+                try {
+                    /*//财务确认合同款结清，合同负责人收到合同款结清短信
+                    messageServiceImpl.sendHtkjq(userMapper.queryxm(ht.getFzr()).getSjhm(),ht.getFzr(),ht.getHtmc());
+                    //财务确认合同款结清，部门经理收到合同款结清短信
+                    String a=ht.getFzr()+" 所签约合同"+ht.getHtmc();
+                    messageServiceImpl.sendHtkjq(usersbmjl.getSjhm(),usersbmjl.getXm(),a);*/
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+
         }
         return ServerResponse.createBySuccessMessage("操作成功");
     }

@@ -1,8 +1,10 @@
 package contract.service.impl;
 
+import contract.dao.HtMapper;
 import contract.dao.HtqsMapper;
 import contract.dao.ResultMapper;
 import contract.dao.UsersMapper;
+import contract.pojo.Ht;
 import contract.pojo.Htqs;
 import contract.pojo.Result;
 import contract.pojo.Users;
@@ -28,6 +30,9 @@ public class HtqsServiceImpl implements HtqsService {
 
     @Autowired
     private UsersMapper userMapper;
+
+    @Autowired
+    private HtMapper htMapper;
 
     /**
      * 根据合同编码查询合同期数
@@ -147,7 +152,10 @@ public class HtqsServiceImpl implements HtqsService {
 
     @Override
     public ServerResponse htqsxg(Users users, int id, String htfqzt) {
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy年");
         Htqs htqs=htqsMapper.selectByPrimaryKey(new BigDecimal(id));
+        Ht ht= htMapper.selects(htqs.getHtbh());
+        Users usersbmjl=userMapper.querybmjl(users.getBmid(),new BigDecimal(3));
         int i=htqsMapper.updatezt(new BigDecimal(id),htfqzt);
         if(i<=0){
             Result result=new Result();
@@ -160,6 +168,17 @@ public class HtqsServiceImpl implements HtqsService {
             resultMapper.insertSelective(result);
             return ServerResponse.createBySuccessMessage("操作失败");
         }
+        try{
+          /*  //财务确认合同款结清，合同负责人收到合同款结清短信
+            String a=ht.getHtmc()+sf.format(htqs.getYjsj());
+            messageServiceImpl.sendHtkjq(userMapper.queryxm(ht.getFzr()).getSjhm(),ht.getFzr(),a);
+            //财务确认合同款结清，部门经理收到合同款结清短信
+            String b=ht.getFzr()+" 所签约合同"+ht.getHtmc()+sf.format(htqs.getYjsj());
+            messageServiceImpl.sendHtkjq(usersbmjl.getSjhm(),usersbmjl.getXm(),b);*/
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         Result result=new Result();
         result.setHtbh(htqs.getHtbh());
         result.setUserid(users.getId());
@@ -175,7 +194,7 @@ public class HtqsServiceImpl implements HtqsService {
     public ServerResponse daoru(List<Map<String, Object>> list) throws Exception {
         Htqs htqs=new Htqs();
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
-        //将excel表格中的数据写入到ht表中
+        //将excel表格中的数据写入到htqs表中
         if(!list.isEmpty()){
             for (int i=0;i<list.size();i++){
                 Map<String, Object> map=list.get(i);
