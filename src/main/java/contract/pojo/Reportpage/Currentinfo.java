@@ -1,27 +1,29 @@
-package contract.pojo;
+package contract.pojo.Reportpage;
 
-public class Chart9 {
-    String htfl;
+public class Currentinfo {
+    String httime;
     String count;
     String sum;
     String avg;
+    String dqcount;
 
-    public Chart9(String htfl, String count, String sum, String avg) {
-        this.htfl = htfl;
+    public Currentinfo() {
+    }
+
+    public Currentinfo(String httime, String count, String sum, String avg, String dqcount) {
+        this.httime = httime;
         this.count = count;
         this.sum = sum;
         this.avg = avg;
+        this.dqcount = dqcount;
     }
 
-    public Chart9() {
+    public String getHttime() {
+        return httime;
     }
 
-    public String getHtfl() {
-        return htfl;
-    }
-
-    public void setHtfl(String htfl) {
-        this.htfl = htfl;
+    public void setHttime(String httime) {
+        this.httime = httime;
     }
 
     public String getCount() {
@@ -48,13 +50,23 @@ public class Chart9 {
         this.avg = avg;
     }
 
+
+    public String getDqcount() {
+        return dqcount;
+    }
+
+    public void setDqcount(String dqcount) {
+        this.dqcount = dqcount;
+    }
+
     @Override
     public String toString() {
-        return "Chart9{" +
-                "htfl='" + htfl + '\'' +
+        return "Currentinfo{" +
+                "httime='" + httime + '\'' +
                 ", count='" + count + '\'' +
                 ", sum='" + sum + '\'' +
                 ", avg='" + avg + '\'' +
+                ", dqcount='" + dqcount + '\'' +
                 '}';
     }
 }

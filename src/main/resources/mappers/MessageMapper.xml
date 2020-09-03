@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="contract.dao.MessageMapper">
+    <resultMap id="fkmessage" type="contract.pojo.Message.FkMessage">
+        <constructor>
+            <arg column="FZR" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="HTBH" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="HTMC" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="SJ" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="SJHM" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="SYSJ" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        </constructor>
+    </resultMap>
+    <resultMap id="htmessage" type="contract.pojo.Message.HtMessage">
+        <constructor>
+            <arg column="HTBH" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="ZZRQ" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="FZR" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="SYSJ" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="SJHM" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="HTMC" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        </constructor>
+    </resultMap>
+    <!--提前付款期限一个月/两周/一周/三天，合同负责人收到合同到期提醒短信-->
+    <!--超出付款期限，合同负责人收到付款逾期短信(只发一次)-->
+    <select id="selectFkMessageInfo" resultMap="fkmessage">
+        select ht.fzr as fzr,htqs.htbh as htbh,ht.HTMC as htmc,to_char(htqs.sj,'yyyy-mm-dd') as sj,users.sjhm as sjhm,
+            to_date(to_char(htqs.sj,'yyyy-mm-dd'),'yyyy-mm-dd')-to_date(to_char(sysdate,'yyyy-mm-dd'),'yyyy-mm-dd') as sysj
+        from htqs
+        left join ht on htqs.htbh=ht.htbh
+        left join users on ht.fzr=users.xm
+        where htqs.sfskwc=2
+    </select>
+
+    <select id="selectHtMessageInfo" resultMap="htmessage">
+        select htbh,to_char(HTZZRQ,'yyyy-mm-dd') as zzrq,fzr,users.sjhm as sjhm,HT.HTMC,
+        to_date(to_char(HTZZRQ,'yyyy-mm-dd'),'yyyy-mm-dd')-to_date(to_char(sysdate,'yyyy-mm-dd'),'yyyy-mm-dd') as sysj
+        from ht
+        left join users on ht.fzr=users.xm
+    </select>
+
+
+
+
+</mapper>

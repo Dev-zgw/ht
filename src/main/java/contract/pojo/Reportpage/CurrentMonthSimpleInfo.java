@@ -1,4 +1,4 @@
-package contract.pojo;
+package contract.pojo.Reportpage;
 
 /**
  * @Description

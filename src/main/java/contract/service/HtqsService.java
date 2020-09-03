@@ -5,6 +5,7 @@ import contract.pojo.Users;
 import contract.utils.ServerResponse;
 
 import java.util.List;
+import java.util.Map;
 
 public interface HtqsService {
 
@@ -22,4 +23,7 @@ public interface HtqsService {
 
     //修改本期合同状态
     ServerResponse htqsxg(Users users,int id,String htfqzt);
+
+    //批量新增（导入）
+    ServerResponse daoru(List<Map<String, Object>> list) throws Exception;
 }

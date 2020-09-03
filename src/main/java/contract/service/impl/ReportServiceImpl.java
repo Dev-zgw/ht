@@ -5,16 +5,14 @@ import com.github.pagehelper.PageInfo;
 
 import contract.dao.*;
 import contract.pojo.*;
+import contract.pojo.Reportpage.*;
 import contract.service.ReportService;
 import contract.utils.Const;
 import contract.utils.ServerResponse;
 import contract.utils.ServiceResponsebg;
-import org.apache.ibatis.javassist.expr.NewArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.Console;
-import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -441,7 +439,7 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public ServiceResponsebg<List<ComplexHtqs>> selecthtqs(Users user, int pageNum, int pageSize, String htfl, String qsrq, String fzr, String fzrbm, String ssfzr, String ssfzrbm, String dqsheng, String dqshi) {
+    public ServiceResponsebg<List<ComplexHtqs>> selecthtqs(Users user, int pageNum, int pageSize, String htfl, String htbh, String qsrq, String fzr, String fzrbm, String ssfzr, String ssfzrbm, String dqsheng, String dqshi) {
         String startTime = "";
         String endTime = "";
         if (qsrq != "" && qsrq != null) {
@@ -455,26 +453,26 @@ public class ReportServiceImpl implements ReportService {
         List<ComplexHtqs> list = new ArrayList<>();
         //总经理权限查看合同信息
         if (role.getQxid().longValue() == Const.Role.ROLE_ZJL || role.getQxid().longValue() == Const.Role.ROLE_ADMIN) {
-            list = reportMapper.selecthtqs(htfl, startTime, endTime, fzr, fzrbm, ssfzr, ssfzrbm, dqsheng, dqshi);
+            list = reportMapper.selecthtqs(htfl,htbh, startTime, endTime, fzr, fzrbm, ssfzr, ssfzrbm, dqsheng, dqshi);
         }
 
         //部门经理只能查看该部门的合同信息
         if (role.getQxid().longValue() == Const.Role.ROLE_BMJL) {
-            list = reportMapper.selecthtqs(htfl, startTime, endTime, fzr, user.getSsbm(), ssfzr, ssfzrbm, dqsheng, dqshi);
+            list = reportMapper.selecthtqs(htfl,htbh, startTime, endTime, fzr, user.getSsbm(), ssfzr, ssfzrbm, dqsheng, dqshi);
         }
 
         //普通用户只能查看自己的合同信息
         if (role.getQxid().longValue() == Const.Role.ROLE_CUSTOMER) {
-            list = reportMapper.selecthtqs(htfl, startTime, endTime, user.getXm(), user.getSsbm(), ssfzr, ssfzrbm, dqsheng, dqshi);
+            list = reportMapper.selecthtqs(htfl,htbh, startTime, endTime, user.getXm(), user.getSsbm(), ssfzr, ssfzrbm, dqsheng, dqshi);
         }
 
         //实施用户权限
         if (role.getQxid().longValue() == Const.Role.ROLE_SSYH) {
-            list = reportMapper.selecthtqs(htfl, startTime, endTime, fzr, fzrbm, user.getXm(), user.getSsbm(), dqsheng, dqshi);
+            list = reportMapper.selecthtqs(htfl,htbh, startTime, endTime, fzr, fzrbm, user.getXm(), user.getSsbm(), dqsheng, dqshi);
         }
         //财务用户权限
         if (role.getQxid().longValue() == Const.Role.ROLE_CWQX) {
-            list = reportMapper.selecthtqs(htfl, startTime, endTime, fzr, fzrbm, ssfzr, ssfzrbm, dqsheng, dqshi);
+            list = reportMapper.selecthtqs(htfl,htbh, startTime, endTime, fzr, fzrbm, ssfzr, ssfzrbm, dqsheng, dqshi);
         }
         PageInfo<ComplexHtqs> pageInfo = new PageInfo<ComplexHtqs>(list);
         return ServiceResponsebg.createBySuccess(role.getQxid().longValue(), pageInfo.getTotal(), list);
@@ -482,7 +480,7 @@ public class ReportServiceImpl implements ReportService {
 
 
     @Override
-    public ServiceResponsebg<List<Ht>> queryPersonaltable(Users user, int pageNum, int pageSize, String htfl, String qsrq, String fzr, String fzrbm, String ssfzr, String ssfzrbm, String dqsheng, String dqshi) {
+    public ServiceResponsebg<List<ComplexHt>> queryPersonaltable(Users user, int pageNum, int pageSize, String htfl, String qsrq, String fzr, String fzrbm, String ssfzr, String ssfzrbm, String dqsheng, String dqshi) {
         String startTime = "";
         String endTime = "";
         if (qsrq != "" && qsrq != null) {
@@ -493,7 +491,7 @@ public class ReportServiceImpl implements ReportService {
         }
         Role role = roleMapper.selectByPrimaryKey(user.getJsid());
         PageHelper.startPage(pageNum, pageSize);
-        List<Ht> list = new ArrayList<>();
+        List<ComplexHt> list = new ArrayList<>();
         //总经理权限查看合同信息
         if (role.getQxid().longValue() == Const.Role.ROLE_ZJL || role.getQxid().longValue() == Const.Role.ROLE_ADMIN) {
             list = reportMapper.selectPersonalTable(htfl, startTime, endTime, fzr, fzrbm, ssfzr, ssfzrbm, dqsheng, dqshi);
@@ -517,104 +515,7 @@ public class ReportServiceImpl implements ReportService {
         if (role.getQxid().longValue() == Const.Role.ROLE_CWQX) {
             list = reportMapper.selectPersonalTable(htfl, startTime, endTime, fzr, fzrbm, ssfzr, ssfzrbm, dqsheng, dqshi);
         }
-        PageInfo<Ht> pageInfo = new PageInfo<Ht>(list);
-        return ServiceResponsebg.createBySuccess(role.getQxid().longValue(), pageInfo.getTotal(), list);
-    }
-
-    //查询合同信息
-    @Override
-    public ServiceResponsebg<List<Ht>> query(Users user, int pageNum, int pageSize, String htfl, String qsrq,
-                                             String fzr, String ssfzr, String htzt, String dqsheng, String dqshi, String je) {
-        String htjemin = "";
-        String htjemax = "";
-        if (("0").equals(je)) {
-            htjemin = "0";
-            htjemax = "10";
-        } else if (("1").equals(je)) {
-            htjemin = "10";
-            htjemax = "30";
-        } else if (("2").equals(je)) {
-            htjemin = "30";
-            htjemax = "50";
-        } else if (("3").equals(je)) {
-            htjemin = "50";
-            htjemax = "100";
-        } else if (("4").equals(je)) {
-            htjemin = "100";
-        }
-        String startTime = "";
-        String endTime = "";
-        if (qsrq != "" && qsrq != null) {
-            String date[] = qsrq.split(",");
-            startTime = date[0].toString().substring(1, date[0].toString().length() - 1);
-            endTime = date[1].toString().substring(1, date[1].toString().length() - 1);
-        }
-
-        Role role = roleMapper.selectByPrimaryKey(user.getJsid());
-        PageHelper.startPage(pageNum, pageSize);
-        List<Ht> list = new ArrayList<>();
-        //管理员查询所有合同信息
-        if (role.getQxid().longValue() == Const.Role.ROLE_ADMIN) {
-            list = reportMapper.select(htfl, startTime, endTime, fzr, ssfzr, htzt, dqsheng, dqshi, htjemax, htjemin);
-        }
-
-        //总经理权限查看合同信息
-        if (role.getQxid().longValue() == Const.Role.ROLE_ZJL) {
-            list = reportMapper.select(htfl, startTime, endTime, fzr, ssfzr, htzt, dqsheng, dqshi, htjemax, htjemin);
-        }
-
-        //部门经理只能查看该部门的合同信息
-        if (role.getQxid().longValue() == Const.Role.ROLE_BMJL) {
-            //先查询该部门的所有用户
-            List<Users> listUser = usersMapper.select(user.getSsbm());
-
-            for (int i = 0; i < listUser.size(); i++) {
-                //分别查询每个用户的合同
-                List<Ht> htList = reportMapper.selectyh(listUser.get(i).getId(), htfl, startTime, endTime, ssfzr, htzt, dqsheng, dqshi, htjemax, htjemin);
-                list.addAll(htList);
-            }
-        }
-
-        //普通用户只能查看自己的合同信息
-        if (role.getQxid().longValue() == Const.Role.ROLE_CUSTOMER) {
-            list = reportMapper.selectyh(user.getId(), htfl, startTime, endTime, ssfzr, htzt, dqsheng, dqshi, htjemax, htjemin);
-        }
-
-        //实施用户权限
-        if (role.getQxid().longValue() == Const.Role.ROLE_SSYH) {
-            list = reportMapper.selectss(user.getId(), htfl, startTime, endTime, fzr, htzt, dqsheng, dqshi, htjemax, htjemin);
-        }
-        //财务用户权限
-        if (role.getQxid().longValue() == Const.Role.ROLE_CWQX) {
-            list = reportMapper.select(htfl, startTime, endTime, fzr, ssfzr, htzt, dqsheng, dqshi, htjemax, htjemin);
-        }
-        PageInfo<Ht> pageInfo = new PageInfo<Ht>(list);
-        return ServiceResponsebg.createBySuccess(role.getQxid().longValue(), pageInfo.getTotal(), list);
-    }
-
-    //查询合同信息
-    @Override
-    public ServiceResponsebg<List<Ht>> queryall(Users user, int pageNum, int pageSize, String htfl, String qsrq,
-                                                String fzr, String ssfzr, String htzt, String dqsheng, String dqshi, String je) {
-        String htjemin = "";
-        String htjemax = "";
-        String startTime = "";
-        String endTime = "";
-        if (qsrq != "" && qsrq != null) {
-            String date[] = qsrq.split(",");
-            startTime = date[0].toString().substring(1, date[0].toString().length() - 1);
-            endTime = date[1].toString().substring(1, date[1].toString().length() - 1);
-        }
-
-        Role role = roleMapper.selectByPrimaryKey(user.getJsid());
-        PageHelper.startPage(pageNum, pageSize);
-        List<Ht> list = new ArrayList<>();
-        //管理员查询所有合同信息
-        //总经理权限查看合同信息
-        if (role.getQxid().longValue() == Const.Role.ROLE_ZJL) {
-            list = reportMapper.select(htfl, startTime, endTime, fzr, ssfzr, htzt, dqsheng, dqshi, htjemax, htjemin);
-        }
-        PageInfo<Ht> pageInfo = new PageInfo<Ht>(list);
+        PageInfo<ComplexHt> pageInfo = new PageInfo<ComplexHt>(list);
         return ServiceResponsebg.createBySuccess(role.getQxid().longValue(), pageInfo.getTotal(), list);
     }
 

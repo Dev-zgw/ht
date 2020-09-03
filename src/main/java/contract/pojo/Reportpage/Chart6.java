@@ -1,4 +1,4 @@
-package contract.pojo;
+package contract.pojo.Reportpage;
 
 public class Chart6 {
     String htfl;
