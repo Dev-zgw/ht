@@ -72,6 +72,13 @@
         from USERS
         where XM = #{xm,jdbcType=VARCHAR}
     </select>
+    <select id="querybmjl" resultMap="BaseResultMap" parameterType="string">
+        select
+        <include refid="Base_Column_List"/>
+        from USERS
+        where BMID = #{bmid,jdbcType=DECIMAL}
+        and JSID= #{jsid,jdbcType=DECIMAL}
+    </select>
     <!--添加-->
     <insert id="insert" parameterType="contract.pojo.Users">
     insert into USERS (ID, NAME, PASSWORD,
