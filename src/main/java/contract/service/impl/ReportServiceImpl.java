@@ -43,7 +43,7 @@ public class ReportServiceImpl implements ReportService {
 
 
     @Override
-    public ServerResponse<List<Chart1>> selectChart1(Users user, String htfl, String qsrq,
+    public ServerResponse<List<Chart4>> selectChart4(Users user, String htfl, String qsrq,
                                                      String fzr, String fzrbm, String ssfzr, String ssfzrbm, String dqsheng, String dqshi) {
         String startTime = "";
         String endTime = "";
@@ -53,27 +53,27 @@ public class ReportServiceImpl implements ReportService {
             startTime = date[0].toString().substring(1, date[0].toString().length() - 1);
             endTime = date[1].toString().substring(1, date[1].toString().length() - 1);
         }
-        List<Chart1> list = new ArrayList<Chart1>();
+        List<Chart4> list = new ArrayList<Chart4>();
         //管理员/总经理查询所有合同信息
         if (role.getQxid().longValue() == Const.Role.ROLE_ADMIN || role.getQxid().longValue() == Const.Role.ROLE_ZJL) {
-            list = reportMapper.selectChart1(htfl, startTime, endTime, fzr, fzrbm, ssfzr, ssfzrbm, dqsheng, dqshi);
+            list = reportMapper.selectChart4(htfl, startTime, endTime, fzr, fzrbm, ssfzr, ssfzrbm, dqsheng, dqshi);
         }
         //部门经理只能查看该部门的合同信息
         if (role.getQxid().longValue() == Const.Role.ROLE_BMJL) {
-            list = reportMapper.selectChart1(htfl, startTime, endTime, fzr, user.getSsbm(), ssfzr, ssfzrbm, dqsheng, dqshi);
+            list = reportMapper.selectChart4(htfl, startTime, endTime, fzr, user.getSsbm(), ssfzr, ssfzrbm, dqsheng, dqshi);
         }
 
         //普通用户只能查看自己的合同信息
         if (role.getQxid().longValue() == Const.Role.ROLE_CUSTOMER) {
-            list = reportMapper.selectChart1(htfl, startTime, endTime, user.getXm(), user.getSsbm(), ssfzr, ssfzrbm, dqsheng, dqshi);
+            list = reportMapper.selectChart4(htfl, startTime, endTime, user.getXm(), user.getSsbm(), ssfzr, ssfzrbm, dqsheng, dqshi);
         }
         //实施用户权限
         if (role.getQxid().longValue() == Const.Role.ROLE_SSYH) {
-            list = reportMapper.selectChart1(htfl, startTime, endTime, fzr, fzrbm, user.getXm(), user.getSsbm(), dqsheng, dqshi);
+            list = reportMapper.selectChart4(htfl, startTime, endTime, fzr, fzrbm, user.getXm(), user.getSsbm(), dqsheng, dqshi);
         }
         //财务用户权限
         if (role.getQxid().longValue() == Const.Role.ROLE_CWQX) {
-            list = reportMapper.selectChart1(htfl, startTime, endTime, fzr, fzrbm, ssfzr, ssfzrbm, dqsheng, dqshi);
+            list = reportMapper.selectChart4(htfl, startTime, endTime, fzr, fzrbm, ssfzr, ssfzrbm, dqsheng, dqshi);
         }
         return ServerResponse.createBySuccess(list);
     }

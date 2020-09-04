@@ -5,21 +5,21 @@ package contract.pojo.Reportpage;
  * @Author green_crane
  * @Date 2020/8/21 11:35
  */
-public class Chart1 {
+public class Chart4 {
     String httime;
     String count;
     String sum;
     String avg;
 
 
-    public Chart1(String httime, String count, String sum, String avg) {
+    public Chart4(String httime, String count, String sum, String avg) {
         this.httime = httime;
         this.count = count;
         this.sum = sum;
         this.avg = avg;
     }
 
-    public Chart1() {
+    public Chart4() {
     }
 
     public String gethttime() {

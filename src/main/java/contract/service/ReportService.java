@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface ReportService {
 
-        ServerResponse<List<Chart1>> selectChart1(Users user, String htfl, String qsrq,
+        ServerResponse<List<Chart4>> selectChart4(Users user, String htfl, String qsrq,
                                                   String fzr, String fzrbm, String ssfzr, String ssfzrbm, String dqsheng, String dqshi);
 
         ServerResponse<List<Chart5>> selectChart5(Users user, String qsrq);
