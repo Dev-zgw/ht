@@ -30,11 +30,11 @@ public class DsqController {
                     htService.updateyqzt(htList.get(i).getId().intValue(),"4");
                     long yqts=(dqsj-htzzsj)/(1000L*3600L*24L);
                     String htsyts="已到期";
-                    htService.updateyqts(htList.get(i).getId().intValue(),Long.toString(yqts),htsyts);
+                    htService.updateyqts(htList.get(i).getId().intValue(),Long.toString(yqts)+"天",htsyts);
                 }else{
                     String yqts="未到期";
                     long htsyts=(htzzsj-dqsj)/(1000L*3600L*24L);
-                    htService.updateyqts(htList.get(i).getId().intValue(),yqts,Long.toString(htsyts));
+                    htService.updateyqts(htList.get(i).getId().intValue(),yqts,Long.toString(htsyts)+"天");
                 }
             }
         }

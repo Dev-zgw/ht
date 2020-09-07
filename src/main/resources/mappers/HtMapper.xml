@@ -551,6 +551,7 @@
     <if test="sfjxfw != null and sfjxfw != ''">
       and  SFJXFW = #{sfjxfw,jdbcType=VARCHAR}
     </if>
+    order by QSRQ desc
   </select>
   <select id="selectyh" resultMap="BaseResultMap" >
     select
@@ -591,6 +592,7 @@
     <if test="sfjxfw != null and sfjxfw != ''">
       and  SFJXFW = #{sfjxfw,jdbcType=VARCHAR}
     </if>
+    order by QSRQ desc
   </select>
 
   <select id="selectfzr" resultMap="BaseResultMap" >
@@ -632,6 +634,7 @@
     <if test="sfjxfw != null and sfjxfw != ''">
       and  SFJXFW = #{sfjxfw,jdbcType=VARCHAR}
     </if>
+    order by QSRQ desc
   </select>
 
   <select id="selects" resultMap="BaseResultMap">
@@ -680,6 +683,7 @@
     <if test="sfjxfw != null and sfjxfw != ''">
       and  SFJXFW = #{sfjxfw,jdbcType=VARCHAR}
     </if>
+    order by QSRQ desc
   </select>
 
   <update id="updatezt">
