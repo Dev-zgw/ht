@@ -31,15 +31,15 @@ public class ReportController {
     @Autowired
     private UsersMapper usersMapper;
 
-    @RequestMapping(value = "getchart1.do",method = RequestMethod.POST)
+    @RequestMapping(value = "getchart4.do",method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<List<Chart1>> selectChart1(String userid, String htfl, String qsrq,
+    public ServerResponse<List<Chart4>> selectChart1(String userid, String htfl, String qsrq,
                                                      String fzr, String ssfzr, String fzrbm, String ssfzrbm, String dqsheng, String diqushi){
         Users user=usersMapper.selectByPrimaryKey(new BigDecimal(userid));
         if(user==null){
             return ServerResponse.createByErrorMessage("用户未登陆");
         }
-        return reportService.selectChart1(user,htfl,qsrq,fzr,fzrbm,ssfzr,ssfzrbm,dqsheng,diqushi);
+        return reportService.selectChart4(user,htfl,qsrq,fzr,fzrbm,ssfzr,ssfzrbm,dqsheng,diqushi);
     }
 
     @RequestMapping(value = "getchart5.do",method = RequestMethod.POST)

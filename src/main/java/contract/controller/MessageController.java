@@ -2,6 +2,7 @@ package contract.controller;
 
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.exceptions.ClientException;
+import com.sun.org.apache.bcel.internal.generic.IFNULL;
 import contract.pojo.Message.FkMessage;
 import contract.pojo.Message.HtMessage;
 import contract.service.HtService;
@@ -32,69 +33,107 @@ public class MessageController {
         List<FkMessage> fkMessages = messageService.queryFkMessage();
         SendSmsResponse response = null;
         try {
+            System.out.println("start fk");
             for (int i = 0; i < fkMessages.size(); i++) {
-                //String sjhm = htMessages.get(i).getSjhm();
-                String sjhm = "15868056161";
+                String sjhm = fkMessages.get(i).getSjhm();
                 String fzr = fkMessages.get(i).getFzr();
-                String ht = fkMessages.get(i).getHtbh() + "-" + htMessages.get(i).getXxmc();
+                String ht = "";
                 String sysj = fkMessages.get(i).getSysj();
                 String jzsj = fkMessages.get(i).getSj();
                 if (sjhm.equals("") || sjhm == null) {
 
                 } else {
-                    if (sysj == "3") {
-                        response = messageServiceImpl.sendFkdqtx(sjhm, fzr, ht, "3天", jzsj);
-                    } else if (sysj == "7") {
-                        response = messageServiceImpl.sendFkdqtx(sjhm, fzr, ht, "1周", jzsj);
-                    } else if (sysj == "14") {
-                        response = messageServiceImpl.sendFkdqtx(sjhm, fzr, ht, "2周", jzsj);
-                    } else if (sysj == "30") {
-                        response = messageServiceImpl.sendFkdqtx(sjhm, fzr, ht, "一个月", jzsj);
-                    } else if (sysj == "-1") {
-                        response = messageServiceImpl.sendFkyq(sjhm, fzr, ht, jzsj);
+                    if (fkMessages.get(i).getHtmc() == null) {
+                        if (fkMessages.get(i).getHtbh() == null) {
+
+                        } else {
+                            ht += fkMessages.get(i).getHtbh();
+                        }
+                    } else {
+                        if (fkMessages.get(i).getHtbh() == null) {
+                            ht += fkMessages.get(i).getHtbh();
+                        } else {
+                            ht += fkMessages.get(i).getHtbh() + "-" + fkMessages.get(i).getHtmc();
+                        }
                     }
-                    System.out.println("短信接口返回的数据----------------");
-                    System.out.println("Code=" + response.getCode());
-                    System.out.println("Message=" + response.getMessage());
-                    System.out.println("RequestId=" + response.getRequestId());
-                    System.out.println("BizId=" + response.getBizId());
+                    //System.out.print(sjhm + " " + fzr + " " + ht + " " + sysj + " " + jzsj);
+                    if (sysj.equals("3")) {
+                        //response = messageServiceImpl.sendFkdqtx(sjhm, fzr, "合同"+ht, "3天", jzsj);
+                        System.out.println("response = messageServiceImpl.sendFkdqtx(sjhm, fzr, ht, \"3天\", jzsj)");
+                    } else if (sysj.equals("7")) {
+                        //response = messageServiceImpl.sendFkdqtx(sjhm, fzr, ht, "合同"+"1周", jzsj);
+                        System.out.println("response = messageServiceImpl.sendFkdqtx(sjhm, fzr, ht, \"1周\", jzsj)");
+                    } else if (sysj.equals("14")) {
+                        //response = messageServiceImpl.sendFkdqtx(sjhm, fzr, ht, "合同"+"2周", jzsj);
+                        System.out.println("response = messageServiceImpl.sendFkdqtx(sjhm, fzr, ht, \"2周\", jzsj)");
+                    } else if (sysj.equals("30")) {
+                        //response = messageServiceImpl.sendFkdqtx(sjhm, fzr, ht, "合同"+"一个月", jzsj);
+                        System.out.println("response = messageServiceImpl.sendFkdqtx(sjhm, fzr, ht, \"一个月\", jzsj)");
+                    } else if (sysj.equals("-1")) {
+                        response = messageServiceImpl.sendFkyq(sjhm, fzr, ht, jzsj);
+                        System.out.println("response = messageServiceImpl.sendFkyq(sjhm, fzr, ht, jzsj)");
+                    }
+                    else{
+                        System.out.println(sysj);
+                    }
                 }
 
             }
+            System.out.println("end fk");
         } catch (Exception e) {
             e.printStackTrace();
         }
         try {
+            System.out.println("start ht");
             for (int j = 0; j < htMessages.size(); j++) {
-                //String sjhm = fkMessages.get(j).getSjhm();
-                String sjhm = "15868056161";
-                String ht = htMessages.get(j).getHtbh() + "-" + fkMessages.get(j).getHtmc();
+                String sjhm = htMessages.get(j).getSjhm();
+                String ht = "";
                 String fzr = htMessages.get(j).getFzr();
                 String sysj = htMessages.get(j).getSysj();
                 String jzsj = htMessages.get(j).getZzrq();
                 if (sjhm.equals("") || sjhm == null) {
 
                 } else {
-                    if (sysj == "7") {
-                        response = messageServiceImpl.sendHtdqz(sjhm, fzr, ht, jzsj, "1");
-                    } else if (sysj == "30") {
-                        response = messageServiceImpl.sendHtdqy(sjhm, fzr, ht, jzsj, "1");
-                    } else if (sysj == "60") {
-                        response = messageServiceImpl.sendHtdqy(sjhm, fzr, ht, jzsj, "2");
-                    } else if (sysj == "90") {
-                        response = messageServiceImpl.sendHtdqy(sjhm, fzr, ht, jzsj, "3");
+                    if (htMessages.get(j).getXxmc() == null) {
+                        if (htMessages.get(j).getHtbh() == null) {
+
+                        } else {
+                            ht = htMessages.get(j).getHtbh();
+                        }
+                    } else {
+                        if (htMessages.get(j).getHtbh() == null) {
+                            ht = htMessages.get(j).getHtbh();
+                        } else {
+                            ht = htMessages.get(j).getHtbh() + "-" + htMessages.get(j).getXxmc();
+                        }
                     }
-                    System.out.println("短信接口返回的数据----------------");
-                    System.out.println("Code=" + response.getCode());
-                    System.out.println("Message=" + response.getMessage());
-                    System.out.println("RequestId=" + response.getRequestId());
-                    System.out.println("BizId=" + response.getBizId());
+                    if (sysj.equals("7")) {
+                        //response = messageServiceImpl.sendHtdqz(sjhm, fzr, "合同"+ht+"的付款", jzsj, "1");
+                        System.out.println("response = messageServiceImpl.sendHtdqz(sjhm, fzr, ht, jzsj, \"1\")");
+                    } else if (sysj.equals("30")) {
+                        //response = messageServiceImpl.sendHtdqy(sjhm, fzr, "合同"+ht+"的付款", jzsj, "1");
+                        System.out.println("response = messageServiceImpl.sendHtdqy(sjhm, fzr, ht, jzsj, \"1\")");
+                    } else if (sysj.equals("60")) {
+                        //response = messageServiceImpl.sendHtdqy(sjhm, fzr, "合同"+ht+"的付款", jzsj, "2");
+                        System.out.print("response = messageServiceImpl.sendHtdqy(sjhm, fzr, ht, jzsj, \"2\")");
+                    } else if (sysj.equals("90")) {
+                        //response = messageServiceImpl.sendHtdqy(sjhm, fzr, "合同"+ht+"的付款", jzsj, "3");
+                        System.out.println("response = messageServiceImpl.sendHtdqy(sjhm, fzr, ht, jzsj, \"3\")");
+                    }
+                    else{
+                        System.out.println(sysj);
+                    }
+//                    System.out.println("短信接口返回的数据----------------");
+//                    System.out.println("Code=" + response.getCode());
+//                    System.out.println("Message=" + response.getMessage());
+//                    System.out.println("RequestId=" + response.getRequestId());
+//                    System.out.println("BizId=" + response.getBizId());
                 }
             }
+            System.out.println("end ht");
         } catch (Exception e) {
             e.printStackTrace();
         }
         System.out.print("已结束定时器");
     }
-
 }

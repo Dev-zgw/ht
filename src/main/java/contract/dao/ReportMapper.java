@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface ReportMapper {
 
-    List<Chart1> selectChart1(@Param("htfl") String htfl, @Param("startTime") String startTime, @Param("endTime") String endTime,
+    List<Chart4> selectChart4(@Param("htfl") String htfl, @Param("startTime") String startTime, @Param("endTime") String endTime,
                               @Param("fzr") String fzr, @Param("fzrbm") String fzrbm, @Param("ssfzr") String ssfzr, @Param("ssfzrbm") String ssfzrbm,
                               @Param("dqsheng") String dqsheng, @Param("dqshi")  String dqshi);
 

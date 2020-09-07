@@ -46,7 +46,7 @@
             <arg column="XMQKSM" jdbcType="VARCHAR" javaType="java.lang.String" />
         </constructor>
     </resultMap>
-    <resultMap id="Chart1Map" type="contract.pojo.Reportpage.Chart1">
+    <resultMap id="Chart1Map" type="contract.pojo.Reportpage.Chart4">
         <constructor>
             <arg column="httime" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="count" jdbcType="VARCHAR" javaType="java.lang.String"/>
@@ -198,7 +198,6 @@
         group by httime order by httime
     </select>
 
-
     <!--按月签署合同信息-->
     <select id="selectMonthHtInfo" resultMap="simpleht">
         select to_char(qsrq, 'YYYY-MM') as httime,htnrhtnr as htje,dqshi,dqsheng from ht
@@ -327,8 +326,6 @@
         order by HTQS.SJ
     </select>
 
-
-
     <!--个人报表页面table信息-->
     <select id="selectPersonalTable" resultMap="htxx">
         select
@@ -375,7 +372,7 @@
         order by QSRQ
     </select>
 
-    <select id="selectChart1" resultMap="Chart1Map">
+    <select id="selectChart4" resultMap="Chart1Map">
         select httime,count(*) as count,sum(htje) as sum,round(avg(htje),3) as avg from
         (select to_char(qsrq, 'YYYY-MM') as httime,htnrhtnr as htje from ht left join htfl on ht.htfl=htfl.id where 1=1
         <if test="htfl != null and htfl != ''">
