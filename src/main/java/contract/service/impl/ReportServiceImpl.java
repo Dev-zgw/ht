@@ -12,6 +12,7 @@ import contract.utils.ServerResponse;
 import contract.utils.ServiceResponsebg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sun.util.calendar.BaseCalendar;
 
 import java.io.Console;
 import java.math.BigDecimal;
@@ -52,8 +53,8 @@ public class ReportServiceImpl implements ReportService {
         Role role = roleMapper.selectByPrimaryKey(user.getJsid());
         if (qsrq != "" && qsrq != null) {
             String date[] = qsrq.split(",");
-            startTime = date[0].toString().substring(1, date[0].toString().length() - 1);
-            endTime = date[1].toString().substring(1, date[1].toString().length() - 1);
+            startTime = date[0].toString().substring(1, date[0].toString().length()-1 );
+            endTime = date[1].toString().substring(1, date[1].toString().length()-1);
         }
         List<SignedContractFeeInfo> list = new ArrayList<SignedContractFeeInfo>();
         //管理员/总经理查询所有合同信息
