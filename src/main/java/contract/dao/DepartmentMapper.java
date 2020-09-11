@@ -22,4 +22,7 @@ public interface DepartmentMapper {
 
     //查询所有部门
     List<Department> selectAll();
+
+    //查询一级部门
+    List<Department> selectDepartment1();
 }

@@ -29,6 +29,13 @@
     from department
   </select>
 
+  <!--查询一级部门所有数据-->
+  <select id="selectDepartment1" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from department
+    where pid=1
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
     delete from DEPARTMENT
     where ID = #{id,jdbcType=DECIMAL}
