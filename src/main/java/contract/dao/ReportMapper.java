@@ -13,26 +13,13 @@ import java.util.List;
  */
 public interface ReportMapper {
 
-    List<Chart4> selectChart4(@Param("htfl") String htfl, @Param("startTime") String startTime, @Param("endTime") String endTime,
-                              @Param("fzr") String fzr, @Param("fzrbm") String fzrbm, @Param("ssfzr") String ssfzr, @Param("ssfzrbm") String ssfzrbm,
-                              @Param("dqsheng") String dqsheng, @Param("dqshi")  String dqshi);
+    List<SignedContractFeeInfo> selectChart4(@Param("htfl") String htfl, @Param("startTime") String startTime, @Param("endTime") String endTime,
+                                             @Param("fzr") String fzr, @Param("fzrbm") String fzrbm, @Param("ssfzr") String ssfzr, @Param("ssfzrbm") String ssfzrbm,
+                                             @Param("dqsheng") String dqsheng, @Param("dqshi")  String dqshi);
 
-    List<Chart5> selectChart5(@Param("startTime") String startTime, @Param("endTime") String endTime);
-
-    List<Chart6> selectChart6(@Param("startTime") String startTime, @Param("endTime") String endTime, @Param("fzr") String fzr, @Param("fzrbm") String fzrbm,
-                              @Param("dqsheng") String dqsheng, @Param("dqshi")  String dqshi  );
-
-    List<Chart9> selectChart9(@Param("htfl") String htfl, @Param("startTime") String startTime, @Param("endTime") String endTime,
-                              @Param("fzr") String fzr, @Param("fzrbm") String fzrbm, @Param("ssfzr") String ssfzr, @Param("ssfzrbm") String ssfzrbm,
-                              @Param("dqsheng") String dqsheng, @Param("dqshi")  String dqshi);
-
-    List<Currentinfo> selectPersonalcurrentinfo(@Param("fzr") String fzr);
-
-    List<Currentinfo> selectPersonalsscurrentinfo(@Param("ssfzr") String ssfzr);
-
-    List<Currentinfo> selectDepartmentcurrentinfo(@Param("fzr") String fzr);
-
-    List<Currentinfo> selectCompanycurrentinfo();
+    List<SignedContractTypeInfo> selectChart9(@Param("htfl") String htfl, @Param("startTime") String startTime, @Param("endTime") String endTime,
+                                              @Param("fzr") String fzr, @Param("fzrbm") String fzrbm, @Param("ssfzr") String ssfzr, @Param("ssfzrbm") String ssfzrbm,
+                                              @Param("dqsheng") String dqsheng, @Param("dqshi")  String dqshi);
 
     //按月签署合同信息
     List<SimpHt> selectMonthHtInfo(@Param("month") String month,@Param("fzr") String fzr,@Param("ssfzr") String ssfzr,@Param("bmjl") String bmjl);

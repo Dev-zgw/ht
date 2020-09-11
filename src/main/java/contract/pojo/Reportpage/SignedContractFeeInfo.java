@@ -1,27 +1,33 @@
 package contract.pojo.Reportpage;
 
-public class Chart9 {
-    String htfl;
+/**
+ * @Description
+ * @Author green_crane
+ * @Date 2020/8/21 11:35
+ */
+public class SignedContractFeeInfo {
+    String httime;
     String count;
     String sum;
     String avg;
 
-    public Chart9(String htfl, String count, String sum, String avg) {
-        this.htfl = htfl;
+
+    public SignedContractFeeInfo(String httime, String count, String sum, String avg) {
+        this.httime = httime;
         this.count = count;
         this.sum = sum;
         this.avg = avg;
     }
 
-    public Chart9() {
+    public SignedContractFeeInfo() {
     }
 
-    public String getHtfl() {
-        return htfl;
+    public String gethttime() {
+        return httime;
     }
 
-    public void setHtfl(String htfl) {
-        this.htfl = htfl;
+    public void sethttime(String httime) {
+        this.httime = httime;
     }
 
     public String getCount() {
@@ -50,8 +56,8 @@ public class Chart9 {
 
     @Override
     public String toString() {
-        return "Chart9{" +
-                "htfl='" + htfl + '\'' +
+        return "Chart1{" +
+                "httime='" + httime + '\'' +
                 ", count='" + count + '\'' +
                 ", sum='" + sum + '\'' +
                 ", avg='" + avg + '\'' +

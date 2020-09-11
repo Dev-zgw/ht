@@ -1,18 +1,19 @@
 package contract.pojo.Reportpage;
 
-
-public class Chart5 {
+public class SignedContractTypeInfo {
     String htfl;
     String count;
-    String percent;
+    String sum;
+    String avg;
 
-    public Chart5(String htfl, String count, String percent) {
+    public SignedContractTypeInfo(String htfl, String count, String sum, String avg) {
         this.htfl = htfl;
         this.count = count;
-        this.percent = percent;
+        this.sum = sum;
+        this.avg = avg;
     }
 
-    public Chart5() {
+    public SignedContractTypeInfo() {
     }
 
     public String getHtfl() {
@@ -31,20 +32,29 @@ public class Chart5 {
         this.count = count;
     }
 
-    public String getPercent() {
-        return percent;
+    public String getSum() {
+        return sum;
     }
 
-    public void setPercent(String percent) {
-        this.percent = percent;
+    public void setSum(String sum) {
+        this.sum = sum;
+    }
+
+    public String getAvg() {
+        return avg;
+    }
+
+    public void setAvg(String avg) {
+        this.avg = avg;
     }
 
     @Override
     public String toString() {
-        return "Chart5{" +
+        return "Chart9{" +
                 "htfl='" + htfl + '\'' +
                 ", count='" + count + '\'' +
-                ", percent='" + percent + '\'' +
+                ", sum='" + sum + '\'' +
+                ", avg='" + avg + '\'' +
                 '}';
     }
 }

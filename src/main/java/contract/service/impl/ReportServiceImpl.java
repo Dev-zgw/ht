@@ -13,6 +13,8 @@ import contract.utils.ServiceResponsebg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.Console;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,21 +32,21 @@ public class ReportServiceImpl implements ReportService {
     private ReportMapper reportMapper;
 
     @Autowired
+    private HtflMapper htflMapper;
+
+    @Autowired
     private UsersMapper usersMapper;
 
     @Autowired
     private RoleMapper roleMapper;
 
     @Autowired
-    private HtflMapper htflMapper;
-
-    @Autowired
     private DepartmentMapper departmentMapper;
 
 
     @Override
-    public ServerResponse<List<Chart4>> selectChart4(Users user, String htfl, String qsrq,
-                                                     String fzr, String fzrbm, String ssfzr, String ssfzrbm, String dqsheng, String dqshi) {
+    public ServerResponse<List<SignedContractFeeInfo>> selectChart4(Users user, String htfl, String qsrq,
+                                                                    String fzr, String fzrbm, String ssfzr, String ssfzrbm, String dqsheng, String dqshi) {
         String startTime = "";
         String endTime = "";
         Role role = roleMapper.selectByPrimaryKey(user.getJsid());
@@ -53,7 +55,7 @@ public class ReportServiceImpl implements ReportService {
             startTime = date[0].toString().substring(1, date[0].toString().length() - 1);
             endTime = date[1].toString().substring(1, date[1].toString().length() - 1);
         }
-        List<Chart4> list = new ArrayList<Chart4>();
+        List<SignedContractFeeInfo> list = new ArrayList<SignedContractFeeInfo>();
         //管理员/总经理查询所有合同信息
         if (role.getQxid().longValue() == Const.Role.ROLE_ADMIN || role.getQxid().longValue() == Const.Role.ROLE_ZJL) {
             list = reportMapper.selectChart4(htfl, startTime, endTime, fzr, fzrbm, ssfzr, ssfzrbm, dqsheng, dqshi);
@@ -79,20 +81,6 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public ServerResponse<List<Chart5>> selectChart5(Users user, String qsrq) {
-        String startTime = "";
-        String endTime = "";
-        if (qsrq != "" && qsrq != null) {
-            String date[] = qsrq.split(",");
-            startTime = date[0].toString().substring(1, date[0].toString().length() - 1);
-            endTime = date[1].toString().substring(1, date[1].toString().length() - 1);
-        }
-        List<Chart5> list = reportMapper.selectChart5(startTime, endTime);
-
-        return ServerResponse.createBySuccess(list);
-    }
-
-    @Override
     public ServerResponse<List<getchart9info>> selectChart9(Users user, String htfl, String qsrq,
                                                             String fzr, String fzrbm, String ssfzr, String ssfzrbm, String dqsheng, String dqshi) {
         String startTime = "";
@@ -102,7 +90,7 @@ public class ReportServiceImpl implements ReportService {
             startTime = date[0].toString().substring(1, date[0].toString().length() - 1);
             endTime = date[1].toString().substring(1, date[1].toString().length() - 1);
         }
-        List<Chart9> list = reportMapper.selectChart9(htfl, startTime, endTime, fzr, fzrbm, ssfzr, ssfzrbm, dqsheng, dqshi);
+        List<SignedContractTypeInfo> list = reportMapper.selectChart9(htfl, startTime, endTime, fzr, fzrbm, ssfzr, ssfzrbm, dqsheng, dqshi);
         List<getchart9info> list1 = new ArrayList<getchart9info>();
         for (int i = 0; i < list.size(); i++) {
             String name = list.get(i).getHtfl();
@@ -117,43 +105,6 @@ public class ReportServiceImpl implements ReportService {
         return ServerResponse.createBySuccess(list1);
     }
 
-    @Override
-    public ServerResponse<List<getchart6info>> selectChart6(Users user, String qsrq, String htfl, String fzr, String fzrbm, String dqsheng, String dqshi) {
-        String startTime = "";
-        String endTime = "";
-        if (qsrq != "" && qsrq != null) {
-            String date[] = qsrq.split(",");
-            startTime = date[0].toString().substring(1, date[0].toString().length() - 1);
-            endTime = date[1].toString().substring(1, date[1].toString().length() - 1);
-        }
-        List<Htfl> htfls = htflMapper.select();
-        List<getchart6info> info = new ArrayList<getchart6info>();
-        for (int i = 0; i < htfls.size(); i++) {
-            String flmc = htfls.get(i).getFlmc();
-            List<String> value = new ArrayList<String>();
-            List<Department> departments = departmentMapper.selectAll();
-            for (int j = 0; j < departments.size(); j++) {
-                List<Chart6> list2 = reportMapper.selectChart6(startTime, endTime, "", departments.get(j).getBmmc(), "", "");
-                if (list2.size() > 0) {
-                    value.add(list2.get(j).getSum());
-                }
-            }
-            info.add(new getchart6info(flmc, "bar", "bar", value));
-            System.out.println("info                " + info);
-        }
-        return ServerResponse.createBySuccess(info);
-        //return null;
-    }
-
-    @Override
-    public ServerResponse<List<String>> selectChart6_htfl(Users user, String qsrq, String htfl, String fzr, String fzrbm, String dqsheng, String dqshi) {
-        return null;
-    }
-
-    @Override
-    public ServerResponse<List<String>> selectChart6_sum(Users user, String qsrq, String htfl, String fzr, String fzrbm, String dqsheng, String dqshi) {
-        return null;
-    }
 
 
     @Override
@@ -166,7 +117,7 @@ public class ReportServiceImpl implements ReportService {
             startTime = date[0].toString().substring(1, date[0].toString().length() - 1);
             endTime = date[1].toString().substring(1, date[1].toString().length() - 1);
         }
-        List<Chart9> list = reportMapper.selectChart9(htfl, startTime, endTime, fzr, fzrbm, ssfzr, ssfzrbm, dqsheng, dqshi);
+        List<SignedContractTypeInfo> list = reportMapper.selectChart9(htfl, startTime, endTime, fzr, fzrbm, ssfzr, ssfzrbm, dqsheng, dqshi);
         List<getchart9info> list1 = new ArrayList<getchart9info>();
         for (int i = 0; i < list.size(); i++) {
             String name = list.get(i).getHtfl();
@@ -191,7 +142,7 @@ public class ReportServiceImpl implements ReportService {
             startTime = date[0].toString().substring(1, date[0].toString().length() - 1);
             endTime = date[1].toString().substring(1, date[1].toString().length() - 1);
         }
-        List<Chart9> list = reportMapper.selectChart9(htfl, startTime, endTime, fzr, fzrbm, ssfzr, ssfzrbm, dqsheng, dqshi);
+        List<SignedContractTypeInfo> list = reportMapper.selectChart9(htfl, startTime, endTime, fzr, fzrbm, ssfzr, ssfzrbm, dqsheng, dqshi);
         List<getchart9info> list1 = new ArrayList<getchart9info>();
         for (int i = 0; i < list.size(); i++) {
             String name = list.get(i).getHtfl();
@@ -216,7 +167,7 @@ public class ReportServiceImpl implements ReportService {
             startTime = date[0].toString().substring(1, date[0].toString().length() - 1);
             endTime = date[1].toString().substring(1, date[1].toString().length() - 1);
         }
-        List<Chart9> list = reportMapper.selectChart9(htfl, startTime, endTime, fzr, fzrbm, ssfzr, ssfzrbm, dqsheng, dqshi);
+        List<SignedContractTypeInfo> list = reportMapper.selectChart9(htfl, startTime, endTime, fzr, fzrbm, ssfzr, ssfzrbm, dqsheng, dqshi);
         List<getchart9info> list1 = new ArrayList<getchart9info>();
         for (int i = 0; i < list.size(); i++) {
             String name = list.get(i).getHtfl();
@@ -241,7 +192,7 @@ public class ReportServiceImpl implements ReportService {
             startTime = date[0].toString().substring(1, date[0].toString().length() - 1);
             endTime = date[1].toString().substring(1, date[1].toString().length() - 1);
         }
-        List<Chart9> list = reportMapper.selectChart9(htfl, startTime, endTime, fzr, fzrbm, ssfzr, ssfzrbm, dqsheng, dqshi);
+        List<SignedContractTypeInfo> list = reportMapper.selectChart9(htfl, startTime, endTime, fzr, fzrbm, ssfzr, ssfzrbm, dqsheng, dqshi);
         List<String> list1 = new ArrayList<String>();
         for (int i = 0; i < list.size(); i++) {
             String name = list.get(i).getHtfl();
@@ -249,56 +200,6 @@ public class ReportServiceImpl implements ReportService {
             System.out.print("list1 htfl         " + list1.get(i));
         }
         return ServerResponse.createBySuccess(list1);
-    }
-
-    @Override
-    public ServerResponse<List<Currentinfo>> selectPersonalcurrentinfo(Users user) {
-        Role role = roleMapper.selectByPrimaryKey(user.getJsid());
-        List<Currentinfo> list = new ArrayList<Currentinfo>();
-        //总经理权限查看合同信息
-        if (role.getQxid().longValue() == Const.Role.ROLE_ZJL || role.getQxid().longValue() == Const.Role.ROLE_ADMIN || role.getQxid().longValue() == Const.Role.ROLE_CWQX) {
-            list = reportMapper.selectCompanycurrentinfo();
-        } else if (role.getQxid().longValue() == Const.Role.ROLE_BMJL) {
-            list = reportMapper.selectDepartmentcurrentinfo(user.getXm());
-        } else if (role.getQxid().longValue() == Const.Role.ROLE_SSYH) {
-            list = reportMapper.selectPersonalsscurrentinfo(user.getXm());
-        } else {
-            list = reportMapper.selectPersonalcurrentinfo(user.getXm());
-        }
-        if (list.size() <= 0) {
-            Currentinfo a = new Currentinfo();
-            a.setAvg("0");
-            a.setCount("0");
-            a.setSum("0");
-            list.add(a);
-        }
-        return ServerResponse.createBySuccess(list);
-    }
-
-    @Override
-    public ServerResponse<List<Currentinfo>> selectDepartmentcurrentinfo(String fzr) {
-        List<Currentinfo> list = reportMapper.selectDepartmentcurrentinfo(fzr);
-        if (list.size() <= 0) {
-            Currentinfo a = new Currentinfo();
-            a.setAvg("0");
-            a.setCount("0");
-            a.setSum("0");
-            list.add(a);
-        }
-        return ServerResponse.createBySuccess(list);
-    }
-
-    @Override
-    public ServerResponse<List<Currentinfo>> selectCompanycurrentinfo() {
-        List<Currentinfo> list = reportMapper.selectCompanycurrentinfo();
-        if (list.size() <= 0) {
-            Currentinfo a = new Currentinfo();
-            a.setAvg("0");
-            a.setCount("0");
-            a.setSum("0");
-            list.add(a);
-        }
-        return ServerResponse.createBySuccess(list);
     }
 
     @Override
@@ -518,6 +419,151 @@ public class ReportServiceImpl implements ReportService {
         PageInfo<ComplexHt> pageInfo = new PageInfo<ComplexHt>(list);
         return ServiceResponsebg.createBySuccess(role.getQxid().longValue(), pageInfo.getTotal(), list);
     }
+
+    @Override
+    public ServiceResponsebg<List<getComparedContractInfo>> queryComparedContractInfo(Users user, String htfl, String qsrq, String fzr, String fzrbm, String ssfzr, String ssfzrbm, String dqsheng, String dqshi) {
+        String startTime = "";
+        String endTime = "";
+        if (qsrq != "" && qsrq != null) {
+            String date[] = qsrq.split(",");
+
+            startTime = date[0].toString().substring(1, date[0].toString().length() - 1);
+            endTime = date[1].toString().substring(1, date[1].toString().length() - 1);
+        }
+        Role role = roleMapper.selectByPrimaryKey(user.getJsid());
+        List<ComplexHt> list = new ArrayList<>();
+        List<String> contractType = new ArrayList<String>();
+        List<String> queryType = new ArrayList<String>();
+        List<getChartBasicInfo> series = new ArrayList<getChartBasicInfo>();
+        List<Htfl> htfls=htflMapper.select();
+        List<getComparedContractInfo> getComparedContractInfos = new ArrayList<getComparedContractInfo>();
+        for(int n =0;n<htfls.size();n++){
+            contractType.add(htfls.get(n).getFlmc());
+        }
+        //总经理权限查看部门的信息
+        if (role.getQxid().longValue() == Const.Role.ROLE_ZJL || role.getQxid().longValue() == Const.Role.ROLE_ADMIN) {
+            list = reportMapper.selectPersonalTable(htfl, startTime, endTime, fzr, fzrbm, ssfzr, ssfzrbm, dqsheng, dqshi);
+            List<Users> users = usersMapper.querybybm(user.getSsbm());
+            List<Department> departments = departmentMapper.selectAll();
+            for(int m = 0;m<departments.size();m++){
+                queryType.add(departments.get(m).getBmmc());
+            }
+            for(int k = 0;k<htfls.size();k++){
+                List<String> data = new ArrayList<String>();
+                for(int l =0;l<departments.size();l++){
+                    Double personalSum=0.0d;
+                    for(int q=0;q<list.size();q++){
+                        if(usersMapper.selectByPrimaryKey(list.get(q).getFzrid()).getSsbm().equals(departments.get(l).getBmmc())&&list.get(q).getHtfl().equals(htfls.get(k).getFlmc()))
+                            personalSum+=list.get(q).getHtnrhtnr().doubleValue();
+                    }
+                    data.add(personalSum.toString());
+                }
+                series.add(new getChartBasicInfo(htfls.get(k).getFlmc(),"总量","bar",data));
+            }
+
+            getComparedContractInfos.add(new getComparedContractInfo(contractType,queryType,series));
+        }
+
+        //部门经理只能查看该部门的合同信息
+        if (role.getQxid().longValue() == Const.Role.ROLE_BMJL) {
+            list = reportMapper.selectPersonalTable(htfl, startTime, endTime, fzr, user.getSsbm(), ssfzr, ssfzrbm, dqsheng, dqshi);
+            List<Users> users = usersMapper.querybybm(user.getSsbm());
+
+            for(int m = 0;m<users.size();m++){
+                queryType.add(users.get(m).getXm());
+            }
+            for(int k = 0;k<htfls.size();k++){
+                List<String> data = new ArrayList<String>();
+                for(int l =0;l<users.size();l++){
+                    Double personalSum=0.0d;
+                    for(int q=0;q<list.size();q++){
+                        if(list.get(q).getFzrid().equals(users.get(l).getId())&&list.get(q).getHtfl().equals(htfls.get(k).getFlmc())){
+                            personalSum+=list.get(q).getHtnrhtnr().doubleValue();
+                        }
+                    }
+                    data.add(personalSum.toString());
+                }
+                System.out.print(data);
+                series.add(new getChartBasicInfo(htfls.get(k).getFlmc(),"总量","bar",data));
+            }
+
+            getComparedContractInfos.add(new getComparedContractInfo(contractType,queryType,series));
+        }
+
+        //普通用户
+        if (role.getQxid().longValue() == Const.Role.ROLE_CUSTOMER) {
+            list = reportMapper.selectPersonalTable(htfl, startTime, endTime, user.getXm(), user.getSsbm(), ssfzr, ssfzrbm, dqsheng, dqshi);
+            List<Users> users = usersMapper.querybybm(user.getSsbm());
+
+            for(int m = 0;m<users.size();m++){
+                queryType.add(users.get(m).getXm());
+            }
+            for(int k = 0;k<htfls.size();k++){
+                List<String> data = new ArrayList<String>();
+                for(int l =0;l<users.size();l++){
+                    Double personalSum=0.0d;
+                    for(int q=0;q<list.size();q++){
+                        if(list.get(q).getFzr().equals(users.get(l).getXm()))
+                            personalSum+=list.get(q).getHtnrhtnr().doubleValue();
+                    }
+                    data.add(personalSum.toString());
+                }
+                series.add(new getChartBasicInfo(htfls.get(k).getFlmc(),"总量","bar",data));
+            }
+
+            getComparedContractInfos.add(new getComparedContractInfo(contractType,queryType,series));
+        }
+
+        //实施用户
+        if (role.getQxid().longValue() == Const.Role.ROLE_SSYH) {
+            list = reportMapper.selectPersonalTable(htfl, startTime, endTime, fzr, fzrbm, user.getXm(), user.getSsbm(), dqsheng, dqshi);
+            List<Users> users = usersMapper.querybybm(user.getSsbm());
+
+            for(int m = 0;m<users.size();m++){
+                queryType.add(users.get(m).getXm());
+            }
+            for(int k = 0;k<htfls.size();k++){
+                List<String> data = new ArrayList<String>();
+                for(int l =0;l<users.size();l++){
+                    Double personalSum=0.0d;
+                    for(int q=0;q<list.size();q++){
+                        if(list.get(q).getFzr().equals(users.get(l).getXm()))
+                            personalSum+=list.get(q).getHtnrhtnr().doubleValue();
+                    }
+                    data.add(personalSum.toString());
+                }
+                series.add(new getChartBasicInfo(htfls.get(k).getFlmc(),"总量","bar",data));
+            }
+
+            getComparedContractInfos.add(new getComparedContractInfo(contractType,queryType,series));
+        }
+        //财务用户
+        if (role.getQxid().longValue() == Const.Role.ROLE_CWQX) {
+            list = reportMapper.selectPersonalTable(htfl, startTime, endTime, fzr, fzrbm, ssfzr, ssfzrbm, dqsheng, dqshi);
+            List<Users> users = usersMapper.querybybm(user.getSsbm());
+
+            for(int m = 0;m<users.size();m++){
+                queryType.add(users.get(m).getXm());
+            }
+            for(int k = 0;k<htfls.size();k++){
+                List<String> data = new ArrayList<String>();
+                for(int l =0;l<users.size();l++){
+                    Double personalSum=0.0d;
+                    for(int q=0;q<list.size();q++){
+                        if(list.get(q).getFzr().equals(users.get(l).getXm()))
+                            personalSum+=list.get(q).getHtnrhtnr().doubleValue();
+                    }
+                    data.add(personalSum.toString());
+                }
+                series.add(new getChartBasicInfo(htfls.get(k).getFlmc(),"总量","bar",data));
+            }
+
+            getComparedContractInfos.add(new getComparedContractInfo(contractType,queryType,series));
+        }
+        //return ServiceResponsebg.createBySuccess(role.getQxid().longValue(), pageInfo.getTotal(), list);
+        return ServiceResponsebg.createBySuccess(getComparedContractInfos);
+    }
+
 
     @Override
     public ServerResponse<List<Department>> querybm() {

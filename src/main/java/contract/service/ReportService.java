@@ -14,14 +14,8 @@ import java.util.List;
  */
 public interface ReportService {
 
-        ServerResponse<List<Chart4>> selectChart4(Users user, String htfl, String qsrq,
-                                                  String fzr, String fzrbm, String ssfzr, String ssfzrbm, String dqsheng, String dqshi);
-
-        ServerResponse<List<Chart5>> selectChart5(Users user, String qsrq);
-
-        ServerResponse<List<getchart6info>> selectChart6(Users user, String qsrq, String htfl, String fzr, String fzrbm, String dqsheng, String dqshi);
-        ServerResponse<List<String>> selectChart6_htfl(Users user, String qsrq,String htfl,String fzr, String fzrbm,String dqsheng,String dqshi);
-        ServerResponse<List<String>> selectChart6_sum(Users user, String qsrq,String htfl,String fzr, String fzrbm,String dqsheng,String dqshi);
+        ServerResponse<List<SignedContractFeeInfo>> selectChart4(Users user, String htfl, String qsrq,
+                                                                 String fzr, String fzrbm, String ssfzr, String ssfzrbm, String dqsheng, String dqshi);
 
         ServerResponse<List<getchart9info>> selectChart9(Users user, String htfl, String qsrq,
                                                          String fzr, String fzrbm, String ssfzr, String ssfzrbm, String dqsheng, String dqshi);
@@ -38,12 +32,6 @@ public interface ReportService {
         ServerResponse<List<String>> selectChart9_htfl(Users user, String htfl, String qsrq,
                                                              String fzr,String fzrbm, String ssfzr, String ssfzrbm, String dqsheng, String dqshi);
 
-        ServerResponse<List<Currentinfo>> selectPersonalcurrentinfo(Users user);
-
-
-        ServerResponse<List<Currentinfo>> selectDepartmentcurrentinfo(String fzr);
-
-        ServerResponse<List<Currentinfo>> selectCompanycurrentinfo();
 
         //本月签署合同信息
         ServerResponse<List<CurrentMonthSimpleInfo>> selectCurrentMonthSimpleInfo(Users user);
@@ -59,6 +47,9 @@ public interface ReportService {
 
         //个人查询合同
         ServiceResponsebg<List<ComplexHt>> queryPersonaltable(Users user, int pageNum, int pageSize, String htfl, String qsrq,
+                                                              String fzr, String fzrbm, String ssfzr, String ssfzrbm, String dqsheng, String dqshi);
+
+        ServiceResponsebg<List<getComparedContractInfo>> queryComparedContractInfo(Users user, String htfl, String qsrq,
                                                               String fzr, String fzrbm, String ssfzr, String ssfzrbm, String dqsheng, String dqshi);
 
         //查询部门

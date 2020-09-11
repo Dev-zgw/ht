@@ -46,21 +46,12 @@
             <arg column="XMQKSM" jdbcType="VARCHAR" javaType="java.lang.String" />
         </constructor>
     </resultMap>
-    <resultMap id="Chart1Map" type="contract.pojo.Reportpage.Chart4">
+    <resultMap id="Chart1Map" type="contract.pojo.Reportpage.SignedContractFeeInfo">
         <constructor>
             <arg column="httime" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="count" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="sum" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="avg" jdbcType="VARCHAR" javaType="java.lang.String"/>
-        </constructor>
-    </resultMap>
-    <resultMap id="Currentinfo" type="contract.pojo.Reportpage.Currentinfo">
-        <constructor>
-            <arg column="httime" jdbcType="VARCHAR" javaType="java.lang.String"/>
-            <arg column="count" jdbcType="VARCHAR" javaType="java.lang.String"/>
-            <arg column="sum" jdbcType="VARCHAR" javaType="java.lang.String"/>
-            <arg column="avg" jdbcType="VARCHAR" javaType="java.lang.String"/>
-            <arg column="dqcount" jdbcType="VARCHAR" javaType="java.lang.String"/>
         </constructor>
     </resultMap>
     <resultMap id="simpleht" type="contract.pojo.SimpHt">
@@ -95,21 +86,7 @@
             <arg column="flmc" jdbcType="VARCHAR" javaType="java.lang.String"/>
         </constructor>
     </resultMap>
-    <resultMap id="Chart5Map" type="contract.pojo.Reportpage.Chart5">
-        <constructor>
-            <arg column="htfl" jdbcType="VARCHAR" javaType="java.lang.String"/>
-            <arg column="count" jdbcType="VARCHAR" javaType="java.lang.String"/>
-            <arg column="percent" jdbcType="VARCHAR" javaType="java.lang.String"/>
-        </constructor>
-    </resultMap>
-    <resultMap id="Chart6Map" type="contract.pojo.Reportpage.Chart5">
-        <constructor>
-            <arg column="htfl" jdbcType="VARCHAR" javaType="java.lang.String"/>
-            <arg column="ssbm" jdbcType="VARCHAR" javaType="java.lang.String"/>
-            <arg column="sum" jdbcType="VARCHAR" javaType="java.lang.String"/>
-        </constructor>
-    </resultMap>
-    <resultMap id="Chart9Map" type="contract.pojo.Reportpage.Chart9">
+    <resultMap id="Chart9Map" type="contract.pojo.Reportpage.SignedContractTypeInfo">
         <constructor>
             <arg column="htfl" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="count" jdbcType="VARCHAR" javaType="java.lang.String"/>
@@ -152,51 +129,6 @@
     ID, HTBH, QS, JE, YJSJ, SGYQ, SFSKWC, SKJE, CREATE_BY, UPDATE_BY, CREATE_TIME, UPDATE_TIME,
     SJ, SSFZR, SSFZRID ,BZ
   </sql>
-    <!--个人报表界面本月签订信息(本月签订合同数量及金额)-->
-    <select id="selectPersonalcurrentinfo" resultMap="Currentinfo">
-        select httime,count(*) as count,count(dqshi) as dqcount,sum(htje) as sum,round(avg(htje),2) as avg from
-        (
-        select to_char(qsrq, 'YYYY-MM') as httime,htnrhtnr as htje,dqshi from ht
-        where 1=1 and TO_CHAR(qsrq,'YYYY-MM')=TO_CHAR(SYSDATE,'YYYY-MM')
-        <if test="fzr != null and fzr != ''">
-            and FZR = #{fzr,jdbcType=VARCHAR}
-        </if>
-        )
-        group by httime order by httime
-    </select>
-    <!--ss个人报表界面本月签订信息(本月签订合同数量及金额)-->
-    <select id="selectPersonalsscurrentinfo" resultMap="Currentinfo">
-        select httime,count(*) as count,count(dqshi) as dqcount,sum(htje) as sum,round(avg(htje),2) as avg from
-        (
-        select to_char(qsrq, 'YYYY-MM') as httime,htnrhtnr as htje,dqshi from ht
-        where 1=1 and TO_CHAR(qsrq,'YYYY-MM')=TO_CHAR(SYSDATE,'YYYY-MM')
-        <if test="fzr != null and fzr != ''">
-            and SSFZR = #{ssfzr,jdbcType=VARCHAR}
-        </if>
-        )
-        group by httime order by httime
-    </select>
-    <!--部门经理报表本月签订信息(本月签订合同数量及金额)-->
-    <select id="selectDepartmentcurrentinfo" resultMap="Currentinfo">
-        select httime,count(*) as count,count(dqshi) as dqcount,sum(htje) as sum,round(avg(htje),2) as avg from
-        (
-        select to_char(qsrq, 'YYYY-MM') as httime,htnrhtnr as htje,dqshi from ht
-        where 1=1 and TO_CHAR(qsrq,'YYYY-MM')=TO_CHAR(SYSDATE,'YYYY-MM')
-        <if test="fzr != null and fzr != ''">
-            and FZR in (select xm from users where ssbm =(select ssbm from users where xm=#{fzr,jdbcType=VARCHAR}) )
-        </if>
-        )
-        group by httime order by httime
-    </select>
-    <!--总经理报表本月签订信息(本月签订合同数量及金额)-->
-    <select id="selectCompanycurrentinfo" resultMap="Currentinfo">
-        select httime,count(*) as count,count(dqshi) as dqcount,sum(htje) as sum,round(avg(htje),2) as avg from
-        (
-        select to_char(qsrq, 'YYYY-MM') as httime,htnrhtnr as htje,dqshi from ht
-        where 1=1 and TO_CHAR(qsrq,'YYYY-MM')=TO_CHAR(SYSDATE,'YYYY-MM')
-        )
-        group by httime order by httime
-    </select>
 
     <!--按月签署合同信息-->
     <select id="selectMonthHtInfo" resultMap="simpleht">
@@ -212,7 +144,7 @@
             and SSFZR = #{ssfzr,jdbcType=VARCHAR}
         </if>
         <if test="bmjl != null and bmjl != ''">
-            and FZR in (select xm from users where ssbm =(select ssbm from users where xm=#{bmjl,jdbcType=VARCHAR}) )
+            and FZRID in (select ID from users where ssbm =(select ssbm from users where xm=#{bmjl,jdbcType=VARCHAR}) )
         </if>
     </select>
     <!--按月付款合同信息-->
@@ -230,7 +162,7 @@
             and htqs.SSFZR = #{ssfzr,jdbcType=VARCHAR}
         </if>
         <if test="bmjl != null and bmjl != ''">
-            and ht.FZR in (select xm from users where ssbm =(select ssbm from users where xm=#{bmjl,jdbcType=VARCHAR}) )
+            and ht.FZRID in (select ID from users where ssbm =(select ssbm from users where xm=#{bmjl,jdbcType=VARCHAR}) )
         </if>
     </select>
     <!--按条件筛选付款合同信息-->
@@ -243,7 +175,7 @@
         where 1=1
         --负责人部门名称
         <if test="fzrbm != null and fzrbm != ''">
-            and ht.fzr in (select xm from users where ssbm=#{fzrbm,jdbcType=VARCHAR})
+            and ht.fzrid in (select id from users where ssbm=#{fzrbm,jdbcType=VARCHAR})
         </if>
         --负责人名称
         <if test="fzr != null and fzr != ''">
@@ -251,7 +183,7 @@
         </if>
         --实施负责人部门名称
         <if test="ssfzrbm != null and ssfzrbm != ''">
-            and htqs.ssfzr in (select xm from users where ssbm=#{ssfzrbm,jdbcType=VARCHAR})
+            and htqs.ssfzrid in (select id from users where ssbm=#{ssfzrbm,jdbcType=VARCHAR})
         </if>
         --实施负责人名称
         <if test="ssfzr != null and ssfzr != ''">
@@ -289,7 +221,7 @@
         where 1=1
         --负责人部门名称
         <if test="fzrbm != null and fzrbm != ''">
-            and HT.fzr in (select xm from users where ssbm=#{fzrbm,jdbcType=VARCHAR})
+            and HT.fzrid in (select id from users where ssbm=#{fzrbm,jdbcType=VARCHAR})
         </if>
         --负责人名称
         <if test="fzr != null and fzr != ''">
@@ -297,7 +229,7 @@
         </if>
         --实施负责人部门名称
         <if test="ssfzrbm != null and ssfzrbm != ''">
-            and HTQS.ssfzr in (select xm from users where ssbm=#{ssfzrbm,jdbcType=VARCHAR})
+            and HTQS.ssfzrid in (select id from users where ssbm=#{ssfzrbm,jdbcType=VARCHAR})
         </if>
         --实施负责人名称
         <if test="ssfzr != null and ssfzr != ''">
@@ -339,7 +271,7 @@
         where 1=1
         --负责人部门名称
         <if test="fzrbm != null and fzrbm != ''">
-            and fzr in (select xm from users where ssbm=#{fzrbm,jdbcType=VARCHAR})
+            and fzrid in (select id from users where ssbm=#{fzrbm,jdbcType=VARCHAR})
         </if>
         --负责人名称
         <if test="fzr != null and fzr != ''">
@@ -347,7 +279,7 @@
         </if>
         --实施负责人部门名称
         <if test="ssfzrbm != null and ssfzrbm != ''">
-            and ssfzr in (select xm from users where ssbm=#{ssfzrbm,jdbcType=VARCHAR})
+            and ssfzrid in (select id from users where ssbm=#{ssfzrbm,jdbcType=VARCHAR})
         </if>
         --实施负责人名称
         <if test="ssfzr != null and ssfzr != ''">
@@ -373,7 +305,7 @@
     </select>
 
     <select id="selectChart4" resultMap="Chart1Map">
-        select httime,count(*) as count,sum(htje) as sum,round(avg(htje),3) as avg from
+        select httime,count(*) as count,sum(htje) as sum,round(avg(htje),2) as avg from
         (select to_char(qsrq, 'YYYY-MM') as httime,htnrhtnr as htje from ht left join htfl on ht.htfl=htfl.id where 1=1
         <if test="htfl != null and htfl != ''">
             and htfl.flmc = #{htfl,jdbcType=VARCHAR}
@@ -389,14 +321,14 @@
         </if>
         --负责人部门名称
         <if test="fzrbm != null and fzrbm != ''">
-            and fzr in (select xm from users where ssbm=#{fzrbm,jdbcType=VARCHAR})
+            and fzrid in (select id from users where ssbm=#{fzrbm,jdbcType=VARCHAR})
         </if>
         <if test="ssfzr != null and ssfzr != ''">
             and SSFZR = #{ssfzr,jdbcType=VARCHAR}
         </if>
         --实施负责人部门名称
         <if test="ssfzrbm != null and ssfzrbm != ''">
-            and ssfzr in (select xm from users where ssbm=#{ssfzrbm,jdbcType=VARCHAR})
+            and ssfzrid in (select id from users where ssbm=#{ssfzrbm,jdbcType=VARCHAR})
         </if>
         <if test="dqsheng != null and dqsheng != ''">
             and DQSHENG = #{dqsheng,jdbcType=VARCHAR}
@@ -413,17 +345,6 @@
         )
         group by httime order by httime
     </select>
-    <select id="selectChart5" resultMap="Chart5Map">
-    select htfl,count(htfl) as count,to_char(count(htfl)*100/sum(htfl),'fm990.00')||'%' as percent
-       from (select htfl,to_char(qsrq, 'YYYY-MM') as httime from ht)
-    group by htfl order by htfl
-  </select>
-    <select id="selectChart6" resultMap="Chart6Map">
-    select flmc,ssbm,sum(htnrhtnr) as sum from
-        (select ht.htbh,ht.qsrq,ht.fzr,ht.htnrhtnr,ht.dqsheng,ht.dqshi,htfl.flmc,users.ssbm
-        from ht left join users on ht.fzrid=users.id left join htfl on htfl.id = ht.htfl)
-    group by flmc,ssbm order by flmc,ssbm
-  </select>
     <select id="selectChart9" resultMap="Chart9Map">
         select count(*) as count,sum(htje) as sum,round(avg(htje),2) as avg,htfl as htfl from
         (select to_char(ht.qsrq, 'YYYY-MM') as httime,htfl.flmc as htfl,ht.htnrhtnr as htje from ht,htfl where
@@ -442,14 +363,14 @@
         </if>
         --负责人部门名称
         <if test="fzrbm != null and fzrbm != ''">
-            and ht.fzr in (select xm from users where ssbm=#{fzrbm,jdbcType=VARCHAR})
+            and ht.fzrid in (select id from users where ssbm=#{fzrbm,jdbcType=VARCHAR})
         </if>
         <if test="ssfzr != null and ssfzr != ''">
             and ht.SSFZR = #{ssfzr,jdbcType=VARCHAR}
         </if>
         --实施负责人部门名称
         <if test="ssfzrbm != null and ssfzrbm != ''">
-            and ht.ssfzr in (select xm from users where ssbm=#{ssfzrbm,jdbcType=VARCHAR})
+            and ht.ssfzrid in (select id from users where ssbm=#{ssfzrbm,jdbcType=VARCHAR})
         </if>
         <if test="dqsheng != null and dqsheng != ''">
             and ht.DQSHENG = #{dqsheng,jdbcType=VARCHAR}

@@ -3,13 +3,13 @@ package contract.pojo.Reportpage;
 
 import java.util.List;
 
-public class getchart6info {
+public class getChartBasicInfo {
     String name;
     String stack;
     String type;
     List<String> data;
 
-    public getchart6info(String name, String stack, String type, List<String> data) {
+    public getChartBasicInfo(String name, String stack, String type, List<String> data) {
         this.name = name;
         this.stack = "总量";
         this.type = "bar";

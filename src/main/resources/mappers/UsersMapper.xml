@@ -340,5 +340,6 @@
         where SSBM = #{ssbm,jdbcType=DECIMAL}
         and JSID = 5
     </select>
+
 </mapper>
 
