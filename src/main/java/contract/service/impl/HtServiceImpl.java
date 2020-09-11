@@ -246,21 +246,21 @@ public class HtServiceImpl implements HtService {
             resultMapper.insertSelective(result);
             if(htzt=="1"){
                 try {
-                   /* //合同负责人确认合同后 -- 部门经理收到 -- 合同签订短信
+                    //合同负责人确认合同后 -- 部门经理收到 -- 合同签订短信
                     messageServiceImpl.sendHtqd(usersbmjl.getSjhm(),usersbmjl.getXm(),ht.getFzr(),ht.getHtmc());
                     //合同负责人确认合同后 -- 实施负责人收到 -- 通知短信
                     String a=ht.getFzr()+" ,联系方式："+users.getSjhm();
-                    messageServiceImpl.sendTz(userMapper.queryxm(ht.getSsfzr()).getSjhm(),ht.getSsfzr(),ht.getYymc(),a);*/
+                    messageServiceImpl.sendTz(userMapper.queryxm(ht.getSsfzr()).getSjhm(),ht.getSsfzr(),ht.getYymc(),a);
                 }catch (Exception e){
                     e.printStackTrace();
                 }
             }else if(htzt=="2"){
                 try {
-                    /*//财务确认合同款结清，合同负责人收到合同款结清短信
+                    //财务确认合同款结清，合同负责人收到合同款结清短信
                     messageServiceImpl.sendHtkjq(userMapper.queryxm(ht.getFzr()).getSjhm(),ht.getFzr(),ht.getHtmc());
                     //财务确认合同款结清，部门经理收到合同款结清短信
                     String a=ht.getFzr()+" 所签约合同"+ht.getHtmc();
-                    messageServiceImpl.sendHtkjq(usersbmjl.getSjhm(),usersbmjl.getXm(),a);*/
+                    messageServiceImpl.sendHtkjq(usersbmjl.getSjhm(),usersbmjl.getXm(),a);
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -316,7 +316,10 @@ public class HtServiceImpl implements HtService {
                 ht.setDqsheng(map.get("dqsheng").toString());
                 ht.setDqshi(map.get("dqshi").toString());
                 ht.setHtfl(htflMapper.query(map.get("htfl").toString()).getId());
-                ht.setYyjb(map.get("yyjb").toString());
+                if(map.get("yyjb").toString()!=null&&!map.get("yyjb").toString().equals("")){
+                    ht.setYyjb(map.get("yyjb").toString());
+                }
+
                 ht.setQsrq(sf.parse(map.get("qsrq").toString()));
                 ht.setHtqsrq(sf.parse(map.get("htqsrq").toString()));
                 ht.setHtzzrq(sf.parse(map.get("htzzrq").toString()));
@@ -338,6 +341,7 @@ public class HtServiceImpl implements HtService {
                 ht.setYjqysj(sf.parse(map.get("yjqysj").toString()));
                 ht.setXmqksm(map.get("xmqksm").toString());
                 ht.setBz(map.get("bz").toString());
+                ht.setHtzt(map.get("htzt").toString());
                 htMapper.insertSelective(ht);
             }
         }

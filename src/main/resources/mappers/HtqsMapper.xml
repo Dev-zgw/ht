@@ -227,6 +227,7 @@
     <include refid="Base_Column_List" />
     from HTQS
     where HTBH = #{htbh,jdbcType=VARCHAR}
+    order by YJSJ desc
   </select>
 
   <update id="updatezt">

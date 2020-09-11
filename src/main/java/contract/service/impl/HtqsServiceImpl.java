@@ -34,6 +34,9 @@ public class HtqsServiceImpl implements HtqsService {
     @Autowired
     private HtMapper htMapper;
 
+    @Autowired
+    private MessageServiceImpl messageServiceImpl;
+
     /**
      * 根据合同编码查询合同期数
      * @param users
@@ -169,12 +172,12 @@ public class HtqsServiceImpl implements HtqsService {
             return ServerResponse.createBySuccessMessage("操作失败");
         }
         try{
-          /*  //财务确认合同款结清，合同负责人收到合同款结清短信
+            //财务确认合同款结清，合同负责人收到合同款结清短信
             String a=ht.getHtmc()+sf.format(htqs.getYjsj());
             messageServiceImpl.sendHtkjq(userMapper.queryxm(ht.getFzr()).getSjhm(),ht.getFzr(),a);
             //财务确认合同款结清，部门经理收到合同款结清短信
             String b=ht.getFzr()+" 所签约合同"+ht.getHtmc()+sf.format(htqs.getYjsj());
-            messageServiceImpl.sendHtkjq(usersbmjl.getSjhm(),usersbmjl.getXm(),b);*/
+            messageServiceImpl.sendHtkjq(usersbmjl.getSjhm(),usersbmjl.getXm(),b);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -201,19 +204,22 @@ public class HtqsServiceImpl implements HtqsService {
                 if(map.get("htbh").toString()!=null&& !map.get("htbh").toString().equals("")){
                     htqs.setHtbh(map.get("htbh").toString());
                 }
-                if(map.get("je")!=null){
+                if(map.get("je")!=null&& !map.get("je").toString().equals("")){
                     htqs.setJe(new BigDecimal(map.get("je").toString()));
                 }else{
                     continue;
                 }
-                if(map.get("yjsj")!=null){
+                if(map.get("yjsj")!=null&& !map.get("yjsj").toString().equals("")){
                     htqs.setYjsj(sf.parse(map.get("yjsj").toString()));
                 }
-                if(map.get("ssfzr").toString()!=null){
+                if(map.get("ssfzr").toString()!=null&& !map.get("ssfzr").toString().equals("")){
                     htqs.setSsfzr(map.get("ssfzr").toString());
                     htqs.setSsfzrid(userMapper.queryxm(map.get("ssfzr").toString()).getId());
                 }
-                htqs.setBz(map.get("bz").toString());
+                if(map.get("bz").toString()!=null&& !map.get("bz").toString().equals("")){
+                    htqs.setBz(map.get("bz").toString());
+                }
+                htqs.setSfskwc(map.get("ssfkwc").toString());
                 htqsMapper.insertSelective(htqs);
             }
         }
