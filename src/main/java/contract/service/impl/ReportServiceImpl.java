@@ -12,6 +12,7 @@ import contract.utils.ServerResponse;
 import contract.utils.ServiceResponsebg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sun.util.calendar.BaseCalendar;
 
 import java.io.Console;
 import java.math.BigDecimal;
@@ -52,8 +53,8 @@ public class ReportServiceImpl implements ReportService {
         Role role = roleMapper.selectByPrimaryKey(user.getJsid());
         if (qsrq != "" && qsrq != null) {
             String date[] = qsrq.split(",");
-            startTime = date[0].toString().substring(1, date[0].toString().length() - 1);
-            endTime = date[1].toString().substring(1, date[1].toString().length() - 1);
+            startTime = date[0].toString().substring(1, date[0].toString().length()-1 );
+            endTime = date[1].toString().substring(1, date[1].toString().length()-1);
         }
         List<SignedContractFeeInfo> list = new ArrayList<SignedContractFeeInfo>();
         //管理员/总经理查询所有合同信息
@@ -446,17 +447,20 @@ public class ReportServiceImpl implements ReportService {
             List<Users> users = usersMapper.querybybm(user.getSsbm());
             List<Department> departments = departmentMapper.selectAll();
             for(int m = 0;m<departments.size();m++){
-                queryType.add(departments.get(m).getBmmc());
+                if(departments.get(m).getPid().toString().equals("1"))
+                    queryType.add(departments.get(m).getBmmc());
             }
             for(int k = 0;k<htfls.size();k++){
                 List<String> data = new ArrayList<String>();
                 for(int l =0;l<departments.size();l++){
                     Double personalSum=0.0d;
-                    for(int q=0;q<list.size();q++){
-                        if(usersMapper.selectByPrimaryKey(list.get(q).getFzrid()).getSsbm().equals(departments.get(l).getBmmc())&&list.get(q).getHtfl().equals(htfls.get(k).getFlmc()))
-                            personalSum+=list.get(q).getHtnrhtnr().doubleValue();
+                    if(departments.get(l).getPid().toString().equals("1")) {
+                        for (int q = 0; q < list.size(); q++) {
+                            if (usersMapper.selectByPrimaryKey(list.get(q).getFzrid()).getSsbm().equals(departments.get(l).getBmmc()) && list.get(q).getHtfl().equals(htfls.get(k).getFlmc()))
+                                personalSum += list.get(q).getHtnrhtnr().doubleValue();
+                        }
+                        data.add(personalSum.toString());
                     }
-                    data.add(personalSum.toString());
                 }
                 series.add(new getChartBasicInfo(htfls.get(k).getFlmc(),"总量","bar",data));
             }
@@ -470,18 +474,21 @@ public class ReportServiceImpl implements ReportService {
             List<Users> users = usersMapper.querybybm(user.getSsbm());
 
             for(int m = 0;m<users.size();m++){
-                queryType.add(users.get(m).getXm());
+                if(users.get(m).getJsid().toString().equals("4"))
+                    queryType.add(users.get(m).getXm());
             }
             for(int k = 0;k<htfls.size();k++){
                 List<String> data = new ArrayList<String>();
                 for(int l =0;l<users.size();l++){
                     Double personalSum=0.0d;
-                    for(int q=0;q<list.size();q++){
-                        if(list.get(q).getFzrid().equals(users.get(l).getId())&&list.get(q).getHtfl().equals(htfls.get(k).getFlmc())){
-                            personalSum+=list.get(q).getHtnrhtnr().doubleValue();
+                    if(users.get(l).getJsid().toString().equals("4")) {
+                        for (int q = 0; q < list.size(); q++) {
+                            if (list.get(q).getFzrid().equals(users.get(l).getId()) && list.get(q).getHtfl().equals(htfls.get(k).getFlmc())) {
+                                personalSum += list.get(q).getHtnrhtnr().doubleValue();
+                            }
                         }
+                        data.add(personalSum.toString());
                     }
-                    data.add(personalSum.toString());
                 }
                 System.out.print(data);
                 series.add(new getChartBasicInfo(htfls.get(k).getFlmc(),"总量","bar",data));
@@ -567,7 +574,7 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public ServerResponse<List<Department>> querybm() {
-        List<Department> departments = departmentMapper.selectAll();
+        List<Department> departments = departmentMapper.selectDepartment1();
         return ServerResponse.createBySuccess(departments);
     }
 
