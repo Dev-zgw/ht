@@ -8,6 +8,8 @@ import contract.service.HtService;
 import contract.utils.Const;
 import contract.utils.ServerResponse;
 import contract.utils.ServiceResponsebg;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -212,7 +214,8 @@ public class HtServiceImpl implements HtService {
     @Override
     public ServerResponse updatezt(Users users, int id, String htzt) {
         Ht ht=htMapper.selectByPrimaryKey(new BigDecimal(id));
-        Users usersbmjl=userMapper.querybmjl(users.getBmid(),new BigDecimal(3));
+        Users user=userMapper.queryxm(ht.getFzr());
+        Users usersbmjl=userMapper.querybmjl(user.getBmid(),new BigDecimal(3));
         List<Htqs> htqsList=htqsMapper.query(ht.getHtbh());
         if(("2").equals(htzt)) {
             int sk = 0;
@@ -244,17 +247,17 @@ public class HtServiceImpl implements HtService {
                 result.setBz("合同验收成功");
             }
             resultMapper.insertSelective(result);
-            if(htzt=="1"){
+            if(htzt.equals("1")){
                 try {
                     //合同负责人确认合同后 -- 部门经理收到 -- 合同签订短信
                     messageServiceImpl.sendHtqd(usersbmjl.getSjhm(),usersbmjl.getXm(),ht.getFzr(),ht.getHtmc());
                     //合同负责人确认合同后 -- 实施负责人收到 -- 通知短信
-                    String a=ht.getFzr()+" ,联系方式："+users.getSjhm();
+                    String a=ht.getFzr()+" ,联系方式："+user.getSjhm();
                     messageServiceImpl.sendTz(userMapper.queryxm(ht.getSsfzr()).getSjhm(),ht.getSsfzr(),ht.getYymc(),a);
                 }catch (Exception e){
                     e.printStackTrace();
                 }
-            }else if(htzt=="2"){
+            }else if(htzt.equals("2")){
                 try {
                     //财务确认合同款结清，合同负责人收到合同款结清短信
                     messageServiceImpl.sendHtkjq(userMapper.queryxm(ht.getFzr()).getSjhm(),ht.getFzr(),ht.getHtmc());
@@ -308,43 +311,98 @@ public class HtServiceImpl implements HtService {
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
         //将excel表格中的数据写入到ht表中
         if(!list.isEmpty()){
-            for (int i=0;i<list.size();i++){
-                Map<String, Object> map=list.get(i);
-                ht.setHtbh(map.get("htbh").toString());
-                ht.setHtmc(map.get("htmc").toString());
-                ht.setYymc(map.get("yymc").toString());
-                ht.setDqsheng(map.get("dqsheng").toString());
-                ht.setDqshi(map.get("dqshi").toString());
-                ht.setHtfl(htflMapper.query(map.get("htfl").toString()).getId());
-                if(map.get("yyjb").toString()!=null&&!map.get("yyjb").toString().equals("")){
+            for (int i=0;i<list.size();i++) {
+                Map<String, Object> map = list.get(i);
+                if (isObjectNotEmpty(map.get("htbh"))) {
+                    ht.setHtbh(map.get("htbh").toString());
+                }
+                if (isObjectNotEmpty(map.get("htmc"))) {
+                    ht.setHtmc(map.get("htmc").toString());
+                }
+                if (isObjectNotEmpty(map.get("yymc"))) {
+                    ht.setYymc(map.get("yymc").toString());
+                }
+                if (isObjectNotEmpty(map.get("dqsheng"))) {
+                    ht.setDqsheng(map.get("dqsheng").toString());
+                }
+                if (isObjectNotEmpty(map.get("dqshi"))) {
+                    ht.setDqsheng(map.get("dqshi").toString());
+                }
+                if (isObjectNotEmpty(map.get("htfl"))) {
+                    ht.setHtfl(htflMapper.query(map.get("htfl").toString()).getId());
+                }
+                if (isObjectNotEmpty(map.get("yyjb"))) {
                     ht.setYyjb(map.get("yyjb").toString());
                 }
-
-                ht.setQsrq(sf.parse(map.get("qsrq").toString()));
-                ht.setHtqsrq(sf.parse(map.get("htqsrq").toString()));
-                ht.setHtzzrq(sf.parse(map.get("htzzrq").toString()));
-                ht.setHtnrhtnr(new BigDecimal(map.get("htnrhtnr").toString()));
-                ht.setFzr(map.get("fzr").toString());
-                ht.setSsfzr(map.get("ssfzr").toString());
-                ht.setFzrid(userMapper.queryxm(map.get("fzr").toString()).getId());
-                ht.setSsfzrid(userMapper.queryxm(map.get("ssfzr").toString()).getId());
-                ht.setNywfje(new BigDecimal(map.get("nywfje").toString()));
-                ht.setNywfsj(sf.parse(map.get("nywfsj").toString()));
-                ht.setXxkxm(map.get("xxkxm").toString());
-                ht.setXxklxfs(map.get("xxklxfs").toString());
-                ht.setCwkxm(map.get("cwkxm").toString());
-                ht.setCwklxfs(map.get("cwklxfs").toString());
-                ht.setYwdjr(map.get("ywdjr").toString());
-                ht.setYwdjrlxfs(map.get("ywdjrlxfs").toString());
-                ht.setSfgb(map.get("sfgb").toString());
-                ht.setSfjxfw(map.get("sfjxfw").toString());
-                ht.setYjqysj(sf.parse(map.get("yjqysj").toString()));
-                ht.setXmqksm(map.get("xmqksm").toString());
-                ht.setBz(map.get("bz").toString());
-                ht.setHtzt(map.get("htzt").toString());
+                if (isObjectNotEmpty(map.get("qsrq"))) {
+                    ht.setQsrq(sf.parse(map.get("qsrq").toString()));
+                }
+                if (isObjectNotEmpty(map.get("htqsrq"))) {
+                    ht.setHtqsrq(sf.parse(map.get("htqsrq").toString()));
+                }
+                if (isObjectNotEmpty(map.get("htzzrq"))) {
+                    ht.setHtzzrq(sf.parse(map.get("htzzrq").toString()));
+                }
+                if (isObjectNotEmpty(map.get("fzr"))) {
+                    ht.setFzr(map.get("fzr").toString());
+                    ht.setFzrid(userMapper.queryxm(map.get("fzr").toString()).getId());
+                }
+                if (isObjectNotEmpty(map.get("ssfzr"))) {
+                    ht.setSsfzr(map.get("ssfzr").toString());
+                    ht.setSsfzrid(userMapper.queryxm(map.get("ssfzr").toString()).getId());
+                }
+                if (isObjectNotEmpty(map.get("nywfje"))) {
+                    ht.setNywfje(new BigDecimal(map.get("nywfje").toString()));
+                }
+                if (isObjectNotEmpty(map.get("xxkxm"))) {
+                    ht.setXxkxm(map.get("xxkxm").toString());
+                }
+                if (isObjectNotEmpty(map.get("xxklxfs"))) {
+                    ht.setXxklxfs(map.get("xxklxfs").toString());
+                }
+                if (isObjectNotEmpty(map.get("cwkxm"))) {
+                    ht.setCwkxm(map.get("cwkxm").toString());
+                }
+                if (isObjectNotEmpty(map.get("cwklxfs"))) {
+                    ht.setCwklxfs(map.get("cwklxfs").toString());
+                }
+                if (isObjectNotEmpty(map.get("ywdjr"))) {
+                    ht.setYwdjr(map.get("ywdjr").toString());
+                }
+                if (isObjectNotEmpty(map.get("ywdjrlxfs"))) {
+                    ht.setYwdjrlxfs(map.get("ywdjrlxfs").toString());
+                }
+                if (isObjectNotEmpty(map.get("sfgb"))) {
+                    ht.setSfgb(map.get("sfgb").toString());
+                }
+                if (isObjectNotEmpty(map.get("sfjxfw"))) {
+                    ht.setSfjxfw(map.get("sfjxfw").toString());
+                }
+                if (isObjectNotEmpty(map.get("yjqysj"))) {
+                    ht.setYjqysj(sf.parse(map.get("yjqysj").toString()));
+                }
+                if (isObjectNotEmpty(map.get("xmqksm"))) {
+                    ht.setXmqksm(map.get("xmqksm").toString());
+                }
+                if (isObjectNotEmpty(map.get("bz"))) {
+                    ht.setBz(map.get("bz").toString());
+                }
+                if (isObjectNotEmpty(map.get("htzt"))) {
+                    ht.setHtzt(map.get("htzt").toString());
+                }
                 htMapper.insertSelective(ht);
             }
         }
         return ServerResponse.createBySuccess("文件导入成功");
+    }
+
+    /**
+     * 判断Object对象为空或空字符串
+     * @param obj
+     * @return
+     */
+    public static Boolean isObjectNotEmpty(Object obj) {
+        String str = ObjectUtils.toString(obj, null);
+        return StringUtils.isNotBlank(str);
     }
 }

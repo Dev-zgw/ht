@@ -10,6 +10,8 @@ import contract.pojo.Result;
 import contract.pojo.Users;
 import contract.service.HtqsService;
 import contract.utils.ServerResponse;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -158,7 +160,8 @@ public class HtqsServiceImpl implements HtqsService {
         SimpleDateFormat sf = new SimpleDateFormat("yyyy年");
         Htqs htqs=htqsMapper.selectByPrimaryKey(new BigDecimal(id));
         Ht ht= htMapper.selects(htqs.getHtbh());
-        Users usersbmjl=userMapper.querybmjl(users.getBmid(),new BigDecimal(3));
+        Users user=userMapper.queryxm(ht.getFzr());
+        Users usersbmjl=userMapper.querybmjl(user.getBmid(),new BigDecimal(3));
         int i=htqsMapper.updatezt(new BigDecimal(id),htfqzt);
         if(i<=0){
             Result result=new Result();
@@ -192,7 +195,15 @@ public class HtqsServiceImpl implements HtqsService {
         resultMapper.insertSelective(result);
         return ServerResponse.createBySuccessMessage("操作成功");
     }
-
+    /**
+     * 判断Object对象为空或空字符串
+     * @param obj
+     * @return
+     */
+    public static Boolean isObjectNotEmpty(Object obj) {
+        String str = ObjectUtils.toString(obj, null);
+        return StringUtils.isNotBlank(str);
+    }
     @Override
     public ServerResponse daoru(List<Map<String, Object>> list) throws Exception {
         Htqs htqs=new Htqs();
@@ -201,25 +212,27 @@ public class HtqsServiceImpl implements HtqsService {
         if(!list.isEmpty()){
             for (int i=0;i<list.size();i++){
                 Map<String, Object> map=list.get(i);
-                if(map.get("htbh").toString()!=null&& !map.get("htbh").toString().equals("")){
+                if (isObjectNotEmpty(map.get("htbh"))) {
                     htqs.setHtbh(map.get("htbh").toString());
                 }
-                if(map.get("je")!=null&& !map.get("je").toString().equals("")){
+                if (isObjectNotEmpty(map.get("je"))) {
                     htqs.setJe(new BigDecimal(map.get("je").toString()));
                 }else{
                     continue;
                 }
-                if(map.get("yjsj")!=null&& !map.get("yjsj").toString().equals("")){
+                if (isObjectNotEmpty(map.get("yjsj"))) {
                     htqs.setYjsj(sf.parse(map.get("yjsj").toString()));
                 }
-                if(map.get("ssfzr").toString()!=null&& !map.get("ssfzr").toString().equals("")){
+                if (isObjectNotEmpty(map.get("ssfzr"))) {
                     htqs.setSsfzr(map.get("ssfzr").toString());
                     htqs.setSsfzrid(userMapper.queryxm(map.get("ssfzr").toString()).getId());
                 }
-                if(map.get("bz").toString()!=null&& !map.get("bz").toString().equals("")){
+                if (isObjectNotEmpty(map.get("bz"))) {
                     htqs.setBz(map.get("bz").toString());
                 }
-                htqs.setSfskwc(map.get("ssfkwc").toString());
+                if (isObjectNotEmpty(map.get("ssfkwc"))) {
+                    htqs.setSfskwc(map.get("ssfkwc").toString());
+                }
                 htqsMapper.insertSelective(htqs);
             }
         }

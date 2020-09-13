@@ -72,7 +72,7 @@
         from USERS
         where XM = #{xm,jdbcType=VARCHAR}
     </select>
-    <select id="querybmjl" resultMap="BaseResultMap" parameterType="string">
+    <select id="querybmjl" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from USERS
