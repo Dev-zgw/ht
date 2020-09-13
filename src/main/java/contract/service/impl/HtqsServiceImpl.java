@@ -160,7 +160,8 @@ public class HtqsServiceImpl implements HtqsService {
         SimpleDateFormat sf = new SimpleDateFormat("yyyy年");
         Htqs htqs=htqsMapper.selectByPrimaryKey(new BigDecimal(id));
         Ht ht= htMapper.selects(htqs.getHtbh());
-        Users usersbmjl=userMapper.querybmjl(users.getBmid(),new BigDecimal(3));
+        Users user=userMapper.queryxm(ht.getFzr());
+        Users usersbmjl=userMapper.querybmjl(user.getBmid(),new BigDecimal(3));
         int i=htqsMapper.updatezt(new BigDecimal(id),htfqzt);
         if(i<=0){
             Result result=new Result();

@@ -214,7 +214,8 @@ public class HtServiceImpl implements HtService {
     @Override
     public ServerResponse updatezt(Users users, int id, String htzt) {
         Ht ht=htMapper.selectByPrimaryKey(new BigDecimal(id));
-        Users usersbmjl=userMapper.querybmjl(users.getBmid(),new BigDecimal(3));
+        Users user=userMapper.queryxm(ht.getFzr());
+        Users usersbmjl=userMapper.querybmjl(user.getBmid(),new BigDecimal(3));
         List<Htqs> htqsList=htqsMapper.query(ht.getHtbh());
         if(("2").equals(htzt)) {
             int sk = 0;
@@ -246,17 +247,17 @@ public class HtServiceImpl implements HtService {
                 result.setBz("合同验收成功");
             }
             resultMapper.insertSelective(result);
-            if(htzt=="1"){
+            if(htzt.equals("1")){
                 try {
                     //合同负责人确认合同后 -- 部门经理收到 -- 合同签订短信
                     messageServiceImpl.sendHtqd(usersbmjl.getSjhm(),usersbmjl.getXm(),ht.getFzr(),ht.getHtmc());
                     //合同负责人确认合同后 -- 实施负责人收到 -- 通知短信
-                    String a=ht.getFzr()+" ,联系方式："+users.getSjhm();
+                    String a=ht.getFzr()+" ,联系方式："+user.getSjhm();
                     messageServiceImpl.sendTz(userMapper.queryxm(ht.getSsfzr()).getSjhm(),ht.getSsfzr(),ht.getYymc(),a);
                 }catch (Exception e){
                     e.printStackTrace();
                 }
-            }else if(htzt=="2"){
+            }else if(htzt.equals("2")){
                 try {
                     //财务确认合同款结清，合同负责人收到合同款结清短信
                     messageServiceImpl.sendHtkjq(userMapper.queryxm(ht.getFzr()).getSjhm(),ht.getFzr(),ht.getHtmc());
