@@ -108,7 +108,7 @@
             <arg column="UPDATE_BY" jdbcType="VARCHAR" javaType="java.lang.String" />
             <arg column="CREATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
             <arg column="UPDATE_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-            <arg column="SJ" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+            <arg column="SJ" jdbcType="VARCHAR" javaType="java.lang.String" />
             <arg column="SSFZR" jdbcType="VARCHAR" javaType="java.lang.String" />
             <arg column="SSFZRID" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
             <arg column="BZ" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -149,11 +149,11 @@
     </select>
     <!--按月付款合同信息-->
     <select id="selectMonthFkInfo" resultMap="simplehtqs">
-        select to_char(htqs.sj, 'YYYY-MM') as httime,htqs.SFSKWC as ifsk,htqs.JE as fkje,htqs.HTBH as htbh,ht.fzr as fzr,htqs.ssfzr
+        select to_char(htqs.yjsj, 'YYYY-MM') as httime,htqs.SFSKWC as ifsk,htqs.JE as fkje,htqs.HTBH as htbh,ht.fzr as fzr,htqs.ssfzr
         from htqs left join ht on ht.htbh=htqs.htbh
         where 1=1
         <if test="month != null and month != ''">
-            and TO_CHAR(htqs.sj,'YYYY-MM') =  #{month,jdbcType=VARCHAR}
+            and TO_CHAR(htqs.yjsj,'YYYY-MM') =  #{month,jdbcType=VARCHAR}
         </if>
         <if test="fzr != null and fzr != ''">
             and ht.FZR = #{fzr,jdbcType=VARCHAR}
@@ -167,7 +167,7 @@
     </select>
     <!--按条件筛选付款合同信息-->
     <select id="selectFkHtInfo" resultMap="fkhtxx">
-        select to_char(htqs.sj, 'YYYY-MM') as httime,htqs.SFSKWC as ifsk,htqs.JE as fkje,ht.yymc,
+        select to_char(htqs.yjsj, 'YYYY-MM') as httime,htqs.SFSKWC as ifsk,htqs.JE as fkje,ht.yymc,
             htqs.HTBH as htbh,ht.fzr as fzr,ht.dqsheng as dqsheng,ht.dqshi as dqshi,
             htqs.ssfzr as ssfzr,htfl.flmc as flmc from htqs
         left join ht on ht.htbh=htqs.htbh
@@ -200,12 +200,12 @@
             and ht.DQSHI = #{dqshi,jdbcType=VARCHAR}
         </if>
         <if test="startTime != null and startTime != ''">
-            and to_char(htqs.sj, 'yyyy-mm-dd') &gt;= #{startTime,jdbcType=VARCHAR}
+            and to_char(htqs.yjsj, 'yyyy-mm-dd') &gt;= #{startTime,jdbcType=VARCHAR}
         </if>
         <if test="endTime != null and endTime != ''">
-            and to_char(htqs.sj, 'yyyy-mm-dd') &lt;= #{endTime,jdbcType=VARCHAR}
+            and to_char(htqs.yjsj, 'yyyy-mm-dd') &lt;= #{endTime,jdbcType=VARCHAR}
         </if>
-        order by htqs.sj
+        order by htqs.yjsj
     </select>
     <!--按条件筛选htqs-->
     <select id="selecthtqs" resultMap="HTQS">
@@ -250,12 +250,12 @@
             and HT.DQSHI = #{dqshi,jdbcType=VARCHAR}
         </if>
         <if test="startTime != null and startTime != ''">
-            and to_char(HTQS.SJ, 'yyyy-mm-dd') &gt;= #{startTime,jdbcType=VARCHAR}
+            and to_char(HTQS.yjSJ, 'yyyy-mm-dd') &gt;= #{startTime,jdbcType=VARCHAR}
         </if>
         <if test="endTime != null and endTime != ''">
-            and to_char(HTQS.SJ, 'yyyy-mm-dd') &lt;= #{endTime,jdbcType=VARCHAR}
+            and to_char(HTQS.yjSJ, 'yyyy-mm-dd') &lt;= #{endTime,jdbcType=VARCHAR}
         </if>
-        order by HTQS.SJ
+        order by HTQS.yjSJ
     </select>
 
     <!--个人报表页面table信息-->

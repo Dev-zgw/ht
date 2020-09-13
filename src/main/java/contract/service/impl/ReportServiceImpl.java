@@ -215,6 +215,7 @@ public class ReportServiceImpl implements ReportService {
         String currentmonth = new SimpleDateFormat("yyyy-MM").format(date);
         //查询本月合同基本信息
         if (role.getQxid().longValue() == Const.Role.ROLE_ZJL || role.getQxid().longValue() == Const.Role.ROLE_ADMIN || role.getQxid().longValue() == Const.Role.ROLE_CWQX) { //总经理&财务&管理员看到的是本月公司所有合同基本信息
+            System.out.print(role.getQxid().longValue());
             qdhtlist = reportMapper.selectMonthHtInfo(currentmonth, "", "", "");
             fkhtlist = reportMapper.selectMonthFkInfo(currentmonth, "", "", "");
         } else if (role.getQxid().longValue() == Const.Role.ROLE_BMJL) {//部门经理看到的部门合同基本信息
@@ -299,7 +300,8 @@ public class ReportServiceImpl implements ReportService {
         List<String> wfkhtjes = new ArrayList<String>();
         for (int m = 0; m < fkhtSimpleInfos.size(); m++) {
             if (!httimes.contains(fkhtSimpleInfos.get(m).getHttime())) {
-                httimes.add(fkhtSimpleInfos.get(m).getHttime());
+                if(fkhtSimpleInfos.get(m).getHttime()!=null)
+                    httimes.add(fkhtSimpleInfos.get(m).getHttime());
             }
         }
         for (int k = 0; k < httimes.size(); k++) {
@@ -307,23 +309,27 @@ public class ReportServiceImpl implements ReportService {
             int yfkhtcount = 0, wfkhtcount = 0;
             double yfkhtje = 0.0d, wfkhtje = 0.0d;
             for (int j = 0; j < fkhtSimpleInfos.size(); j++) {
-                if (time.equals(fkhtSimpleInfos.get(j).getHttime())){
-                    if (("2").equals(fkhtSimpleInfos.get(j).getIfsk())) { //已收款
-                        yfkhtcount++;
-                        if (fkhtSimpleInfos.get(j).getFkje() == null || ("").equals(fkhtSimpleInfos.get(j).getFkje())) {
+                try {
+                    if (time.equals(fkhtSimpleInfos.get(j).getHttime())){
+                        if (("2").equals(fkhtSimpleInfos.get(j).getIfsk())) { //已收款
+                            yfkhtcount++;
+                            if (fkhtSimpleInfos.get(j).getFkje() == null || ("").equals(fkhtSimpleInfos.get(j).getFkje())) {
+
+                            }else{
+                                yfkhtje+=Double.parseDouble(fkhtSimpleInfos.get(j).getFkje());
+                            }
 
                         }else{
-                            yfkhtje+=Double.parseDouble(fkhtSimpleInfos.get(j).getFkje());
-                        }
+                            wfkhtcount++;
+                            if (fkhtSimpleInfos.get(j).getFkje() == null || ("").equals(fkhtSimpleInfos.get(j).getFkje())) {
 
-                    }else{
-                        wfkhtcount++;
-                        if (fkhtSimpleInfos.get(j).getFkje() == null || ("").equals(fkhtSimpleInfos.get(j).getFkje())) {
-
-                        }else{
-                            wfkhtje+=Double.parseDouble(fkhtSimpleInfos.get(j).getFkje());
+                            }else{
+                                wfkhtje+=Double.parseDouble(fkhtSimpleInfos.get(j).getFkje());
+                            }
                         }
                     }
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
             }
             yfkhtcounts.add(String.valueOf(yfkhtcount));
@@ -442,7 +448,7 @@ public class ReportServiceImpl implements ReportService {
             contractType.add(htfls.get(n).getFlmc());
         }
         //总经理权限查看部门的信息
-        if (role.getQxid().longValue() == Const.Role.ROLE_ZJL || role.getQxid().longValue() == Const.Role.ROLE_ADMIN) {
+        if (role.getQxid().longValue() == Const.Role.ROLE_ZJL || role.getQxid().longValue() == Const.Role.ROLE_ADMIN || role.getQxid().longValue() == Const.Role.ROLE_CWQX) {
             list = reportMapper.selectPersonalTable(htfl, startTime, endTime, fzr, fzrbm, ssfzr, ssfzrbm, dqsheng, dqshi);
             List<Users> users = usersMapper.querybybm(user.getSsbm());
             List<Department> departments = departmentMapper.selectAll();
@@ -456,8 +462,15 @@ public class ReportServiceImpl implements ReportService {
                     Double personalSum=0.0d;
                     if(departments.get(l).getPid().toString().equals("1")) {
                         for (int q = 0; q < list.size(); q++) {
-                            if (usersMapper.selectByPrimaryKey(list.get(q).getFzrid()).getSsbm().equals(departments.get(l).getBmmc()) && list.get(q).getHtfl().equals(htfls.get(k).getFlmc()))
-                                personalSum += list.get(q).getHtnrhtnr().doubleValue();
+                            try {
+                                if (usersMapper.selectByPrimaryKey(list.get(q).getFzrid()).getSsbm().equals(departments.get(l).getBmmc())) {
+                                    if (list.get(q).getHtfl().equals(htfls.get(k).getFlmc()))
+                                        if (list.get(q).getHtnrhtnr() != null)
+                                            personalSum += list.get(q).getHtnrhtnr().doubleValue();
+                                }
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
                         }
                         data.add(personalSum.toString());
                     }
@@ -483,91 +496,96 @@ public class ReportServiceImpl implements ReportService {
                     Double personalSum=0.0d;
                     if(users.get(l).getJsid().toString().equals("4")) {
                         for (int q = 0; q < list.size(); q++) {
-                            if (list.get(q).getFzrid().equals(users.get(l).getId()) && list.get(q).getHtfl().equals(htfls.get(k).getFlmc())) {
-                                personalSum += list.get(q).getHtnrhtnr().doubleValue();
+                            try {
+                                if (list.get(q).getFzrid().equals(users.get(l).getId()) && list.get(q).getHtfl().equals(htfls.get(k).getFlmc())) {
+                                    personalSum += list.get(q).getHtnrhtnr().doubleValue();
+                                }
+                            }catch (Exception e){
+                                e.printStackTrace();
                             }
                         }
-                        data.add(personalSum.toString());
+                        data.add(String.format("%.2f", personalSum).toString());
                     }
                 }
                 System.out.print(data);
                 series.add(new getChartBasicInfo(htfls.get(k).getFlmc(),"总量","bar",data));
             }
-
             getComparedContractInfos.add(new getComparedContractInfo(contractType,queryType,series));
         }
-
-        //普通用户
-        if (role.getQxid().longValue() == Const.Role.ROLE_CUSTOMER) {
-            list = reportMapper.selectPersonalTable(htfl, startTime, endTime, user.getXm(), user.getSsbm(), ssfzr, ssfzrbm, dqsheng, dqshi);
-            List<Users> users = usersMapper.querybybm(user.getSsbm());
-
-            for(int m = 0;m<users.size();m++){
-                queryType.add(users.get(m).getXm());
-            }
-            for(int k = 0;k<htfls.size();k++){
-                List<String> data = new ArrayList<String>();
-                for(int l =0;l<users.size();l++){
-                    Double personalSum=0.0d;
-                    for(int q=0;q<list.size();q++){
-                        if(list.get(q).getFzr().equals(users.get(l).getXm()))
-                            personalSum+=list.get(q).getHtnrhtnr().doubleValue();
-                    }
-                    data.add(personalSum.toString());
-                }
-                series.add(new getChartBasicInfo(htfls.get(k).getFlmc(),"总量","bar",data));
-            }
-
-            getComparedContractInfos.add(new getComparedContractInfo(contractType,queryType,series));
-        }
-
-        //实施用户
-        if (role.getQxid().longValue() == Const.Role.ROLE_SSYH) {
-            list = reportMapper.selectPersonalTable(htfl, startTime, endTime, fzr, fzrbm, user.getXm(), user.getSsbm(), dqsheng, dqshi);
-            List<Users> users = usersMapper.querybybm(user.getSsbm());
-
-            for(int m = 0;m<users.size();m++){
-                queryType.add(users.get(m).getXm());
-            }
-            for(int k = 0;k<htfls.size();k++){
-                List<String> data = new ArrayList<String>();
-                for(int l =0;l<users.size();l++){
-                    Double personalSum=0.0d;
-                    for(int q=0;q<list.size();q++){
-                        if(list.get(q).getFzr().equals(users.get(l).getXm()))
-                            personalSum+=list.get(q).getHtnrhtnr().doubleValue();
-                    }
-                    data.add(personalSum.toString());
-                }
-                series.add(new getChartBasicInfo(htfls.get(k).getFlmc(),"总量","bar",data));
-            }
-
-            getComparedContractInfos.add(new getComparedContractInfo(contractType,queryType,series));
-        }
-        //财务用户
-        if (role.getQxid().longValue() == Const.Role.ROLE_CWQX) {
-            list = reportMapper.selectPersonalTable(htfl, startTime, endTime, fzr, fzrbm, ssfzr, ssfzrbm, dqsheng, dqshi);
-            List<Users> users = usersMapper.querybybm(user.getSsbm());
-
-            for(int m = 0;m<users.size();m++){
-                queryType.add(users.get(m).getXm());
-            }
-            for(int k = 0;k<htfls.size();k++){
-                List<String> data = new ArrayList<String>();
-                for(int l =0;l<users.size();l++){
-                    Double personalSum=0.0d;
-                    for(int q=0;q<list.size();q++){
-                        if(list.get(q).getFzr().equals(users.get(l).getXm()))
-                            personalSum+=list.get(q).getHtnrhtnr().doubleValue();
-                    }
-                    data.add(personalSum.toString());
-                }
-                series.add(new getChartBasicInfo(htfls.get(k).getFlmc(),"总量","bar",data));
-            }
-
-            getComparedContractInfos.add(new getComparedContractInfo(contractType,queryType,series));
-        }
-        //return ServiceResponsebg.createBySuccess(role.getQxid().longValue(), pageInfo.getTotal(), list);
+//        //普通用户
+//        if (role.getQxid().longValue() == Const.Role.ROLE_CUSTOMER) {
+//            list = reportMapper.selectPersonalTable(htfl, startTime, endTime, user.getXm(), user.getSsbm(), ssfzr, ssfzrbm, dqsheng, dqshi);
+//            List<Users> users = usersMapper.querybybm(user.getSsbm());
+//
+//            for(int m = 0;m<users.size();m++){
+//                queryType.add(users.get(m).getXm());
+//            }
+//            for(int k = 0;k<htfls.size();k++){
+//                List<String> data = new ArrayList<String>();
+//                for(int l =0;l<users.size();l++){
+//                    Double personalSum=0.0d;
+//                    for(int q=0;q<list.size();q++){
+//                        try {
+//                            if(list.get(q).getFzr().equals(users.get(l).getXm()))
+//                                personalSum+=list.get(q).getHtnrhtnr().doubleValue();
+//                        }catch (Exception e){
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                    data.add(personalSum.toString());
+//                }
+//                series.add(new getChartBasicInfo(htfls.get(k).getFlmc(),"总量","bar",data));
+//            }
+//
+//            getComparedContractInfos.add(new getComparedContractInfo(contractType,queryType,series));
+//        }
+//
+//        //实施用户
+//        if (role.getQxid().longValue() == Const.Role.ROLE_SSYH) {
+//            list = reportMapper.selectPersonalTable(htfl, startTime, endTime, fzr, fzrbm, user.getXm(), user.getSsbm(), dqsheng, dqshi);
+//            List<Users> users = usersMapper.querybybm(user.getSsbm());
+//
+//            for(int m = 0;m<users.size();m++){
+//                queryType.add(users.get(m).getXm());
+//            }
+//            for(int k = 0;k<htfls.size();k++){
+//                List<String> data = new ArrayList<String>();
+//                for(int l =0;l<users.size();l++){
+//                    Double personalSum=0.0d;
+//                    for(int q=0;q<list.size();q++){
+//                        if(list.get(q).getFzr().equals(users.get(l).getXm()))
+//                            personalSum+=list.get(q).getHtnrhtnr().doubleValue();
+//                    }
+//                    data.add(personalSum.toString());
+//                }
+//                series.add(new getChartBasicInfo(htfls.get(k).getFlmc(),"总量","bar",data));
+//            }
+//
+//            getComparedContractInfos.add(new getComparedContractInfo(contractType,queryType,series));
+//        }
+//        //财务用户
+//        if (role.getQxid().longValue() == Const.Role.ROLE_CWQX) {
+//            list = reportMapper.selectPersonalTable(htfl, startTime, endTime, fzr, fzrbm, ssfzr, ssfzrbm, dqsheng, dqshi);
+//            List<Users> users = usersMapper.querybybm(user.getSsbm());
+//
+//            for(int m = 0;m<users.size();m++){
+//                queryType.add(users.get(m).getXm());
+//            }
+//            for(int k = 0;k<htfls.size();k++){
+//                List<String> data = new ArrayList<String>();
+//                for(int l =0;l<users.size();l++){
+//                    Double personalSum=0.0d;
+//                    for(int q=0;q<list.size();q++){
+//                        if(list.get(q).getFzr().equals(users.get(l).getXm()))
+//                            personalSum+=list.get(q).getHtnrhtnr().doubleValue();
+//                    }
+//                    data.add(personalSum.toString());
+//                }
+//                series.add(new getChartBasicInfo(htfls.get(k).getFlmc(),"总量","bar",data));
+//            }
+//
+//            getComparedContractInfos.add(new getComparedContractInfo(contractType,queryType,series));
+//        }
         return ServiceResponsebg.createBySuccess(getComparedContractInfos);
     }
 

@@ -59,6 +59,7 @@ public class MessageServiceImpl implements MessageService {
         if(sendSmsResponse.getCode()!= null && sendSmsResponse.getCode().equals("OK")){
             System.out.println("短信发送成功！");
         }else {
+            System.out.print(sendSmsResponse.getCode());
             System.out.println("短信发送失败！");
         }
         return sendSmsResponse;
@@ -81,12 +82,14 @@ public class MessageServiceImpl implements MessageService {
         if(sendSmsResponse.getCode()!= null && sendSmsResponse.getCode().equals("OK")){
             System.out.println("短信发送成功！");
         }else {
+            System.out.print(sendSmsResponse.getCode());
             System.out.println("短信发送失败！");
         }
         return sendSmsResponse;
     }
 
     //合同负责人确认合同后 -- 实施负责人收到 -- 通知短信
+    //${name}你好，与${yyname}的合同已确认，请尽快开展实施工作，如有问题，请联系合同负责人${fzr}
     //${name}你好，与${yyname}的合同已确认，请尽快开展实施工作，如有问题，请联系合同负责人${fzr}
     public SendSmsResponse sendTz(String telephone, String name,String yyname,String fzr) throws ClientException{
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
@@ -103,6 +106,7 @@ public class MessageServiceImpl implements MessageService {
         if(sendSmsResponse.getCode()!= null && sendSmsResponse.getCode().equals("OK")){
             System.out.println("短信发送成功！");
         }else {
+            System.out.print(sendSmsResponse.getCode());
             System.out.println("短信发送失败！");
         }
         return sendSmsResponse;
@@ -125,6 +129,7 @@ public class MessageServiceImpl implements MessageService {
         if(sendSmsResponse.getCode()!= null && sendSmsResponse.getCode().equals("OK")){
             System.out.println("短信发送成功！");
         }else {
+            System.out.print(sendSmsResponse.getCode());
             System.out.println("短信发送失败！");
         }
         return sendSmsResponse;
@@ -148,6 +153,7 @@ public class MessageServiceImpl implements MessageService {
         if(sendSmsResponse.getCode()!= null && sendSmsResponse.getCode().equals("OK")){
             System.out.println("短信发送成功！");
         }else {
+            System.out.print(sendSmsResponse.getCode());
             System.out.println("短信发送失败！");
         }
         return sendSmsResponse;
@@ -173,6 +179,7 @@ public class MessageServiceImpl implements MessageService {
         if(sendSmsResponse.getCode()!= null && sendSmsResponse.getCode().equals("OK")){
             System.out.println("短信发送成功！");
         }else {
+            System.out.print(sendSmsResponse.getCode());
             System.out.println("短信发送失败！");
         }
         return sendSmsResponse;
@@ -192,6 +199,7 @@ public class MessageServiceImpl implements MessageService {
         if(sendSmsResponse.getCode()!= null && sendSmsResponse.getCode().equals("OK")){
             System.out.println("短信发送成功！");
         }else {
+            System.out.print(sendSmsResponse.getCode());
             System.out.println("短信发送失败！");
         }
         return sendSmsResponse;
@@ -211,6 +219,7 @@ public class MessageServiceImpl implements MessageService {
         if(sendSmsResponse.getCode()!= null && sendSmsResponse.getCode().equals("OK")){
             System.out.println("短信发送成功！");
         }else {
+            System.out.print(sendSmsResponse.getCode());
             System.out.println("短信发送失败！");
         }
         return sendSmsResponse;
@@ -234,6 +243,7 @@ public class MessageServiceImpl implements MessageService {
         if(sendSmsResponse.getCode()!= null && sendSmsResponse.getCode().equals("OK")){
             System.out.println("短信发送成功！");
         }else {
+            System.out.print(sendSmsResponse.getCode());
             System.out.println("短信发送失败！");
         }
         return sendSmsResponse;

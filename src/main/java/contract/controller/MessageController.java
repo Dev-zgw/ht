@@ -32,6 +32,7 @@ public class MessageController {
         List<HtMessage> htMessages = messageService.queryHtMessage();
         List<FkMessage> fkMessages = messageService.queryFkMessage();
         SendSmsResponse response = null;
+        response = messageServiceImpl.sendTz("1586805616", "金若妮","杭州第一人民医院", "金若妮");
         try {
             System.out.println("start fk");
             for (int i = 0; i < fkMessages.size(); i++) {

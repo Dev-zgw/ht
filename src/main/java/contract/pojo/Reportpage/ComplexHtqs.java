@@ -29,7 +29,7 @@ public class ComplexHtqs {
 
     private Date updateTime;
 
-    private Date sj;
+    private String sj;
 
     private String ssfzr;
 
@@ -47,7 +47,8 @@ public class ComplexHtqs {
 
     private String yymc;
 
-    public ComplexHtqs(BigDecimal id, String htbh, Long qs, BigDecimal je, Date yjsj, String sgyq, String sfskwc, BigDecimal skje, String createBy, String updateBy, Date createTime, Date updateTime, Date sj, String ssfzr, BigDecimal ssfzrid, String bz, String flmc, String sheng, String shi, String fzr, String yymc) {
+
+    public ComplexHtqs(BigDecimal id, String htbh, Long qs, BigDecimal je, Date yjsj, String sgyq, String sfskwc, BigDecimal skje, String createBy, String updateBy, Date createTime, Date updateTime, String sj, String ssfzr, BigDecimal ssfzrid, String bz, String flmc, String sheng, String shi, String fzr, String yymc) {
         this.id = id;
         this.htbh = htbh;
         this.qs = qs;
@@ -70,7 +71,6 @@ public class ComplexHtqs {
         this.fzr = fzr;
         this.yymc = yymc;
     }
-
 
     public BigDecimal getId() {
         return id;
@@ -168,11 +168,11 @@ public class ComplexHtqs {
         this.updateTime = updateTime;
     }
 
-    public Date getSj() {
+    public String getSj() {
         return sj;
     }
 
-    public void setSj(Date sj) {
+    public void setSj(String sj) {
         this.sj = sj;
     }
 
@@ -224,7 +224,6 @@ public class ComplexHtqs {
         this.shi = shi;
     }
 
-
     public String getFzr() {
         return fzr;
     }
@@ -232,7 +231,6 @@ public class ComplexHtqs {
     public void setFzr(String fzr) {
         this.fzr = fzr;
     }
-
 
     public String getYymc() {
         return yymc;
@@ -257,7 +255,7 @@ public class ComplexHtqs {
                 ", updateBy='" + updateBy + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
-                ", sj=" + sj +
+                ", sj='" + sj + '\'' +
                 ", ssfzr='" + ssfzr + '\'' +
                 ", ssfzrid=" + ssfzrid +
                 ", bz='" + bz + '\'' +
