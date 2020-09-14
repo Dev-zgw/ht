@@ -252,8 +252,8 @@ public class HtServiceImpl implements HtService {
                     //合同负责人确认合同后 -- 部门经理收到 -- 合同签订短信
                     messageServiceImpl.sendHtqd(usersbmjl.getSjhm(),usersbmjl.getXm(),ht.getFzr(),ht.getHtmc());
                     //合同负责人确认合同后 -- 实施负责人收到 -- 通知短信
-                    String a=ht.getFzr()+" ,联系方式："+user.getSjhm();
-                    messageServiceImpl.sendTz(userMapper.queryxm(ht.getSsfzr()).getSjhm(),ht.getSsfzr(),ht.getYymc(),a);
+                    /*String a=ht.getFzr()+" ,联系方式："+user.getSjhm();*/
+                    messageServiceImpl.sendTz(userMapper.queryxm(ht.getSsfzr()).getSjhm(),ht.getSsfzr(),ht.getYymc(),ht.getFzr());
                 }catch (Exception e){
                     e.printStackTrace();
                 }
