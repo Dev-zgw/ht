@@ -206,12 +206,13 @@ public class HtqsServiceImpl implements HtqsService {
     }
     @Override
     public ServerResponse daoru(List<Map<String, Object>> list) throws Exception {
-        Htqs htqs=new Htqs();
+
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
         //将excel表格中的数据写入到htqs表中
         if(!list.isEmpty()){
             for (int i=0;i<list.size();i++){
                 Map<String, Object> map=list.get(i);
+                Htqs htqs=new Htqs();
                 if (isObjectNotEmpty(map.get("htbh"))) {
                     htqs.setHtbh(map.get("htbh").toString());
                 }
@@ -230,8 +231,8 @@ public class HtqsServiceImpl implements HtqsService {
                 if (isObjectNotEmpty(map.get("bz"))) {
                     htqs.setBz(map.get("bz").toString());
                 }
-                if (isObjectNotEmpty(map.get("ssfkwc"))) {
-                    htqs.setSfskwc(map.get("ssfkwc").toString());
+                if (isObjectNotEmpty(map.get("sfskwc"))) {
+                    htqs.setSfskwc(map.get("sfskwc").toString());
                 }
                 htqsMapper.insertSelective(htqs);
             }

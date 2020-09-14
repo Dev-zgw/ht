@@ -35,6 +35,11 @@
     delete from HTQS
     where ID = #{id,jdbcType=DECIMAL}
   </delete>
+
+  <delete id="delete" parameterType="string" >
+    delete from HTQS
+    where HTBH = #{htbh,jdbcType=DECIMAL}
+  </delete>
   <insert id="insert" parameterType="contract.pojo.Htqs" >
     insert into HTQS (ID, HTBH, QS,
       JE, YJSJ, SGYQ, SFSKWC,

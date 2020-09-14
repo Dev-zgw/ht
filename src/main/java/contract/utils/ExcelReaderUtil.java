@@ -38,7 +38,7 @@ public class ExcelReaderUtil {
                 continue;
             }
             //遍历当前sheet所有行
-            for (int j = 3; j <=sheet.getLastRowNum(); j++) {
+            for (int j = 3; j <sheet.getLastRowNum(); j++) {
                 row = sheet.getRow(j);
                 //去掉空行和表头
                 if (row == null || row.getFirstCellNum() == j) {

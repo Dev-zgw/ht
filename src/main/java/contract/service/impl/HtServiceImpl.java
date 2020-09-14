@@ -187,6 +187,7 @@ public class HtServiceImpl implements HtService {
             return ServerResponse.createByErrorMessage("合同状态为进行中或已完成，不能删除");
         }else{
             int i=htMapper.deleteByPrimaryKey(new BigDecimal(id));
+            htqsMapper.delete(ht.getHtbh());
             if (i <= 0) {
                 Result result=new Result();
                 result.setHtbh(ht.getHtbh());
@@ -307,12 +308,13 @@ public class HtServiceImpl implements HtService {
 
     @Override
     public ServerResponse daoru(List<Map<String, Object>> list) throws Exception {
-        Ht ht=new Ht();
+
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
         //将excel表格中的数据写入到ht表中
         if(!list.isEmpty()){
             for (int i=0;i<list.size();i++) {
                 Map<String, Object> map = list.get(i);
+                Ht ht=new Ht();
                 if (isObjectNotEmpty(map.get("htbh"))) {
                     ht.setHtbh(map.get("htbh").toString());
                 }
@@ -326,7 +328,7 @@ public class HtServiceImpl implements HtService {
                     ht.setDqsheng(map.get("dqsheng").toString());
                 }
                 if (isObjectNotEmpty(map.get("dqshi"))) {
-                    ht.setDqsheng(map.get("dqshi").toString());
+                    ht.setDqshi(map.get("dqshi").toString());
                 }
                 if (isObjectNotEmpty(map.get("htfl"))) {
                     ht.setHtfl(htflMapper.query(map.get("htfl").toString()).getId());
