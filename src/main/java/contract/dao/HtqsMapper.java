@@ -22,4 +22,6 @@ public interface HtqsMapper {
     List<Htqs> query(@Param("htbh") String htbh);
 
     int updatezt(@Param("id") BigDecimal id,@Param("htfqzt") String htfqzt);
+
+    int delete(@Param("htbh") String htbh);
 }
