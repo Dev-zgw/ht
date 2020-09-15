@@ -228,7 +228,7 @@ public class MessageServiceImpl implements MessageService {
     //财务确认合同款结清，合同负责人收到合同款结清短信
     //财务确认合同款结清，部门经理收到合同款结清短信
     //${name}你好，${fzr}的${ht}的合同款已结清。
-    public SendSmsResponse sendHtkjq(String telephone, String name,String ht,String fzr) throws ClientException{
+    public SendSmsResponse sendHtkjq(String telephone, String name,String ht) throws ClientException{
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
         System.setProperty("sun.net.client.defaultReadTimeout", "10000");
         IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", accessKeyId, accessKeySecret);
@@ -237,8 +237,9 @@ public class MessageServiceImpl implements MessageService {
         SendSmsRequest request = new SendSmsRequest();
         request.setPhoneNumbers(telephone);
         request.setSignName("茵岢科技");    // 这是验证码的短信签名，发送通用短信需要再申请签名
-        request.setTemplateCode("SMS_202562443");
-        request.setTemplateParam("{\"name\":\""+name+"\",\"fzr\":\""+fzr+"\", \"ht\":\""+ht+"\"}");
+        request.setTemplateCode("SMS_201480494");
+        request.setTemplateParam("{\"name\":\""+name+"\", \"ht\":\""+ht+"\"}");
+
         SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
         if(sendSmsResponse.getCode()!= null && sendSmsResponse.getCode().equals("OK")){
             System.out.println("短信发送成功！");
@@ -250,7 +251,7 @@ public class MessageServiceImpl implements MessageService {
     }
 
 
-    public SendSmsResponse sendHtkjq2(String telephone, String name,String ht) throws ClientException{
+    public SendSmsResponse sendHtkjq2(String telephone, String name,String ht,String fzr) throws ClientException{
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
         System.setProperty("sun.net.client.defaultReadTimeout", "10000");
         IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", accessKeyId, accessKeySecret);
@@ -259,8 +260,8 @@ public class MessageServiceImpl implements MessageService {
         SendSmsRequest request = new SendSmsRequest();
         request.setPhoneNumbers(telephone);
         request.setSignName("茵岢科技");    // 这是验证码的短信签名，发送通用短信需要再申请签名
-        request.setTemplateCode("SMS_201480494");
-        request.setTemplateParam("{\"name\":\""+name+"\", \"ht\":\""+ht+"\"}");
+        request.setTemplateCode("SMS_202562443");
+        request.setTemplateParam("{\"name\":\""+name+"\",\"fzr\":\""+fzr+"\", \"ht\":\""+ht+"\"}");
         SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
         if(sendSmsResponse.getCode()!= null && sendSmsResponse.getCode().equals("OK")){
             System.out.println("短信发送成功！");
