@@ -64,6 +64,17 @@ public class MessageServiceImpl implements MessageService {
         }
         return sendSmsResponse;
     }
+
+    /**
+     *
+     * @param telephone
+     * @param fzr
+     * @param yf
+     * @param je
+     * @param ht
+     * @return
+     * @throws ClientException
+     */
     //${fzr}你好，你与${yf}签订的金额为${je}的合同${ht}已录入，请尽快至系统中进行确认！
     public SendSmsResponse sendHtqr2(String telephone, String fzr,String yf,String je,String ht) throws ClientException{
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
@@ -108,6 +119,18 @@ public class MessageServiceImpl implements MessageService {
         }
         return sendSmsResponse;
     }
+
+    /**
+     *
+     * @param telephone
+     * @param jl
+     * @param fzr
+     * @param ht
+     * @param yf
+     * @param je
+     * @return
+     * @throws ClientException
+     */
     //${jl}经理你好，${fzr}负责的合同：${ht}已完成签订，业务合作方为${yf}，合同金额为${je}
     public SendSmsResponse sendHtqd2(String telephone, String jl,String fzr,String ht,String yf,String je) throws ClientException{
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
@@ -152,6 +175,17 @@ public class MessageServiceImpl implements MessageService {
         }
         return sendSmsResponse;
     }
+
+    /**
+     *
+     * @param telephone
+     * @param ss
+     * @param yf
+     * @param fzr
+     * @param phone
+     * @return
+     * @throws ClientException
+     */
     //${ss}你好，与${yf}的合同已确认，请尽快开展实施工作，如有问题，请联系合同负责人${fzr}，${phone}。
     public SendSmsResponse sendTz2(String telephone, String ss,String yf,String fzr,String phone) throws ClientException{
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
@@ -196,7 +230,19 @@ public class MessageServiceImpl implements MessageService {
         }
         return sendSmsResponse;
     }
-    //${fzr}你好，你与${yf}签订的合同：${ht}将在${sj}内到期，付款截止时间为${jzsj}，付款金额为${je}，请尽快确认！
+
+    /**
+     *
+     * @param telephone
+     * @param fzr
+     * @param yf
+     * @param ht
+     * @param sj
+     * @param jzsj
+     * @param je
+     * @return
+     * @throws ClientException
+     */
     //${fzr}你好，你与${yf}签订的合同：${ht}将在${sj}内到期，付款截止时间为${jzsj}，付款金额为${je}，请尽快确认！
     public SendSmsResponse sendFkdqtx2(String telephone, String fzr,String yf,String ht,String sj,String jzsj,String je) throws ClientException{
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
@@ -241,7 +287,19 @@ public class MessageServiceImpl implements MessageService {
         }
         return sendSmsResponse;
     }
-    //${fzr}你好，与${yf}签订的合同：${ht}，已在${sj}逾期，合同金额为${je}，请尽快处理！
+
+    /**
+     *
+     * @param telephone
+     * @param fzr
+     * @param yf
+     * @param ht
+     * @param sj
+     * @param je
+     * @return
+     * @throws ClientException
+     */
+    //${fzr}你好，与${yf}签订的合同：${ht}已在${sj}到期，合同金额为${je}，请尽快处理！
     public SendSmsResponse sendFkyq2(String telephone, String fzr,String yf,String ht,String sj,String je) throws ClientException{
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
         System.setProperty("sun.net.client.defaultReadTimeout", "10000");
@@ -331,6 +389,18 @@ public class MessageServiceImpl implements MessageService {
     //${fzr}你好，与${yf}签订的合同：${ht}将于${sj}到期，距离合同结束还有${sysj}个月，请尽快确认！
     //${fzr}你好，与${yf}签订的${ht}将于${time}到期，距离合同结束还有${sysj}周，请尽快确认！
     //${fzr}你好，与${yf}签订的合同：${ht}，将于${time}到期，距离合同结束还有${sysj}天，请尽快确认！
+
+    /**
+     *
+     * @param telephone
+     * @param fzr
+     * @param yf
+     * @param ht
+     * @param sj
+     * @param sysj
+     * @return
+     * @throws ClientException
+     */
     public SendSmsResponse sendHtdqy2(String telephone, String fzr,String yf,String ht,String sj,String sysj) throws ClientException{
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
         System.setProperty("sun.net.client.defaultReadTimeout", "10000");
@@ -351,6 +421,18 @@ public class MessageServiceImpl implements MessageService {
         }
         return sendSmsResponse;
     }
+
+    /**
+     *
+     * @param telephone
+     * @param fzr
+     * @param yf
+     * @param ht
+     * @param time
+     * @param sysj
+     * @return
+     * @throws ClientException
+     */
     public SendSmsResponse sendHtdqz2(String telephone, String fzr,String yf,String ht,String time,String sysj) throws ClientException{
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
         System.setProperty("sun.net.client.defaultReadTimeout", "10000");
@@ -371,6 +453,18 @@ public class MessageServiceImpl implements MessageService {
         }
         return sendSmsResponse;
     }
+
+    /**
+     *
+     * @param telephone
+     * @param fzr
+     * @param yf
+     * @param ht
+     * @param time
+     * @param sysj
+     * @return
+     * @throws ClientException
+     */
     public SendSmsResponse sendHtdqt2(String telephone, String fzr,String yf,String ht,String time,String sysj) throws ClientException{
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
         System.setProperty("sun.net.client.defaultReadTimeout", "10000");
@@ -437,7 +531,19 @@ public class MessageServiceImpl implements MessageService {
         }
         return sendSmsResponse;
     }
+
     //${name}你好，${fzr}与${yf}签订的合同：${ht}的合同款已结清，合同金额为${je}。
+    /**
+     *
+     * @param telephone
+     * @param name
+     * @param fzr
+     * @param yf
+     * @param ht
+     * @param je
+     * @return
+     * @throws ClientException
+     */
     public SendSmsResponse sendHtkjq3(String telephone, String name,String fzr,String yf,String ht,String je) throws ClientException{
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
         System.setProperty("sun.net.client.defaultReadTimeout", "10000");
@@ -449,6 +555,38 @@ public class MessageServiceImpl implements MessageService {
         request.setSignName("茵岢科技");    // 这是验证码的短信签名，发送通用短信需要再申请签名
         request.setTemplateCode("SMS_202810167");
         request.setTemplateParam("{\"name\":\""+name+"\",\"fzr\":\""+fzr+"\",\"yf\":\""+yf+"\",\"ht\":\""+ht+"\", \"je\":\""+je+"\"}");
+        SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
+        if(sendSmsResponse.getCode()!= null && sendSmsResponse.getCode().equals("OK")){
+            System.out.println("短信发送成功！");
+        }else {
+            System.out.print(MessageHandle(sendSmsResponse.getCode()));
+            System.out.println("短信发送失败！");
+        }
+        return sendSmsResponse;
+    }
+
+    //${name}你好，与${yf}签订的合同：${ht}的合同款已结清，合同金额为${je}。
+    /**
+     *
+     * @param telephone
+     * @param name
+     * @param yf
+     * @param ht
+     * @param je
+     * @return
+     * @throws ClientException
+     */
+    public SendSmsResponse sendHtkjq4(String telephone, String name,String yf,String ht,String je) throws ClientException{
+        System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
+        System.setProperty("sun.net.client.defaultReadTimeout", "10000");
+        IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", accessKeyId, accessKeySecret);
+        DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", product, domain);
+        IAcsClient acsClient = new DefaultAcsClient(profile);
+        SendSmsRequest request = new SendSmsRequest();
+        request.setPhoneNumbers(telephone);
+        request.setSignName("茵岢科技");    // 这是验证码的短信签名，发送通用短信需要再申请签名
+        request.setTemplateCode("SMS_202817007");
+        request.setTemplateParam("{\"name\":\""+name+"\",\"yf\":\""+yf+"\",\"ht\":\""+ht+"\", \"je\":\""+je+"\"}");
         SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
         if(sendSmsResponse.getCode()!= null && sendSmsResponse.getCode().equals("OK")){
             System.out.println("短信发送成功！");
