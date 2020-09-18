@@ -261,7 +261,7 @@ public class HtServiceImpl implements HtService {
             }else if(htzt.equals("2")){
                 try {
                     //财务确认合同款结清，合同负责人收到合同款结清短信
-                    messageServiceImpl.sendHtkjq(userMapper.queryxm(ht.getFzr()).getSjhm(),ht.getFzr(),ht.getHtmc());
+                    messageServiceImpl.sendHtkjq4(userMapper.queryxm(ht.getFzr()).getSjhm(),ht.getFzr(),ht.getYymc(),ht.getHtmc(),ht.getHtnrhtnr().toString());
                     //财务确认合同款结清，部门经理收到合同款结清短信
                     messageServiceImpl.sendHtkjq3(usersbmjl.getSjhm(),usersbmjl.getXm(),ht.getFzr(),ht.getYymc(),ht.getHtmc(),ht.getHtnrhtnr().toString());
                 }catch (Exception e){
