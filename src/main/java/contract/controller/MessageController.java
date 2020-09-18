@@ -8,7 +8,9 @@ import contract.pojo.Message.HtMessage;
 import contract.service.HtService;
 import contract.service.MessageService;
 import contract.service.impl.MessageServiceImpl;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.springframework.beans.factory.annotation.Autowired;
+import sun.nio.cs.ext.SJIS;
 
 import java.util.List;
 
@@ -32,49 +34,97 @@ public class MessageController {
         List<HtMessage> htMessages = messageService.queryHtMessage();
         List<FkMessage> fkMessages = messageService.queryFkMessage();
         SendSmsResponse response = null;
-        response = messageServiceImpl.sendTz("1586805616", "金若妮","杭州第一人民医院", "金若妮");
         try {
             System.out.println("start fk");
+            String sjhm = "";
+            String fzr = "";
+            String ht = "";
+            String sysj = "";
+            String jzsj = "";
+            String yf= "";
+            String je = "";
             for (int i = 0; i < fkMessages.size(); i++) {
-                String sjhm = fkMessages.get(i).getSjhm();
-                String fzr = fkMessages.get(i).getFzr();
-                String ht = "";
-                String sysj = fkMessages.get(i).getSysj();
-                String jzsj = fkMessages.get(i).getSj();
+                try{
+                    sjhm = fkMessages.get(i).getSjhm();
+                }catch (NullPointerException e){
+                    System.out.print("无手机号");
+                    e.printStackTrace();
+                }
+                try{
+                    ht = fkMessages.get(i).getHtmc();
+                }catch (NullPointerException e){
+                    System.out.print("无合同名称");
+                    e.printStackTrace();
+                }
+                try{
+                    sysj = fkMessages.get(i).getSysj();
+                }catch (NullPointerException e){
+                    System.out.print("无剩余时间");
+                    e.printStackTrace();
+                }
+                try{
+                    jzsj = fkMessages.get(i).getSj();
+                }catch (NullPointerException e){
+                    System.out.print("无截止日期");
+                    e.printStackTrace();
+                }
+                try{
+                    yf = fkMessages.get(i).getYf();
+                }catch (NullPointerException e){
+                    System.out.print("无乙方");
+                    e.printStackTrace();
+                }
+                try{
+                    fzr = fkMessages.get(i).getFzr();
+                }catch (NullPointerException e){
+                    System.out.print("无负责人");
+                    e.printStackTrace();
+                }
+                try{
+                    je = fkMessages.get(i).getJe();
+                }catch (NullPointerException e){
+                    System.out.print("无金额");
+                    e.printStackTrace();
+                }
                 if (sjhm.equals("") || sjhm == null) {
 
                 } else {
-                    if (fkMessages.get(i).getHtmc() == null) {
-                        if (fkMessages.get(i).getHtbh() == null) {
-
-                        } else {
-                            ht += fkMessages.get(i).getHtbh();
-                        }
-                    } else {
-                        if (fkMessages.get(i).getHtbh() == null) {
-                            ht += fkMessages.get(i).getHtbh();
-                        } else {
-                            ht += fkMessages.get(i).getHtbh() + "-" + fkMessages.get(i).getHtmc();
-                        }
+                    if (ht.equals("") || ht == null) {
+                        ht="";
                     }
-                    //System.out.print(sjhm + " " + fzr + " " + ht + " " + sysj + " " + jzsj);
+                    if (fzr.equals("") || fzr == null) {
+                        fzr="";
+                    }
+                    if(yf.equals("") || yf==null){
+                        yf="";
+                    }
+                    if(je.equals("") || je==null){
+                        je="";
+                    }else{
+                        je+="万";
+                    }
+                    if(yf.length()>20){
+                        yf= yf.substring(0,17)+"...";
+                    }
+                    if(ht.length()>20){
+                        ht= ht.substring(0,17)+"...";
+                    }
                     if (sysj.equals("3")) {
-                        //response = messageServiceImpl.sendFkdqtx(sjhm, fzr, "合同"+ht, "3天", jzsj);
+                        //response = messageServiceImpl.sendFkdqtx2(sjhm,fzr,yf, ht, "3天", jzsj,je);
                         System.out.println("response = messageServiceImpl.sendFkdqtx(sjhm, fzr, ht, \"3天\", jzsj)");
                     } else if (sysj.equals("7")) {
-                        //response = messageServiceImpl.sendFkdqtx(sjhm, fzr, ht, "合同"+"1周", jzsj);
+                        //response = messageServiceImpl.sendFkdqtx2(sjhm,fzr,yf, ht, "1周", jzsj,je);
                         System.out.println("response = messageServiceImpl.sendFkdqtx(sjhm, fzr, ht, \"1周\", jzsj)");
                     } else if (sysj.equals("14")) {
-                        //response = messageServiceImpl.sendFkdqtx(sjhm, fzr, ht, "合同"+"2周", jzsj);
+                        //response = messageServiceImpl.sendFkdqtx2(sjhm,fzr,yf, ht, "2周", jzsj,je);
                         System.out.println("response = messageServiceImpl.sendFkdqtx(sjhm, fzr, ht, \"2周\", jzsj)");
                     } else if (sysj.equals("30")) {
-                        //response = messageServiceImpl.sendFkdqtx(sjhm, fzr, ht, "合同"+"一个月", jzsj);
+                        //response = messageServiceImpl.sendFkdqtx2(sjhm,fzr,yf, ht, "一个月", jzsj,je);
                         System.out.println("response = messageServiceImpl.sendFkdqtx(sjhm, fzr, ht, \"一个月\", jzsj)");
                     } else if (sysj.equals("-1")) {
-                        response = messageServiceImpl.sendFkyq(sjhm, fzr, ht, jzsj);
+                        response = messageServiceImpl.sendFkyq2(sjhm,fzr,yf,ht,jzsj,je);
                         System.out.println("response = messageServiceImpl.sendFkyq(sjhm, fzr, ht, jzsj)");
-                    }
-                    else{
+                    }else{
                         System.out.println(sysj);
                     }
                 }
@@ -82,47 +132,87 @@ public class MessageController {
             }
             System.out.println("end fk");
         } catch (Exception e) {
+            System.out.print("付款短信发送存在错误");
             e.printStackTrace();
         }
         try {
             System.out.println("start ht");
+            String sjhm = "";
+            String ht = "";
+            String fzr = "";
+            String sysj = "";
+            String jzsj = "";
+            String yf = "";
             for (int j = 0; j < htMessages.size(); j++) {
-                String sjhm = htMessages.get(j).getSjhm();
-                String ht = "";
-                String fzr = htMessages.get(j).getFzr();
-                String sysj = htMessages.get(j).getSysj();
-                String jzsj = htMessages.get(j).getZzrq();
+                try{
+                    sjhm = htMessages.get(j).getSjhm();
+                }catch (Exception e){
+                    System.out.print("无手机号");
+                    //e.printStackTrace();
+                }
+                try{
+                    ht = htMessages.get(j).getHtmc();
+                }catch (Exception e){
+                    System.out.print("无合同名称");
+                    //e.printStackTrace();
+                }
+                try{
+                    sysj = htMessages.get(j).getSysj();
+                }catch (Exception e){
+                    System.out.print("无剩余时间");
+                    //e.printStackTrace();
+                }
+                try{
+                    jzsj = htMessages.get(j).getZzrq();
+                }catch (Exception e){
+                    System.out.print("无截止日期");
+                    //e.printStackTrace();
+                }
+                try{
+                    yf = htMessages.get(j).getYf();
+                }catch (Exception e){
+                    System.out.print("无乙方");
+                    //e.printStackTrace();
+                }
+                try{
+                    fzr = htMessages.get(j).getFzr();
+                }catch (NullPointerException e){
+                    System.out.print("无负责人");
+                    e.printStackTrace();
+                }
                 if (sjhm.equals("") || sjhm == null) {
 
                 } else {
-                    if (htMessages.get(j).getXxmc() == null) {
-                        if (htMessages.get(j).getHtbh() == null) {
-
-                        } else {
-                            ht = htMessages.get(j).getHtbh();
-                        }
-                    } else {
-                        if (htMessages.get(j).getHtbh() == null) {
-                            ht = htMessages.get(j).getHtbh();
-                        } else {
-                            ht = htMessages.get(j).getHtbh() + "-" + htMessages.get(j).getXxmc();
-                        }
+                    if (ht.equals("") || ht == null) {
+                        ht="";
+                    }
+                    if (fzr.equals("") || fzr == null) {
+                        fzr="";
+                    }
+                    if (yf.equals("") || yf == null) {
+                        yf="";
+                    }
+                    if(yf.length()>20){
+                        yf= yf.substring(0,17)+"...";
+                    }
+                    if(ht.length()>20){
+                        ht= ht.substring(0,17)+"...";
                     }
                     if (sysj.equals("7")) {
-                        //response = messageServiceImpl.sendHtdqz(sjhm, fzr, "合同"+ht+"的付款", jzsj, "1");
+                        //response = messageServiceImpl.sendHtdqz2(sjhm, fzr,yf,ht,jzsj,"1");
                         System.out.println("response = messageServiceImpl.sendHtdqz(sjhm, fzr, ht, jzsj, \"1\")");
                     } else if (sysj.equals("30")) {
-                        //response = messageServiceImpl.sendHtdqy(sjhm, fzr, "合同"+ht+"的付款", jzsj, "1");
+                        //response = messageServiceImpl.sendHtdqy2(sjhm,fzr,yf,ht,jzsj,"1");
                         System.out.println("response = messageServiceImpl.sendHtdqy(sjhm, fzr, ht, jzsj, \"1\")");
                     } else if (sysj.equals("60")) {
-                        //response = messageServiceImpl.sendHtdqy(sjhm, fzr, "合同"+ht+"的付款", jzsj, "2");
+                        //response = messageServiceImpl.sendHtdqy2(sjhm, fzr, yf, ht, jzsj, "2");
                         System.out.print("response = messageServiceImpl.sendHtdqy(sjhm, fzr, ht, jzsj, \"2\")");
                     } else if (sysj.equals("90")) {
-                        //response = messageServiceImpl.sendHtdqy(sjhm, fzr, "合同"+ht+"的付款", jzsj, "3");
+                        //response = messageServiceImpl.sendHtdqy2(sjhm, fzr, yf, ht, jzsj, "3");
                         System.out.println("response = messageServiceImpl.sendHtdqy(sjhm, fzr, ht, jzsj, \"3\")");
                     }
                     else{
-                        System.out.println(sysj);
+                        //System.out.println(sysj);
                     }
 //                    System.out.println("短信接口返回的数据----------------");
 //                    System.out.println("Code=" + response.getCode());
@@ -133,6 +223,7 @@ public class MessageController {
             }
             System.out.println("end ht");
         } catch (Exception e) {
+            System.out.print("合同短信发送存在错误");
             e.printStackTrace();
         }
         System.out.print("已结束定时器");

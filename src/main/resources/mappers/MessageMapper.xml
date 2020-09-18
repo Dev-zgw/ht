@@ -9,6 +9,8 @@
             <arg column="SJ" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="SJHM" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="SYSJ" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="YF" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="JE" jdbcType="VARCHAR" javaType="java.lang.String"/>
         </constructor>
     </resultMap>
     <resultMap id="htmessage" type="contract.pojo.Message.HtMessage">
@@ -19,24 +21,30 @@
             <arg column="SYSJ" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="SJHM" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="HTMC" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="YF" jdbcType="VARCHAR" javaType="java.lang.String"/>
         </constructor>
     </resultMap>
     <!--提前付款期限一个月/两周/一周/三天，合同负责人收到合同到期提醒短信-->
     <!--超出付款期限，合同负责人收到付款逾期短信(只发一次)-->
     <select id="selectFkMessageInfo" resultMap="fkmessage">
-        select ht.fzr as fzr,htqs.htbh as htbh,ht.HTMC as htmc,to_char(htqs.sj,'yyyy-mm-dd') as sj,users.sjhm as sjhm,
-            to_date(to_char(htqs.sj,'yyyy-mm-dd'),'yyyy-mm-dd')-to_date(to_char(sysdate,'yyyy-mm-dd'),'yyyy-mm-dd') as sysj
+        select ht.fzr as fzr,htqs.htbh as htbh,ht.HTMC as htmc,to_char(htqs.yjsj,'yyyy-mm-dd') as sj,users.sjhm as sjhm,
+            to_date(to_char(htqs.yjsj,'yyyy-mm-dd'),'yyyy-mm-dd')-to_date(to_char(sysdate,'yyyy-mm-dd'),'yyyy-mm-dd') as sysj,
+            HT.YYMC AS YF, nvl(HTQS.JE,0) AS JE
         from htqs
         left join ht on htqs.htbh=ht.htbh
         left join users on ht.fzr=users.xm
-        where htqs.sfskwc=2
+        where htqs.sfskwc=2 and
+        ht.fzr is not null and ht.HTMC is not null and htqs.yjsj is not null and users.sjhm is not null and HT.YYMC is not null
     </select>
 
     <select id="selectHtMessageInfo" resultMap="htmessage">
-        select htbh,to_char(HTZZRQ,'yyyy-mm-dd') as zzrq,fzr,users.sjhm as sjhm,HT.HTMC,
+        select htbh,to_char(HTZZRQ,'yyyy-mm-dd') as zzrq,fzr,users.sjhm as sjhm,HT.HTMC,yymc as yf,
         to_date(to_char(HTZZRQ,'yyyy-mm-dd'),'yyyy-mm-dd')-to_date(to_char(sysdate,'yyyy-mm-dd'),'yyyy-mm-dd') as sysj
         from ht
         left join users on ht.fzr=users.xm
+        where
+        htbh is not null and HTZZRQ is not null and fzr is not null and users.sjhm is not null and
+        yymc is not null and  HT.HTMC is not null
     </select>
 
 

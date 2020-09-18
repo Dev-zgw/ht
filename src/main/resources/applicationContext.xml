@@ -25,7 +25,7 @@
 
     <bean id="sendMessageTask" class="contract.controller.MessageController"/>
     <task:scheduled-tasks>
-        <task:scheduled ref="sendMessageTask" method="test" cron="0 30 9 * * ?"/>
+        <task:scheduled ref="sendMessageTask" method="test" cron="0 51 13 * * ?"/>
     </task:scheduled-tasks>
 
     <import resource="applicationContext-datasource.xml"/>

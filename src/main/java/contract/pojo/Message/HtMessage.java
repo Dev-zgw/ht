@@ -11,15 +11,17 @@ public class HtMessage {
     String fzr;
     String sysj;
     String sjhm;
-    String xxmc;
+    String htmc;
+    String yf;
 
-    public HtMessage(String htbh, String zzrq, String fzr, String sysj, String sjhm, String xxmc) {
+    public HtMessage(String htbh, String zzrq, String fzr, String sysj, String sjhm, String htmc, String yf) {
         this.htbh = htbh;
         this.zzrq = zzrq;
         this.fzr = fzr;
         this.sysj = sysj;
         this.sjhm = sjhm;
-        this.xxmc = xxmc;
+        this.htmc = htmc;
+        this.yf = yf;
     }
 
 
@@ -63,6 +65,23 @@ public class HtMessage {
         this.sjhm = sjhm;
     }
 
+
+    public String getHtmc() {
+        return htmc;
+    }
+
+    public void setHtmc(String htmc) {
+        this.htmc = htmc;
+    }
+
+    public String getYf() {
+        return yf;
+    }
+
+    public void setYf(String yf) {
+        this.yf = yf;
+    }
+
     @Override
     public String toString() {
         return "HtMessage{" +
@@ -71,14 +90,8 @@ public class HtMessage {
                 ", fzr='" + fzr + '\'' +
                 ", sysj='" + sysj + '\'' +
                 ", sjhm='" + sjhm + '\'' +
+                ", htmc='" + htmc + '\'' +
+                ", yf='" + yf + '\'' +
                 '}';
-    }
-
-    public String getXxmc() {
-        return xxmc;
-    }
-
-    public void setXxmc(String xxmc) {
-        this.xxmc = xxmc;
     }
 }

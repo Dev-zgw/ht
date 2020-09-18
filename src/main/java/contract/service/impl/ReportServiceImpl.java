@@ -469,7 +469,8 @@ public class ReportServiceImpl implements ReportService {
                                             personalSum += list.get(q).getHtnrhtnr().doubleValue();
                                 }
                             }catch (Exception e){
-                                e.printStackTrace();
+                                System.out.print("usersMapper.selectByPrimaryKey(list.get(q).getFzrid()).getSsbm().equals(departments.get(l).getBmmc())报错");
+                                //e.printStackTrace();
                             }
                         }
                         data.add(personalSum.toString());

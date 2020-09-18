@@ -12,14 +12,18 @@ public class FkMessage {
     String sj;
     String sjhm;
     String sysj;
+    String yf;
+    String je;
 
-    public FkMessage(String fzr, String htbh, String htmc, String sj, String sjhm, String sysj) {
+    public FkMessage(String fzr, String htbh, String htmc, String sj, String sjhm, String sysj, String yf, String je) {
         this.fzr = fzr;
         this.htbh = htbh;
         this.htmc = htmc;
         this.sj = sj;
         this.sjhm = sjhm;
         this.sysj = sysj;
+        this.yf = yf;
+        this.je = je;
     }
 
     public String getFzr() {
@@ -70,6 +74,22 @@ public class FkMessage {
         this.sysj = sysj;
     }
 
+    public String getYf() {
+        return yf;
+    }
+
+    public void setYf(String yf) {
+        this.yf = yf;
+    }
+
+    public String getJe() {
+        return je;
+    }
+
+    public void setJe(String je) {
+        this.je = je;
+    }
+
     @Override
     public String toString() {
         return "FkMessage{" +
@@ -79,6 +99,8 @@ public class FkMessage {
                 ", sj='" + sj + '\'' +
                 ", sjhm='" + sjhm + '\'' +
                 ", sysj='" + sysj + '\'' +
+                ", yf='" + yf + '\'' +
+                ", je='" + je + '\'' +
                 '}';
     }
 }
