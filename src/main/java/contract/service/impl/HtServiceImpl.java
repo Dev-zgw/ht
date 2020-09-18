@@ -172,7 +172,7 @@ public class HtServiceImpl implements HtService {
         int j=resultMapper.insertSelective(result);
         try {
             //管理员完成合同录入-合同负责人收到 -- 合同确认短信
-            messageServiceImpl.sendHtqr(userMapper.queryxm(ht.getFzr()).getSjhm(), ht.getFzr(),ht.getHtmc());
+            messageServiceImpl.sendHtqr2(userMapper.queryxm(ht.getFzr()).getSjhm(), ht.getFzr(),ht.getYymc(),ht.getHtnrhtnr().toString(),ht.getHtmc());
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -251,10 +251,10 @@ public class HtServiceImpl implements HtService {
             if(htzt.equals("1")){
                 try {
                     //合同负责人确认合同后 -- 部门经理收到 -- 合同签订短信
-                    messageServiceImpl.sendHtqd(usersbmjl.getSjhm(),usersbmjl.getXm(),ht.getFzr(),ht.getHtmc());
+                    messageServiceImpl.sendHtqd2(usersbmjl.getSjhm(),usersbmjl.getXm(),ht.getFzr(),ht.getHtmc(),ht.getYymc(),ht.getHtnrhtnr().toString());
                     //合同负责人确认合同后 -- 实施负责人收到 -- 通知短信
                     /*String a=ht.getFzr()+" ,联系方式："+user.getSjhm();*/
-                    messageServiceImpl.sendTz(userMapper.queryxm(ht.getSsfzr()).getSjhm(),ht.getSsfzr(),ht.getYymc(),ht.getFzr());
+                    messageServiceImpl.sendTz2(userMapper.queryxm(ht.getSsfzr()).getSjhm(),ht.getSsfzr(),ht.getYymc(),ht.getFzr(),user.getSjhm());
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -263,8 +263,7 @@ public class HtServiceImpl implements HtService {
                     //财务确认合同款结清，合同负责人收到合同款结清短信
                     messageServiceImpl.sendHtkjq(userMapper.queryxm(ht.getFzr()).getSjhm(),ht.getFzr(),ht.getHtmc());
                     //财务确认合同款结清，部门经理收到合同款结清短信
-                    String a=ht.getFzr()+" 所签约合同"+ht.getHtmc();
-                    messageServiceImpl.sendHtkjq(usersbmjl.getSjhm(),usersbmjl.getXm(),a);
+                    messageServiceImpl.sendHtkjq3(usersbmjl.getSjhm(),usersbmjl.getXm(),ht.getFzr(),ht.getYymc(),ht.getHtmc(),ht.getHtnrhtnr().toString());
                 }catch (Exception e){
                     e.printStackTrace();
                 }
