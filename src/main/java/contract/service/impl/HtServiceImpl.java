@@ -172,7 +172,7 @@ public class HtServiceImpl implements HtService {
         int j=resultMapper.insertSelective(result);
         try {
             //管理员完成合同录入-合同负责人收到 -- 合同确认短信
-            messageServiceImpl.sendHtqr2(userMapper.queryxm(ht.getFzr()).getSjhm(), ht.getFzr(),ht.getYymc(),ht.getHtnrhtnr().toString(),ht.getHtmc());
+            messageServiceImpl.sendHtqr2(userMapper.queryxm(ht.getFzr()).getSjhm(), ht.getFzr(),ht.getYymc(),ht.getHtnrhtnr().toString()+"万元",ht.getHtmc());
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -251,7 +251,7 @@ public class HtServiceImpl implements HtService {
             if(htzt.equals("1")){
                 try {
                     //合同负责人确认合同后 -- 部门经理收到 -- 合同签订短信
-                    messageServiceImpl.sendHtqd2(usersbmjl.getSjhm(),usersbmjl.getXm(),ht.getFzr(),ht.getHtmc(),ht.getYymc(),ht.getHtnrhtnr().toString());
+                    messageServiceImpl.sendHtqd2(usersbmjl.getSjhm(),usersbmjl.getXm(),ht.getFzr(),ht.getHtmc(),ht.getYymc(),ht.getHtnrhtnr().toString()+"万元");
                     //合同负责人确认合同后 -- 实施负责人收到 -- 通知短信
                     /*String a=ht.getFzr()+" ,联系方式："+user.getSjhm();*/
                     messageServiceImpl.sendTz2(userMapper.queryxm(ht.getSsfzr()).getSjhm(),ht.getSsfzr(),ht.getYymc(),ht.getFzr(),user.getSjhm());
@@ -261,9 +261,9 @@ public class HtServiceImpl implements HtService {
             }else if(htzt.equals("2")){
                 try {
                     //财务确认合同款结清，合同负责人收到合同款结清短信
-                    messageServiceImpl.sendHtkjq4(userMapper.queryxm(ht.getFzr()).getSjhm(),ht.getFzr(),ht.getYymc(),ht.getHtmc(),ht.getHtnrhtnr().toString());
+                    messageServiceImpl.sendHtkjq4(userMapper.queryxm(ht.getFzr()).getSjhm(),ht.getFzr(),ht.getYymc(),ht.getHtmc(),ht.getHtnrhtnr().toString()+"万元");
                     //财务确认合同款结清，部门经理收到合同款结清短信
-                    messageServiceImpl.sendHtkjq3(usersbmjl.getSjhm(),usersbmjl.getXm(),ht.getFzr(),ht.getYymc(),ht.getHtmc(),ht.getHtnrhtnr().toString());
+                    messageServiceImpl.sendHtkjq3(usersbmjl.getSjhm(),usersbmjl.getXm(),ht.getFzr(),ht.getYymc(),ht.getHtmc(),ht.getHtnrhtnr().toString()+"万元");
                 }catch (Exception e){
                     e.printStackTrace();
                 }
