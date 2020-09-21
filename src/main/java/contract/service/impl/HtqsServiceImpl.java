@@ -177,10 +177,12 @@ public class HtqsServiceImpl implements HtqsService {
         try{
             //财务确认合同款结清，合同负责人收到合同款结清短信
             String a=ht.getHtmc()+sf.format(htqs.getYjsj());
-            messageServiceImpl.sendHtkjq4(userMapper.queryxm(ht.getFzr()).getSjhm(),ht.getFzr(),ht.getYymc(),a,ht.getHtnrhtnr().toString());
+            String b=ht.getHtnrhtnr().toString()+"万元";
+            messageServiceImpl.sendHtkjq4(userMapper.queryxm(ht.getFzr()).getSjhm(),ht.getFzr(),ht.getYymc(),a,b);
             //财务确认合同款结清，部门经理收到合同款结清短信
-            String b=ht.getFzr()+" 所签约合同"+ht.getHtmc()+sf.format(htqs.getYjsj());
-            messageServiceImpl.sendHtkjq3(usersbmjl.getSjhm(),usersbmjl.getXm(),ht.getFzr(),ht.getYymc(),ht.getHtmc(),ht.getHtnrhtnr().toString());
+            String c=ht.getHtmc()+"第"+sf.format(htqs.getYjsj())+"期";
+            String d=ht.getHtnrhtnr().toString()+"万元";
+            messageServiceImpl.sendHtkjq3(usersbmjl.getSjhm(),usersbmjl.getXm(),ht.getFzr(),ht.getYymc(),c,d);
         }catch (Exception e){
             e.printStackTrace();
         }
